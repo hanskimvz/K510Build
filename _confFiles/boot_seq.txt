@@ -1,0 +1,462 @@
+U-Boot 2020.01-rc5 (Aug 03 2022 - 02:48:40 +0800)
+
+DRAM:  Memctl freq is 400000000 HZ, 1600 Mbps
+
+>>>>    Show all DDR register    <<<<
+>>>>    DLL_CTRL1_ADDR          = 0x00000048
+>>>>    DLL_CTRL2_ADDR          = 0x160A1A2E
+>>>>    DLL_CTRL3_ADDR          = 0x160A1631
+>>>>    DLL_CTRL4_ADDR          = 0x150A1730
+>>>>    DLL_CTRL5_ADDR          = 0x130A1631
+>>>>    DLL_CTRL6_ADDR          = 0x090D111A
+>>>>    DLL_CTRL7_ADDR          = 0x002D2D2D
+>>>>    DLL_CTRL8_ADDR          = 0x000A0A0A
+>>>>    DLL_CTRL9_ADDR          = 0x000A0A0A
+>>>>    DLL_CTRL10_ADDR          = 0x00000048
+>>>>    DLL_CTRL11_ADDR          = 0x160A1A2E
+>>>>    DLL_CTRL12_ADDR          = 0x160A1631
+>>>>    DLL_CTRL13_ADDR          = 0x150A1730
+>>>>    DLL_CTRL14_ADDR          = 0x130A1631
+>>>>    DLL_CTRL15_ADDR          = 0x090D111A
+>>>>    DLL_CTRL16_ADDR          = 0x002D2D2D
+>>>>    DLL_CTRL17_ADDR          = 0x000A0A0A
+>>>>    DLL_CTRL18_ADDR          = 0x000A0A0A
+>>>>    DLL_CTRL19_ADDR          = 0x08080808
+>>>>    DLL_CTRL20_ADDR          = 0x00000000
+>>>>    DLL_CTRL21_ADDR          = 0x00000000
+>>>>    DLL_CTRL22_ADDR          = 0x2D2D483D
+>>>>    RGDLY_ADDR               = 0x0C0C0C0C
+>>>>    RGDLY_ADJ_ADDR           = 0x0B0B0B0B
+>>>>    IO_CAL0_ADDR             = 0x0000010E
+>>>>    DSX8_IO_CTRL_ADDR        = 0x00000483
+>>>>    CAX10_IO_CTRL_ADDR       = 0x00000003
+>>>>    PHY_CFG_ADDR             = 0x00000000
+>>>>    PHY_DSDIS_ADDR           = 0x00000000
+>>>>    TRAINING_CTRL1_ADDR      = 0x0000003E
+>>>>    TRAINING_CTRL2_ADDR      = 0x02AA0155
+>>>>    TRAINING_CTRL3_ADDR      = 0x004000C0
+>>>>    TRAINING_CTRL4_ADDR      = 0x00000000
+>>>>    TRAINING_CTRL5_ADDR      = 0x00000000
+>>>>    TRAINING_CTRL6_ADDR      = 0x00000000
+>>>>    CADQ_ADDR                = 0x00000000
+>>>>    RBURST_0_P0_ADDR         = 0x333333CC
+>>>>    RBURST_0_P1_ADDR         = 0x33333333
+>>>>    RBURST_0_P2_ADDR         = 0x96969633
+>>>>    RBURST_0_P3_ADDR         = 0xCCCCCCCC
+>>>>    RBURST_1_P0_ADDR         = 0x969696CC
+>>>>    RBURST_1_P1_ADDR         = 0x69696969
+>>>>    RBURST_1_P2_ADDR         = 0x69696996
+>>>>    RBURST_1_P3_ADDR         = 0x08004000
+>>>>    BIT_RDLY_DS0_ADDR        = 0x00000000
+>>>>    BIT_WDLY_DS0_ADDR        = 0x00000000
+>>>>    BIT_RDLY_DS1_ADDR        = 0x00000000
+>>>>    BIT_WDLY_DS1_ADDR        = 0x00000000
+>>>>    BIT_RDLY_DS2_ADDR        = 0x00000000
+>>>>    BIT_WDLY_DS2_ADDR        = 0x00000000
+>>>>    BIT_RDLY_DS3_ADDR        = 0x00000000
+>>>>    BIT_WDLY_DS3_ADDR        = 0x00000000
+>>>>    BIT_WDLY_CA0_ADDR        = 0x00000000
+>>>>    BIT_WDLY_CA1_ADDR        = 0x00000000
+>>>>    BIT_WDLY_CA2_ADDR        = 0x00000000
+>>>>    BIT_WDLY_CACK_ADDR       = 0x00000000
+>>>>    DQS_DRIFT_GAIN_ADDR      = 0x0040000C
+>>>>    DQS_DRIFT_CFG_ADDR       = 0x00000355
+>>>>    DQS_DRIFT_COR_ADDR       = 0x3130312E
+>>>>    DQS_DRIFT_COR_EXT_ADDR   = 0x00000000
+>>>>    INTERRUPT_MASK_ADDR      = 0x00000000
+>>>>    INTERRUPT_STATUS_ADDR    = 0x00000080
+>>>>    BIST_CTRL1_ADDR          = 0x00000000
+>>>>    BIST_CTRL2_ADDR          = 0x00000000
+>>>>    BIST_STATUS1_ADDR        = 0x00000000
+>>>>    BIST_STATUS2_ADDR        = 0x00000000
+>>>>    LP_STATUS_CTRL_ADDR      = 0x00020009
+>>>>    RDQS_DETC_CNTR_ADDR      = 0x0B0B0B0B
+>>>>    SPARE_ADDR               = 0x00000000
+
+DDR density is 4 Gb, DENALY_319 = 0x02030000
+512 MiB
+
+
+boot_media = emmc uboot-emmc.env
+
+GNNE sys clock freq changed: 400000000 
+GNNE AXI clock freq changed: 400000000 
+CPU freq 792 MHZ
+yangguang: iomux_init ÿFlash: gigadevice_spinand_detect: ff ef ba 21
+micron_spinand_detect: ff ef ba 21
+Winbond SPI NAND was found.
+128 MiB, block size: 128 KiB, page size: 2048, OOB size: 64
+0 Bytes
+MMC:   mmc0@93000000: 0, mmc2@93020000: 1
+Loading Environment from FAT... OK
+In:    serial@96000000
+Out:   serial@96000000
+Err:   serial@96000000
+led color is 0x00000000
+1228800 bytes read in 50 ms (23.4 MiB/s)
+dsi logo startLT9611 ID 17 02
+******Yourself bootcmd is 'fatload mmc 0:2 0x600000 bootm-bbl.img;fatload mmc 0:2 0x2000000 k510-hdmi.dtb;bootm 0x600000 - 0x2000000' 
+Display Config done!
+dsi logo end use 845 msec
+Net:   
+Warning: ethernet@93030000 (eth0) using random MAC address - 52:07:c4:db:2c:2b
+eth0: ethernet@93030000
+Hit any key to stop autoboot:  0 
+12199268 bytes read in 286 ms (40.7 MiB/s)
+65487 bytes read in 16 ms (3.9 MiB/s)
+## Booting kernel from Legacy Image at 00600000 ...
+   Image Name:   
+   Image Type:   RISC-V Linux Kernel Image (uncompressed)
+   Data Size:    12199204 Bytes = 11.6 MiB
+   Load Address: 00000000
+   Entry Point:  00000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 02000000
+   Booting using the fdt blob at 0x2000000
+   Loading Kernel Image
+   Loading Device Tree to 0000000001fed000, end 0000000001ffffce ... OK
+
+Starting kernel ...
+
+[    0.000000] OF: fdt: Ignoring memory range 0x0 - 0x200000
+[    0.000000] Linux version 4.17.0 (root@728ab65de589) (gcc version 7.3.0 (2019-11-20_nds64le-linux-glibc-v5d-6c120106e03)) #1 SMP PREEMPT Wed Aug 3 02:50:00 CST 2022
+[    0.000000] bootconsole [early0] enabled
+[    0.000000] Zone ranges:
+[    0.000000]   DMA32    [mem 0x0000000000200000-0x000000000effffff]
+[    0.000000]   Normal   empty
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000200000-0x000000000effffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000200000-0x000000000effffff]
+[    0.000000] software IO TLB [mem 0x0cc66000-0x0ec66000] (32MB) mapped at [        (ptrval)-        (ptrval)]
+[    0.000000] elf_platform is rv64i2p0m2p0a2p0f2p0d2p0c2p0xv5-0p0
+[    0.000000] compatible privileged spec version 1.10
+[    0.000000] percpu: Embedded 17 pages/cpu @        (ptrval) s32408 r8192 d29032 u69632
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 60095
+[    0.000000] Kernel command line: root=/dev/mmcblk0p3 ro console=ttyS0,115200n8 debug loglevel=7  rootfstype=ext2
+[    0.000000] Dentry cache hash table entries: 32768 (order: 6, 262144 bytes)
+[    0.000000] Inode-cache hash table entries: 16384 (order: 5, 131072 bytes)
+[    0.000000] Sorting __ex_table...
+[    0.000000] Memory: 196576K/243712K available (5796K kernel code, 540K rwdata, 2587K rodata, 219K init, 704K bss, 47136K reserved, 0K cma-reserved)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=2, Nodes=1
+[    0.000000] Preemptible hierarchical RCU implementation.
+[    0.000000] 	RCU restricting CPUs from NR_CPUS=4 to nr_cpu_ids=2.
+[    0.000000] 	Tasks RCU enabled.
+[    0.000000] RCU: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=2
+[    0.000000] NR_IRQS: 72, nr_irqs: 72, preallocated irqs: 0
+[    0.000000] riscv,cpu_intc,0: 64 local interrupts mapped
+[    0.000000] riscv,cpu_intc,1: 64 local interrupts mapped
+[    0.000000] riscv,plic0,9ec00000: mapped 140 interrupts to 2/4 handlers
+[    0.000000] clocksource: riscv_clocksource: mask: 0xffffffffffffffff max_cycles: 0x127350b88, max_idle_ns: 1763180808480 ns
+[    0.000009] sched_clock: 64 bits at 1250kHz, resolution 800ns, wraps every 4398046510800ns
+[    0.008901] Console: colour dummy device 40x30
+[    0.013209] Calibrating delay loop (skipped), value calculated using timer frequency.. 2.50 BogoMIPS (lpj=12500)
+[    0.023387] pid_max: default: 32768 minimum: 301
+[    0.028144] Mount-cache hash table entries: 512 (order: 0, 4096 bytes)
+[    0.034528] Mountpoint-cache hash table entries: 512 (order: 0, 4096 bytes)
+[    0.094695] Hierarchical SRCU implementation.
+[    0.114776] smp: Bringing up secondary CPUs ...
+[    0.154909] CPU1: online
+[    0.157452] smp: Brought up 1 node, 2 CPUs
+[    0.162403] devtmpfs: initialized
+[    0.187783] random: get_random_u32 called from bucket_table_alloc+0x198/0x1d8 with crng_init=0
+[    0.197352] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    0.207080] futex hash table entries: 512 (order: 3, 32768 bytes)
+[    0.213332] pinctrl core: initialized pinctrl subsystem
+[    0.219033] NET: Registered protocol family 16
+[    0.301045] [K510_RESET]:sysctl reset phy addr 0x97002000
+[    0.301060] [K510_RESET]:k510_reset_probe ok!
+[    0.310792] pinctrl-k510 97040000.iomux: 1024 pins, size 4096
+[    0.338200] k510-powerdomain 97003000.sysctl_power: powerdomain init ok
+[    0.345397] SCSI subsystem initialized
+[    0.349267] usbcore: registered new interface driver usbfs
+[    0.354644] usbcore: registered new interface driver hub
+[    0.360097] usbcore: registered new device driver usb
+[    0.365983] [K510_RESET]:k510_reset_deassert id = 0x00408001
+[    0.372863] [K510_RESET]:k510_reset_deassert id = 0x00408002
+[    0.379314] [K510_RESET]:k510_reset_deassert id = 0x00448000
+[    0.388331] [K510_RESET]:k510_reset_deassert id = 0x00448001
+[    0.395452] media: Linux media interface: v0.10
+[    0.399900] Linux video capture interface: v2.00
+[    0.404683] Advanced Linux Sound Architecture Driver Initialized.
+[    0.412051] clocksource: Switched to clocksource riscv_clocksource
+[    0.429412] NET: Registered protocol family 2
+[    0.434653] tcp_listen_portaddr_hash hash table entries: 256 (order: 0, 4096 bytes)
+[    0.442248] TCP established hash table entries: 2048 (order: 2, 16384 bytes)
+[    0.449237] TCP bind hash table entries: 2048 (order: 3, 32768 bytes)
+[    0.455711] TCP: Hash tables configured (established 2048 bind 2048)
+[    0.462262] UDP hash table entries: 256 (order: 1, 8192 bytes)
+[    0.467960] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes)
+[    0.474524] NET: Registered protocol family 1
+[    0.479498] RPC: Registered named UNIX socket transport module.
+[    0.485320] RPC: Registered udp transport module.
+[    0.489941] RPC: Registered tcp transport module.
+[    0.494647] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    0.502908] Initialise system trusted keyrings
+[    0.507501] workingset: timestamp_bits=62 max_order=16 bucket_order=0
+[    0.525963] NFS: Registering the id_resolver key type
+[    0.530884] Key type id_resolver registered
+[    0.535136] Key type id_legacy registered
+[    0.539031] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
+[    0.551035] NET: Registered protocol family 38
+[    0.555378] Key type asymmetric registered
+[    0.559398] Asymmetric key parser 'x509' registered
+[    0.564332] io scheduler noop registered
+[    0.568600] io scheduler cfq registered (default)
+[    0.573180] io scheduler mq-deadline registered
+[    0.577651] io scheduler kyber registered
+[    0.588725] insmode kendryte_td_init 
+[    0.592861] kendryte_td_probe   start 
+[    0.667964] Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+[    0.676987] console [ttyS0] disabled
+[    0.688779] console [ttyS0] enabledat MMIO 0x96000000 (irq = 1, base_baud = 1562500) is a 16550A
+[    0.688779] console [ttyS0] enabled
+[    0.695615] bootconsole [early0] disabled
+[    0.695615] bootconsole [early0] disabled
+[    0.705043] 96010000.serial: ttyS1 at MMIO 0x96010000 (irq = 2, base_baud = 1562500) is a 16550A
+[    0.720211] start kendryte_dsi_probe 
+[    0.724096] SYSCTL_CLK_DISPLAY_PIXEL is 107 
+[    0.728373] SYSCTL_CLK_DISP_SYS_AND_APB_CLK_DIV_DSI_SYSTEM is 100 
+[    0.734600] SYSCTL_CLK_DISP_SYS_AND_APB_CLK_DIV_DSI_APB is 1f 
+[    0.740446] get clk success 
+[    0.744165] kendryte_layer_probe start 
+[    0.748240] vo apb clk  is 1f 
+[    0.751300] vo axi clk  is 3 
+[    0.755766] kendryte-drm 99900000.noc_bus:apb_bus:display-subsystem: Linked as a consumer to 92710000.mipi_dsi
+[    0.766348] kendryte-drm 99900000.noc_bus:apb_bus:display-subsystem: Linked as a consumer to 92700000.vop
+[    0.776499] kendryte_dsi_bind is start  
+[    0.780495] kendryte-drm 99900000.noc_bus:apb_bus:display-subsystem: failed to bind 92710000.mipi_dsi (ops kendryte_dsi_ops): -517
+[    0.792510] kendryte-drm 99900000.noc_bus:apb_bus:display-subsystem: master bind failed: -517
+[    0.801068] drm_debug, comp add match ret = -517
+[    0.805752] kendryte_drv_probe:disp_reset_control
+[    0.825188] i2c_add_driver start 
+[    0.828724] lt9611_probe success 
+[    0.832176] lt9611 check success 
+[    0.835622] regmap_init success 
+[    0.838872] dsi0_node name 1mipi_dsi
+[    0.842500] get_remote_port name 1port
+[    0.846255] get_remote_por_parent name 1mipi_dsi
+[    0.850875] lt9611_parse success 
+[    1.052048] lt9611_reset success 
+[    1.056598] ret 0
+[    1.059808] LT9611 rev1 17
+[    1.063826] LT9611 ret 0 rev1 02
+[    1.067064] lt9611 2-003b: LT9611 revision: 0x2
+[    1.071596] lt9611_read_device success 
+[    1.075698] lt9611_irq success 
+[    1.078848] drm_biidge succss 
+[    1.103420] loop: module loaded
+[    1.109156] k510 dsp driver loaded, mapped sysctl base 97000000 at ffffffd0041c0000 
+[    1.117750] drivers/misc/ws2812b.c:led_init:(658): spi_register_driver success!!!
+[    1.126600] dw_spi_mmio 96080000.spi: DMA init failed
+[    1.132600] dws->current_freq: 5952380, div: 42
+[    1.137208] spi-nand spi0.0: Winbond SPI NAND was found.
+[    1.142574] spi-nand spi0.0: 128 MiB, block size: 128 KiB, page size: 2048, OOB size: 64
+[    1.151316] 7 fixed-partitions partitions found on MTD device spi0.0
+[    1.157812] Creating 7 MTD partitions on "spi0.0":
+[    1.162764] 0x000000000000-0x000000100000 : "uboot-1"
+[    1.175391] ftl_cs: FTL header not found.
+[    1.180489] 0x000000100000-0x000000200000 : "uboot-2"
+[    1.193060] ftl_cs: FTL header not found.
+[    1.197945] 0x000000200000-0x000000300000 : "uboot-3"
+[    1.210401] ftl_cs: FTL header not found.
+[    1.215252] 0x000000300000-0x000000340000 : "env"
+[    1.222181] ftl_cs: FTL header not found.
+[    1.227014] 0x000000340000-0x000000380000 : "dtb"
+[    1.234026] ftl_cs: FTL header not found.
+[    1.238831] 0x000000380000-0x000001280000 : "kernel"
+[    1.261855] ftl_cs: FTL header not found.
+[    1.266686] 0x000001280000-0x000007f80000 : "rootfs"
+[    1.361284] ftl_cs: FTL header not found.
+[    1.366876] dws->txburst: 16
+[    1.369768] dws->dma_sg_burst: 0
+[    1.374933] dws->txburst: 16
+[    1.377824] dws->dma_sg_burst: 0
+[    1.383636] libphy: Fixed MDIO Bus: probed
+[    1.387941] tun: Universal TUN/TAP device driver, 1.6
+[    1.394724] libphy: MACB_mii_bus: probed
+[    1.401036] Generic PHY 93030000.emac-ffffffff:00: attached PHY driver [Generic PHY] (mii_bus:phy_addr=93030000.emac-ffffffff:00, irq=POLL)
+[    1.413640] macb 93030000.emac eth0: Cadence GEM rev 0x1107010c at 0x93030000 irq 54 (52:07:c4:db:2c:2b)
+[    1.425836] ftmac100: Loading version 0.2 ...
+[    1.430925] usbcore: registered new interface driver usb-storage
+[    1.438416] cdncusb 93060000.usb: Cadence Host USB Driver
+[    1.443968] cdncusb 93060000.usb: new USB bus registered, assigned bus number 1
+[    1.452499] hub 1-0:1.0: USB hub found
+[    1.456311] hub 1-0:1.0: 1 port detected
+[    1.562194] cdn_h_hub_status_data value 64
+[    1.582289] Goodix-TS 1-005d: i2c test failed attempt 1: -121
+[    1.622249] Goodix-TS 1-005d: i2c test failed attempt 2: -121
+[    1.662052] Goodix-TS 1-005d: I2C communication failure: -121
+[    1.667837] Goodix-TS: probe of 1-005d failed with error -121
+[    1.674524] into probe rtc 
+[    1.677360] info->irq_alarm is 22 info->irq_tick is 21 
+[    1.683156] kendryte-rtc 970d0000.rtc: rtc core: registered kendryte as rtc0
+[    1.691063] i2c /dev entries driver
+[    1.695524] imx219_0 0-0010: driver version: 00.01.02
+[    1.700902] imx219_0 0-0010: Reading register 100 from 10 failed
+[    1.707146] imx219_0 0-0010: Reading register 100 from 10 failed
+[    1.717539] imx219_0 0-0010: Error -5 setting default controls
+[    1.723436] imx219_0: probe of 0-0010 failed with error -5
+[    1.729219] imx219_1 3-0010: driver version: 00.01.02
+[    1.734582] imx219_1 3-0010: Reading register 100 from 10 failed
+[    1.740792] imx219_1 3-0010: Reading register 100 from 10 failed
+[    1.751184] imx219_1 3-0010: Error -5 setting default controls
+[    1.757074] imx219_1: probe of 3-0010 failed with error -5
+[    1.763168] this is hello word
+[    1.768966] isp probe ok, mapped 92600000 at ffffffd004300000, mapped size 2097152 
+[    1.776963] get csi_en err 
+[    1.779760] isp gpio get succes 
+[    1.783014] mipi dsi rst succcess 
+[    1.786419] isp has IRQ resource, irq 58
+[    1.790451] lat->irq_vo is 67 ,plat->irq_ds2 is 58 
+[    1.795736] mipi_rxdphy_init done
+[    1.800064] (NULL device *): al5r_codec_probe
+[    1.805821] k510-isp 92600000.isp1: k510isp_probe:start
+[    1.813467] k510-isp 92600000.isp1: mem->start = 0x92600000,isp->isp_regs= 0x4580000
+[    1.821732] k510-isp 92600000.isp1: f2k_revision 0.3.5.4.0 found
+[    1.828034] [K510_RESET]:k510_reset id = 0x01344f80, offset = 0x00000134 type = 1 done = 31 reset =0
+[    1.828048] [K510_RESET]:k510_reset id = 0x01384f80, offset = 0x00000138 type = 1 done = 31 reset =0
+[    1.837216] [K510_RESET]:k510_reset id = 0x013c4f80, offset = 0x0000013c type = 1 done = 31 reset =0
+[    1.846373] [K510_RESET]:k510_reset id = 0x01404f80, offset = 0x00000140 type = 1 done = 31 reset =0
+[    1.855529] [K510_RESET]:k510_reset id = 0x01504f80, offset = 0x00000150 type = 1 done = 31 reset =0
+[    1.864685] [K510_RESET]:k510_reset id = 0x01484f80, offset = 0x00000148 type = 1 done = 31 reset =0
+[    1.873842] [K510_RESET]:k510_reset id = 0x01244f80, offset = 0x00000124 type = 1 done = 31 reset =0
+[    1.882998] [K510_RESET]:k510_reset id = 0x01584f80, offset = 0x00000158 type = 1 done = 31 reset =0
+[    1.892154] [K510_RESET]:k510_reset id = 0x01284f80, offset = 0x00000128 type = 1 done = 31 reset =0
+[    1.901296] [K510_RESET]:k510_reset id = 0x012c4f80, offset = 0x0000012c type = 1 done = 31 reset =0
+[    1.910572] k510-isp 92600000.isp1: k510isp_csi2_init:start
+[    1.925341] k510-isp 92600000.isp1: k510isp_vi_init:start
+[    1.930764] [K510_RESET]:k510_reset id = 0x01504f80, offset = 0x00000150 type = 1 done = 31 reset =0
+[    1.930777] [K510_RESET]:k510_reset id = 0x01484f80, offset = 0x00000148 type = 1 done = 31 reset =0
+[    1.939938] k510-isp 92600000.isp1: k510isp_f2k_init:start
+[    1.954588] k510-isp 92600000.isp1: k510isp_f2k_init_entities:start
+[    1.960884] k510-isp 92600000.isp1: k510isp_r2k_init: start
+[    1.966604] k510-isp 92600000.isp1: k510isp_video_register:start
+[    1.972943] k510-isp 92600000.isp1: k510isp_video_register:start
+[    1.979137] k510-isp 92600000.isp1: k510isp_video_register:start
+[    1.985415] k510-isp 92600000.isp1: k510isp_video_register:start
+[    1.991597] k510-isp 92600000.isp1: k510isp_video_register:start
+[    1.997816] k510-isp 92600000.isp1: k510isp_video_register:start
+[    2.004022] k510-isp 92600000.isp1: k510isp_video_register:start
+[    2.010212] k510-isp 92600000.isp1: k510isp_video_register:start
+[    2.016411] k510-isp 92600000.isp1: k510isp_video_register:start
+[    2.022631] k510-isp 92600000.isp1: k510isp_video_register:start
+[    2.030885] [K510_RESET]:k510_reset_deassert id = 0x00408003
+[    2.031595] [K510_RESET]:k510_reset_deassert id = 0x00408004
+[    2.037738] [K510_RESET]:k510_reset_deassert id = 0x00408005
+[    2.051454] sdhci: Secure Digital Host Controller Interface driver
+[    2.057707] sdhci: Copyright(c) Pierre Ossman
+[    2.062853] sdhci-pltfm: SDHCI platform and OF driver helper
+[    2.068863] sd_protect:0x41f9000 0x41f9168 0x70000
+[    2.073716] [K510_POWER]:sdhci_cdns_probe pm_runtime_enable!
+[    2.079536] [K510_RESET]:sdhci_cdns_probe reset!
+[    2.084288] [K510_RESET]:k510_reset id = 0x00c84f80, offset = 0x000000c8 type = 1 done = 31 reset =0
+[    2.084328] [K510_CLOCK]:sdhci_cdns_probe clock rate 200000000
+[    2.099703] mmc0: Unknown controller version (3). You may experience problems.
+[    2.138232] mmc0: SDHCI controller on 93000000.sdio [93000000.sdio] using ADMA 64-bit
+[    2.146736] sd_protect:0x4283000 0x4283168 0x70000
+[    2.151596] [K510_POWER]:sdhci_cdns_probe pm_runtime_enable!
+[    2.157434] [K510_RESET]:sdhci_cdns_probe reset!
+[    2.162219] [K510_RESET]:k510_reset id = 0x00cc4f80, offset = 0x000000cc type = 1 done = 31 reset =0
+[    2.162256] [K510_CLOCK]:sdhci_cdns_probe clock rate 200000000
+[    2.177640] sdhci-cdns 93010000.sdio: allocated mmc-pwrseq
+[    2.183223] mmc1: Unknown controller version (3). You may experience problems.
+[    2.221824] mmc1: SDHCI controller on 93010000.sdio [93010000.sdio] using ADMA 64-bit
+[    2.230394] sd_protect:0x428b000 0x428b168 0x70000
+[    2.235294] [K510_POWER]:sdhci_cdns_probe pm_runtime_enable!
+[    2.241128] [K510_RESET]:sdhci_cdns_probe reset!
+[    2.245940] [K510_RESET]:k510_reset id = 0x00d04f80, offset = 0x000000d0 type = 1 done = 31 reset =0
+[    2.246046] [K510_CLOCK]:sdhci_cdns_probe clock rate 200000000
+[    2.261493] mmc2: Unknown controller version (3). You may experience problems.
+[    2.268961] mmc0: new high speed MMC card at address 0001
+[    2.277889] mmcblk0: mmc0:0001 4FTE4R 3.64 GiB 
+[    2.285444] mmcblk0boot0: mmc0:0001 4FTE4R partition 1 4.00 MiB
+[    2.293863] mmc1: queuing unknown CIS tuple 0x80 (2 bytes)
+[    2.299859] mmcblk0boot1: mmc0:0001 4FTE4R partition 2 4.00 MiB
+[    2.304724] mmc2: SDHCI controller on 93020000.sdio [93020000.sdio] using ADMA 64-bit
+[    2.307032] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
+[    2.319528] mmcblk0rpmb: mmc0:0001 4FTE4R partition 3 512 KiB, chardev (246:0)
+[    2.322780] usbcore: registered new interface driver usbhid
+[    2.328384] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
+[    2.332512] mmc2: Skipping voltage switch
+[    2.341195] mmc1: queuing unknown CIS tuple 0x80 (7 bytes)
+[    2.342154] usbhid: USB HID core driver
+[    2.349188]  mmcblk0: p1 p2 p3 p4
+[    2.352460] canaan_mailbox 970e0000.mailbox: Mailbox enabled
+[    2.356364] mmc1: queuing unknown CIS tuple 0x81 (9 bytes)
+[    2.362468] mailbox_client 1087ffe00.mailbox_client: Successfully registered
+[    2.394616] mmc2: new high speed SDHC card at address 0001
+[    2.405453] random: fast init done
+[    2.414480] mmcblk2: mmc2:0001 SD16G 29.2 GiB 
+[    2.435124]  mmcblk2: p1 p2 p3
+[    2.472208] mmc1: new high speed SDIO card at address 0001
+[    2.623504] canaan-snd-nau8822 sound: ASoC: CPU DAI (null) not registered
+[    2.630320] canaan-snd-nau8822 sound: Soc register card failed -517
+[    2.639160] NET: Registered protocol family 10
+[    2.645664] Segment Routing with IPv6
+[    2.649462] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+[    2.656376] NET: Registered protocol family 17
+[    2.660872] NET: Registered protocol family 15
+[    2.665868] Key type dns_resolver registered
+[    2.671184] Loading compiled-in X.509 certificates
+[    2.695100] kendryte_dsi_bind is start  
+[    2.699100] lt9611_attach_dsi 
+[    2.702474] kendryte_dsi 92710000.mipi_dsi: Attached device lt9611
+[    2.708689] kendryte-drm 99900000.noc_bus:apb_bus:display-subsystem: bound 92710000.mipi_dsi (ops kendryte_dsi_ops)
+[    2.832157] kendryte-drm 99900000.noc_bus:apb_bus:display-subsystem: bound 92700000.vop (ops kendryte_layer_component_ops)
+[    2.843235] [drm] Supports vblank timestamp caching Rev 2 (21.10.2013).
+[    2.849852] [drm] No driver support for vblank timestamp query.
+[    2.855807] show_loader_logo start 
+[    2.860000] [drm] Initialized kendryte-drm 1.0.0 2021104 for 99900000.noc_bus:apb_bus:display-subsystem on minor 0
+[    2.870404] drm_debug, comp add match ret = 0
+[    2.874803] kendryte_drv_probe:disp_reset_control
+[    2.880042] canaan_thermal 970e0300.tsensor: clk: 125000000, irq: 28, 
+[    2.906513] canaan-snd-nau8822 sound: nau8822-hifi <-> 96060000.i2s mapping ok
+[    3.019468] [K510_POWER]:skip power off disp_domain
+[    3.024435] [K510_POWER]:skip power off sram1_domain
+[    3.029411] [K510_POWER]:skip power off sram0_domain
+[    3.034433] [K510_POWER]:skip power off mctl_domain
+[    3.034760] input: 99900000.noc_bus:gpio-keys as /devices/platform/99900000.noc_bus/99900000.noc_bus:gpio-keys/input/input0
+[    3.039346] [K510_POWER]:skip power off ai_domain
+[    3.050958] kendryte-rtc 970d0000.rtc: hctosys: unable to read the hardware clock
+[    3.055206] [K510_POWER]:skip power off ax25m_domain
+[    3.068666] ALSA device list:
+[    3.071646]   #0: CANAAN-I2S
+[    3.075336] ttyS0 - failed to request DMA
+[    3.081363] VFS: Mounted root (ext2 filesystem) readonly on device 179:3.
+[    3.089052] devtmpfs: mounted
+[    3.092545] Freeing unused kernel memory: 216K
+[    3.097003] This architecture does not have kernel memory protection.
+Sysinit starting
+/dev/mmcblk0p3 was not cleanly unmounted, check forced.
+/dev/mmcblk0p3: Inodes that were part of a corrupted orphan linked list found.  
+
+/dev/mmcblk0p3: UNEXPECTED INCONSISTENCY; RUN fsck MANUALLY.
+	(i.e., without -a or -p options)
+[    4.547331] EXT2-fs (mmcblk0p3): warning: mounting unchecked fs, running e2fsck is recommended
+Starting rngd: OK
+[    4.740236] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready
+[    4.767562] random: crng init done
+#############SDK VERSION######################################
+v1.7-cd67721-20220803-170444CST-root-728ab65de589
+##############################################################
+i2ctransfer: I2C_RDWR: Remote I/O error
+Temperature:58998
+Starting system message bus: dbus[133]: Unknown group "netdev" in message bus configuration file
+done
+Starting php-fpm  done
+Starting nginx...
+Starting sshd: OK
+Starting sshd: OK
+[    7.608916] EXT2-fs (mmcblk2p2): warning: mounting unchecked fs, running e2fsck is recommended
+[    7.872270] macb 93030000.emac eth0: unable to generate target frequency: 125000000 Hz
+[    7.890460] macb 93030000.emac eth0: link up (1000/Full)
+[    7.898070] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+[   10.967690] nfs4flexfilelayout_init: NFSv4 Flexfile Layout Driver Registering...
+[   11.468964] cfg80211: Loading compiled-in X.509 certificates for regulatory database
+[   11.503978] cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+[   11.952214] brcmfmac: brcmf_fw_alloc_request: using brcm/brcmfmac43430-sdio for chip BCM43430/1
+[   12.133720] brcmfmac: brcmf_fw_alloc_request: using brcm/brcmfmac43430-sdio for chip BCM43430/1
+[   12.150270] brcmfmac: brcmf_c_preinit_dcmds: Firmware: BCM43430/1 wl0: Feb 16 2020 22:39:24 version 7.45.98.97 (r724416 CY) FWID 01-bf41ed64
+[   12.542286] IPv6: ADDRCONF(NETDEV_UP): wlan0: link is not ready
+Successfully initialized wpa_supplican

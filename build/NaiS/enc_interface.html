@@ -1,0 +1,1657 @@
+<!DOCTYPE html><html><head>
+      <title>enc_interface</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\H\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.6.3\node_modules\@shd101wyy\mume\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <p><img src="../zh/images/canaan-cover.png" alt></p>
+<p><strong><font face="&#x9ED1;&#x4F53;" size="6" style="float:right">K510 Multimedia Developer Guide</font></strong></p>
+<p><font face="&#x9ED1;&#x4F53;" size="3">Document version: V1.0.0</font></p>
+<p><font face="&#x9ED1;&#x4F53;" size="3">Published: 2022-03-09</font></p>
+<div style="page-break-after:always"></div>
+<p><font face="&#x9ED1;&#x4F53;" size="3"><strong>Disclaimer</strong></font><br>
+The products, services or features you purchase shall be subject to the commercial contracts and terms of Beijing Canaan Jiesi Information Technology Co., Ltd. (&quot;the Company&quot;, the same hereinafter), and all or part of the products, services or features described in this document may not be within the scope of your purchase or use. Except as otherwise agreed in the contract, the Company disclaims all representations or warranties, express or implied, as to the accuracy, reliability, completeness, marketing, specific purpose and non-aggression of any representations, information, or content of this document. Unless otherwise agreed, this document is provided as a guide for use only.<br>
+Due to product version upgrades or other reasons, the contents of this document may be updated or modified from time to time without any notice.</p>
+<p><strong><font face="&#x9ED1;&#x4F53;" size="3">Trademark Notices</font></strong></p>
+<p>&quot;&quot;<img src="../zh/images/canaan-logo.png" style="zoom:33%;">, &quot;Canaan&quot; icon, Canaan and other trademarks of Canaan and other trademarks of Canaan are trademarks of Beijing Canaan Jiesi Information Technology Co., Ltd. All other trademarks or registered trademarks that may be mentioned in this document are owned by their respective owners.</p>
+<p><strong><font face="&#x9ED1;&#x4F53;" size="3">Copyright &#xA9;2022 Beijing Canaan Jiesi Information Technology Co., Ltd</font></strong><br>
+This document is only applicable to the development and design of the K510 platform, without the written permission of the company, no unit or individual may disseminate part or all of the content of this document in any form.</p>
+<p><strong><font face="&#x9ED1;&#x4F53;" size="3">Beijing Canaan Jiesi Information Technology Co., Ltd</font></strong><br>
+URL: <a href="http://canaan-creative.com">canaan-creative.com</a><br>
+Business Enquiries: <a href="mailto:salesAI@canaan-creative.com">salesAI@canaan-creative.com</a></p>
+<div style="page-break-after:always" class="mume-header" id="preface"></div>
+#  preface
+
+<h2 class="mume-header" id="document-purpose">Document purpose</h2>
+
+<p>This document is an explanatory document for the K510 Multimedia application example.</p>
+<h2 class="mume-header" id="target-audience">Target audience</h2>
+
+<p>For whom this document is intended:</p>
+<ul>
+<li>Software developers</li>
+<li>Technical support personnel</li>
+</ul>
+<h2 class="mume-header" id="revision-history">Revision history</h2>
+
+<table>
+<thead>
+<tr>
+<th>The version number</th>
+<th>Modified by</th>
+<th>Date of revision</th>
+<th>Revision Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v1.0.0</td>
+<td>System software groups</td>
+<td>2022-03-09</td>
+<td>SDK V1.5 released</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after:always"></div>
+**<font face="&#x9ED1;&#x4F53;" size="6">Contents</font>**
+<ul>
+<li><a href="#preface">preface</a>
+<ul>
+<li><a href="#document-purpose">Document purpose</a></li>
+<li><a href="#target-audience">Target audience</a></li>
+<li><a href="#revision-history">Revision history</a></li>
+</ul>
+</li>
+<li><a href="#1-encoder-api">1 Encoder API</a>
+<ul>
+<li><a href="#11-header-file-description">1.1 Header File Description</a></li>
+<li><a href="#12-api-function-descriptions">1.2 API function descriptions</a>
+<ul>
+<li><a href="#121-videoencoder_create">1.2.1 VideoEncoder_Create</a></li>
+<li><a href="#122-videoencoder_setroicfg">1.2.2 VideoEncoder_SetRoiCfg</a></li>
+<li><a href="#123-videoencoder_setlongterm">1.2.3 VideoEncoder_SetLongTerm</a></li>
+<li><a href="#124-videoencoder_uselongterm">1.2.4 VideoEncoder_UseLongTerm</a></li>
+<li><a href="#125-videoencoder_insertuserdata">1.2.5 VideoEncoder_InsertUserData</a></li>
+<li><a href="#126-videoencoder_destory">1.2.6 VideoEncoder_Destory</a></li>
+<li><a href="#127-videoencoder_encodeoneframe">1.2.7 VideoEncoder_EncodeOneFrame</a></li>
+<li><a href="#128-videoencoder_getstream">1.2.8 VideoEncoder_GetStream</a></li>
+<li><a href="#129-videoencoder_getstream_byextbuf">1.2.9 VideoEncoder_GetStream_ByExtBuf</a></li>
+<li><a href="#130-videoencoder_releasestream">1.3.0 VideoEncoder_ReleaseStream</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#2-hardware-structure-diagram-and-software-architecture">2 Hardware structure diagram and software architecture</a></li>
+<li><a href="#21-hardware-structure-diagram">2.1 Hardware Structure Diagram</a></li>
+<li><a href="#22-software-architecture">2.2 Software Architecture</a></li>
+<li><a href="#3-demo-app">3 Demo app</a>
+<ul>
+<li><a href="#31-encode-application">3.1 Encode Application</a>
+<ul>
+<li><a href="#311-enter-the-yuv-file-and-output-the-file">3.1.1 Enter the yuv file and output the file</a></li>
+<li><a href="#312-input-v4l2-output-rtsp-push-stream">3.1.2 Input v4l2, output rtsp push stream</a>
+<ul>
+<li><a href="#3121-single-channel">3.1.2.1 Single Channel</a></li>
+<li><a href="#3122-single-camera-dual-channel">3.1.2.2 Single camera dual channel</a></li>
+<li><a href="#3123-dual-cameras">3.1.2.3 Dual Cameras</a></li>
+<li><a href="#3124-roi-test">3.1.2.4 ROI test</a></li>
+</ul>
+</li>
+<li><a href="#313-frame-rate-transformation">3.1.3 Frame rate transformation</a></li>
+<li><a href="#314-multiple-input-frame-rates">3.1.4 Multiple input frame rates</a></li>
+<li><a href="#315-rtsp-push-audio-and-video-streams">3.1.5 rtsp push audio and video streams</a></li>
+<li><a href="#316-precautions">3.1.6 Precautions</a></li>
+</ul>
+</li>
+<li><a href="#32-ffmpeg">3.2 ffmpeg</a>
+<ul>
+<li><a href="#321-program-operation-instructions">3.2.1 Program Operation Instructions</a>
+<ul>
+<li><a href="#3211-rtp-stream-push">3.2.1.1 rtp stream push</a>
+<ul>
+<li><a href="#32111-rtp-push-video-stream">3.2.1.1.1. rtp push video stream</a></li>
+<li><a href="#32112-rtp-push-audio-stream">3.2.1.1.2. rtp push audio stream</a></li>
+<li><a href="#32113-rtp-push-audio-and-video-streams">3.2.1.1.3 rtp push audio and video streams</a></li>
+</ul>
+</li>
+<li><a href="#3212-rtsp-push-stream">3.2.1.2 rtsp push stream</a>
+<ul>
+<li><a href="#32121-rtsp-push-video-streams">3.2.1.2.1 rtsp push video streams</a></li>
+<li><a href="#32122-rtsp-push-audio-stream">3.2.1.2.2 rtsp push audio stream</a></li>
+<li><a href="#32123-rtsp-push-audio-video-stream">3.2.1.2.3 rtsp push audio video stream</a></li>
+</ul>
+</li>
+<li><a href="#3213-rtmp-push-stream">3.2.1.3 rtmp push stream</a>
+<ul>
+<li><a href="#32131-rtmp-pushes-video-streams">3.2.1.3.1 rtmp pushes video streams</a></li>
+<li><a href="#32132-rtmp-push-audio-stream">3.2.1.3.2 rtmp push audio stream</a></li>
+<li><a href="#32133-rtmp-push-audio-and-video-streams">3.2.1.3.3 rtmp push audio and video streams</a></li>
+</ul>
+</li>
+<li><a href="#3214-audio3a">3.2.1.4 audio3a</a>
+<ul>
+<li><a href="#32141-run-audio-separately">3.2.1.4.1 Run audio separately</a></li>
+<li><a href="#32142-run-audio3a-and-video-at-the-same-time">3.2.1.4.2 Run audio3a and video at the same time</a></li>
+</ul>
+</li>
+<li><a href="#3215-v4l2">3.2.1.5 v4l2</a></li>
+<li><a href="#3216-jpeg-encoding">3.2.1.6 JPEG encoding</a></li>
+<li><a href="#3217-multiplexing-encoding">3.2.1.7 Multiplexing encoding</a></li>
+</ul>
+</li>
+<li><a href="#322-program-porting-instructions">3.2.2 Program Porting Instructions</a>
+<ul>
+<li><a href="#3221-patch-generation-command">3.2.2.1 patch generation command</a></li>
+<li><a href="#3222-ffmpeg-configuration">3.2.2.2 ffmpeg configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 class="mume-header" id="1-encoder-api">1 Encoder API</h1>
+
+<h2 class="mume-header" id="11-header-file-description">1.1 Header File Description</h2>
+
+<p>k510_buildroot/package/encode_app/enc_interface.h</p>
+<h2 class="mume-header" id="12-api-function-descriptions">1.2 API function descriptions</h2>
+
+<h3 class="mume-header" id="121-videoencoder_create">1.2.1 VideoEncoder_Create</h3>
+
+<p>&#x3010;Description&#x3011;</p>
+<p>Create a video encoder</p>
+<p>&#x3010;Grammar&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c">EncoderHandle<span class="token operator">*</span> <span class="token function">VIdeoEncoder_Create</span><span class="token punctuation">(</span>EncSettings <span class="token operator">*</span>pCfg<span class="token punctuation">)</span>
+</pre><p>&#x3010;Parameters&#x3011;</p>
+<p>pCfg: Enter the encoding configuration parameters</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">The parameter name</th>
+<th style="text-align:left">Parameter interpretation</th>
+<th style="text-align:center">The value range</th>
+<th>Applicable encoding modules</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">channel</td>
+<td style="text-align:left">Channel number, supports up to 8 coded channels</td>
+<td style="text-align:center">[0&#xFF0C;7]</td>
+<td>jpeg&#x3001;avc</td>
+</tr>
+<tr>
+<td style="text-align:center">width</td>
+<td style="text-align:left">Encodes the image width</td>
+<td style="text-align:center">avc: [128,2048], multiple of 8 <br> jpeg: up to 8192, multiple of 16</td>
+<td>jpeg&#x3001;avc</td>
+</tr>
+<tr>
+<td style="text-align:center">height</td>
+<td style="text-align:left">Encode the height of the image</td>
+<td style="text-align:center">avc: [64,2048], multiple of 8 <br> jpeg: up to 8192, multiple of 2</td>
+<td>jpeg&#x3001;avc</td>
+</tr>
+<tr>
+<td style="text-align:center">FrameRate</td>
+<td style="text-align:left">Frame rate, which can only be configured to a fixed few values</td>
+<td style="text-align:center">(25,30,50,60,75)</td>
+<td>jpeg&#x3001;avc</td>
+</tr>
+<tr>
+<td style="text-align:center">rcMode</td>
+<td style="text-align:left">Bitrate control mode 0:CONST_QP 1:CBR 2:VBR<br>jpeg is fixed to CONST_QP</td>
+<td style="text-align:center">See RateCtrlMode</td>
+<td>jpeg,avc</td>
+</tr>
+<tr>
+<td style="text-align:center">BitRate</td>
+<td style="text-align:left">Target bitrate in CBR mode or lowest bitrate in VBR mode</td>
+<td style="text-align:center">[10,20000000]</td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">MaxBitRate</td>
+<td style="text-align:left">The highest bitrate in VBR mode</td>
+<td style="text-align:center">[10,20000000]</td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">SliceQP</td>
+<td style="text-align:left">The initial QP value, -1 for auto</td>
+<td style="text-align:center">avc:-1,jpeg[0,51]<br>:[1,100]</td>
+<td>jpeg,avc</td>
+</tr>
+<tr>
+<td style="text-align:center">MinQP</td>
+<td style="text-align:left">The minimum qp value</td>
+<td style="text-align:center">[0,sliceqp]</td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">MaxQP</td>
+<td style="text-align:left">The maximum qp value</td>
+<td style="text-align:center">[sliceqp,54]</td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">profile</td>
+<td style="text-align:left">profile_idc parameters in SPS: 0: base 1:main 2:high 3:jpeg</td>
+<td style="text-align:center">[0,3]</td>
+<td>jpeg,avc</td>
+</tr>
+<tr>
+<td style="text-align:center">level</td>
+<td style="text-align:left">level_idc parameters in PS</td>
+<td style="text-align:center">[10,42]</td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">AspectRatio</td>
+<td style="text-align:left">Display scale</td>
+<td style="text-align:center">See AVC_AspectRatio</td>
+<td>jpeg,avc</td>
+</tr>
+<tr>
+<td style="text-align:center">FreqIDR</td>
+<td style="text-align:left">The interval between two idr frames</td>
+<td style="text-align:center">[1,1000]</td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">gopLen</td>
+<td style="text-align:left">Group Of Picture, the interval between two I frames</td>
+<td style="text-align:center">[1,1000]</td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">bEnableGDR</td>
+<td style="text-align:left">Whether to enable in-frame refresh</td>
+<td style="text-align:center">[true,false]</td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">gdrMode</td>
+<td style="text-align:left">gdr refresh mode: 0, vertical refresh 1, horizontal refresh</td>
+<td style="text-align:center">See GDRCtrlMode</td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">bEnableLTR</td>
+<td style="text-align:left">Whether long-term reference frames are enabled</td>
+<td style="text-align:center">[true,false]</td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">roiCtrlMode</td>
+<td style="text-align:left">ROI control mode: 0: Do not use roi 1: relative qp 2: absolute qp</td>
+<td style="text-align:center">See ROICtrlMode</td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">EncSliceSplitCfg</td>
+<td style="text-align:left">slice split deployment</td>
+<td style="text-align:center"></td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">bSplitEnable</td>
+<td style="text-align:left">Whether Slice splitting is enabled</td>
+<td style="text-align:center">[true,false]</td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">u32SplitMode</td>
+<td style="text-align:left">Slice segmentation mode: 0: Split by bits. <br>1: Split by macroblock rows</td>
+<td style="text-align:center">[0,1]</td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">u32SliceSize</td>
+<td style="text-align:left">u32SplitMode=0, indicating the number of bytes per slice<br> u32SplitMode=1, represents the number<br> of macroblock rows per slice</td>
+<td style="text-align:center">u32SplitMode=0&#xFF0C;[100,65535]<br>u32SplitMode=1&#xFF0C;[1, (image height +15)/16]</td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">entropyMode</td>
+<td style="text-align:left">Entropy encoding, 0: CABAC 1: CAVLC</td>
+<td style="text-align:center">See EncEntropyMode</td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">encDblkCfg</td>
+<td style="text-align:left">Block filtering configuration</td>
+<td style="text-align:center"></td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">disable_deblocking_filter_idc</td>
+<td style="text-align:left">The default value is 0, which means H.264 Agreement</td>
+<td style="text-align:center">[0&#xFF0C;2]</td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">slice_alpha_c0_offset_div2</td>
+<td style="text-align:left">The default value is 0, which means H.264 Agreement</td>
+<td style="text-align:center">[-6&#xFF0C;6]</td>
+<td>stroke</td>
+</tr>
+<tr>
+<td style="text-align:center">slice_beta_offset_div2</td>
+<td style="text-align:left">The default value is 0, which means H.264 Agreement</td>
+<td style="text-align:center">[-6,   6]</td>
+<td>stroke</td>
+</tr>
+</tbody>
+</table>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span>                       channel<span class="token punctuation">;</span>  <span class="token comment">//encode channel number</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-short">short</span>            width<span class="token punctuation">;</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-short">short</span>            height<span class="token punctuation">;</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-char">char</span>             FrameRate<span class="token punctuation">;</span>
+    RateCtrlMode              rcMode<span class="token punctuation">;</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span>              BitRate<span class="token punctuation">;</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span>              MaxBitRate<span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span>                       SliceQP<span class="token punctuation">;</span>  <span class="token comment">//auto: -1, or from 0 to 51</span>
+    <span class="token keyword keyword-int">int</span>                       MinQP<span class="token punctuation">;</span><span class="token comment">//from 0 to SliceQP</span>
+    <span class="token keyword keyword-int">int</span>                       MaxQP<span class="token punctuation">;</span><span class="token comment">//from SliceQP to 51</span>
+    AVC_Profile               profile<span class="token punctuation">;</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span>              level<span class="token punctuation">;</span>  <span class="token comment">//1 .. 51, 51 is 5.1</span>
+    AVC_AspectRatio           AspectRatio<span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span>                       FreqIDR<span class="token punctuation">;</span> <span class="token comment">//default value  : -1,IDR:number of frames between two IDR pictures;GDR:refresh period</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span>              gopLen<span class="token punctuation">;</span>  
+    bool                      bEnableGDR<span class="token punctuation">;</span><span class="token comment">//gdr</span>
+    GDRCtrlMode               gdrMode<span class="token punctuation">;</span>
+    bool                      bEnableLTR<span class="token punctuation">;</span><span class="token comment">//Long Term reference</span>
+
+    ROICtrlMode               roiCtrlMode<span class="token punctuation">;</span>
+    EncSliceSplitCfg          sliceSplitCfg<span class="token punctuation">;</span>
+    EncEntropyMode            entropyMode<span class="token punctuation">;</span><span class="token comment">//Profile is set to AVC_MAIN or AVC_HIGH is valid</span>
+    EncDblkCfg                encDblkCfg<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>EncSettings<span class="token punctuation">;</span>
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-enum">enum</span>
+<span class="token punctuation">{</span>
+    CONST_QP<span class="token punctuation">,</span>
+    CBR<span class="token punctuation">,</span>
+    VBR
+<span class="token punctuation">}</span> RateCtrlMode<span class="token punctuation">;</span>
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-enum">enum</span>
+<span class="token punctuation">{</span>
+    AVC_C_BASELINE<span class="token punctuation">,</span>
+    AVC_MAIN<span class="token punctuation">,</span>
+    AVC_HIGH<span class="token punctuation">,</span>
+    JPEG
+<span class="token punctuation">}</span> AVC_Profile<span class="token punctuation">;</span>
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-enum">enum</span>
+<span class="token punctuation">{</span>
+    ASPECT_RATIO_AUTO<span class="token punctuation">,</span>
+    ASPECT_RATIO_4_3<span class="token punctuation">,</span>
+    ASPECT_RATIO_16_9<span class="token punctuation">,</span>
+    ASPECT_RATIO_NONE
+<span class="token punctuation">}</span> AVC_AspectRatio<span class="token punctuation">;</span>
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span>          s32X<span class="token punctuation">;</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span>          s32Y<span class="token punctuation">;</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span>          u32Width<span class="token punctuation">;</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span>          u32Height<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> RECT_S<span class="token punctuation">;</span>
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span>          uIndex<span class="token punctuation">;</span><span class="token comment">//index[0-7]</span>
+    bool                  bEnable<span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span>                   uQpValue<span class="token punctuation">;</span>
+    RECT_S                stRect<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> EncROICfg<span class="token punctuation">;</span>
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-enum">enum</span>
+<span class="token punctuation">{</span>
+    ROI_QP_TABLE_NONE<span class="token punctuation">,</span>
+    ROI_QP_TABLE_RELATIVE<span class="token punctuation">,</span><span class="token comment">//[-32,31],6 LSBs effective</span>
+    ROI_QP_TABLE_ABSOLUTE<span class="token punctuation">,</span><span class="token comment">//[0,51],6 LSBs effective</span>
+<span class="token punctuation">}</span> ROICtrlMode<span class="token punctuation">;</span>
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-enum">enum</span>
+<span class="token punctuation">{</span>
+    GDR_VERTICAL <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    GDR_HORIZONTAL<span class="token punctuation">,</span>
+    GDR_CTRLMAX<span class="token punctuation">,</span>
+<span class="token punctuation">}</span> GDRCtrlMode<span class="token punctuation">;</span>
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span>
+<span class="token punctuation">{</span>
+    bool bSplitEnable<span class="token punctuation">;</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span> u32SplitMode<span class="token punctuation">;</span> <span class="token comment">// 0:splite by byte; 1:splite by slice count</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span> u32SliceSize<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>EncSliceSplitCfg<span class="token punctuation">;</span>
+
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-enum">enum</span>
+<span class="token punctuation">{</span>
+    ENTROPY_MODE_CABAC <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    ENTROPY_MODE_CAVLC<span class="token punctuation">,</span>
+<span class="token punctuation">}</span>EncEntropyMode<span class="token punctuation">;</span>
+
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span>  disable_deblocking_filter_idc<span class="token punctuation">;</span><span class="token comment">//[0,2]</span>
+    <span class="token keyword keyword-int">int</span>  slice_alpha_c0_offset_div2<span class="token punctuation">;</span><span class="token comment">//[-6,6]</span>
+    <span class="token keyword keyword-int">int</span>  slice_beta_offset_div2<span class="token punctuation">;</span><span class="token comment">//[-6,6]</span>
+<span class="token punctuation">}</span>EncDblkCfg<span class="token punctuation">;</span>
+</pre><p>&#x3010;Return value&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-void">void</span><span class="token operator">*</span> EncoderHandle
+</pre><h3 class="mume-header" id="122-videoencoder_setroicfg">1.2.2 VideoEncoder_SetRoiCfg</h3>
+
+<p>&#x3010;Description&#x3011;</p>
+<p>roi setting, support up to 8 rectangular areas, the system according to the index number of 0 ~ 7 to manage the ROI area, uIndex indicates that the user sets the index number of ROI. ROI regions can be superimposed on each other, and when an overlay occurs, the priority between ROI regions increases sequentially from index number 0 to 7.</p>
+<p>It can be used after the encoder is created and before it is destroyed. The roi region can be dynamically adjusted during the encoding process.</p>
+<p>&#x3010;Grammar&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c">EncStatus <span class="token function">VideoEncoder_SetRoiCfg</span><span class="token punctuation">(</span>EncoderHandle <span class="token operator">*</span>hEnc<span class="token punctuation">,</span><span class="token keyword keyword-const">const</span> EncROICfg<span class="token operator">*</span>pEncRoiCfg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>&#x3010;Parameters&#x3011;</p>
+<p>hEnc: The handle returned at creation time</p>
+<p>pEncRoiCfg: Roi zone configuration information</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span>          s32X<span class="token punctuation">;</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span>          s32Y<span class="token punctuation">;</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span>          u32Width<span class="token punctuation">;</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span>          u32Height<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>RECT_S<span class="token punctuation">;</span>
+
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span> 
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span>          uIndex<span class="token punctuation">;</span><span class="token comment">//index[0-7]</span>
+    bool                  bEnable<span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span>                   uQpValue<span class="token punctuation">;</span>
+    RECT_S                stRect<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>EncROICfg<span class="token punctuation">;</span>
+</pre><p>Parameter description</p>
+<pre data-role="codeBlock" data-info="text" class="language-text">uIndex     - &#x6307;&#x5B9A;&#x8BE5;roi&#x533A;&#x57DF;&#x7D22;&#x5F15;&#x53F7;&#xFF0C;&#x8303;&#x56F4;0-7&#x6700;&#x591A;&#x652F;&#x6301;8&#x4E2A;&#x533A;&#x57DF;
+bEnable    - &#x6307;&#x5B9A;&#x8BE5;&#x533A;&#x57DF;&#x662F;&#x5426;&#x4F7F;&#x80FD;&#xFF0C;&#x53EA;&#x6709;&#x4F7F;&#x80FD;&#x7684;&#x533A;&#x57DF;&#x624D;&#x6709;&#x6548;
+uQpValue   - qp&#x503C;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x76F8;&#x5BF9;qp&#x6216;&#x7EDD;&#x5BF9;qp&#xFF0C;qp&#x6A21;&#x5F0F;&#x7531;EncSettings&#x4E2D;roiCtrlMode&#x5C5E;&#x6027;&#x51B3;&#x5B9A;&#x3002;&#x7EDD;&#x5BF9;qp&#x8303;&#x56F4;                  [0,51]&#xFF0C;&#x76F8;&#x5BF9;qp&#x8303;&#x56F4;[-31,31]
+stRect     - roi&#x77E9;&#x5F62;&#x533A;&#x57DF;&#xFF0C;s32X&#x77E9;&#x5F62;&#x5DE6;&#x4E0A;&#x89D2;x&#x503C;&#xFF0C;s32Y&#x77E9;&#x5F62;&#x5DE6;&#x4E0A;&#x89D2;y&#x503C;&#xFF0C;u32Width&#x77E9;&#x5F62;&#x5BBD;&#x5EA6;&#xFF0C;u32Height&#x77E9;&#x5F62;&#x9AD8;&#x5EA6;
+</pre><p>&#x3010;Return value&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-enum">enum</span>
+<span class="token punctuation">{</span>
+    Enc_SUCCESS <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> 
+    Enc_ERR <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>EncStatus<span class="token punctuation">;</span>
+</pre><h3 class="mume-header" id="123-videoencoder_setlongterm">1.2.3 VideoEncoder_SetLongTerm</h3>
+
+<p>&#x3010;Description&#x3011;</p>
+<p>Sets the next frame of the encoding to a long-term reference frame. It can be used after the encoder is created and before it is destroyed. The bEnableLTR attribute in EncSettings determines whether the feature is enabled.</p>
+<p>&#x3010;Grammar&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c">EncStatus <span class="token function">VideoEncoder_SetLongTerm</span><span class="token punctuation">(</span>EncoderHandle <span class="token operator">*</span>hEnc<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>&#x3010;Parameters&#x3011;</p>
+<p>hEnc: The handle returned at creation time</p>
+<p>&#x3010;Return value&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-enum">enum</span>
+<span class="token punctuation">{</span>
+    Enc_SUCCESS <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> 
+    Enc_ERR <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>EncStatus<span class="token punctuation">;</span>
+</pre><h3 class="mume-header" id="124-videoencoder_uselongterm">1.2.4 VideoEncoder_UseLongTerm</h3>
+
+<p>&#x3010;Description&#x3011;</p>
+<p>Sets the encoding to the next frame using a long-term reference frame. It can be used after the encoder is created and before it is destroyed. The bEnableLTR attribute in EncSettings determines whether the feature is enabled.</p>
+<p>&#x3010;Grammar&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c">EncStatus <span class="token function">VideoEncoder_UseLongTerm</span><span class="token punctuation">(</span>EncoderHandle <span class="token operator">*</span>hEnc<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>&#x3010;Parameters&#x3011;</p>
+<p>hEnc: The handle returned at creation time</p>
+<p>&#x3010;Return value&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-enum">enum</span>
+<span class="token punctuation">{</span>
+    Enc_SUCCESS <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    Enc_ERR <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>EncStatus<span class="token punctuation">;</span>
+</pre><h3 class="mume-header" id="125-videoencoder_insertuserdata">1.2.5 VideoEncoder_InsertUserData</h3>
+
+<p>&#x3010;Description&#x3011;</p>
+<p>Insert user data.</p>
+<p>It can be used after the encoder is created and before it is destroyed, and the user data content can be modified in real time during the encoding process. The user data will be inserted into the SEI data area of the IDR frame.</p>
+<p>&#x3010;Grammar&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c">EncStatus      <span class="token function">VideoEncoder_InsertUserData</span><span class="token punctuation">(</span>EncoderHandle <span class="token operator">*</span>hEnc<span class="token punctuation">,</span><span class="token keyword keyword-char">char</span><span class="token operator">*</span>pUserData<span class="token punctuation">,</span><span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span> nlen<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>&#x3010;Parameters&#x3011;</p>
+<p>hEnc: The handle returned at creation time</p>
+<p>pUserData: A pointer to user data</p>
+<p>nlen: User data length (0, 1024)</p>
+<p>&#x3010;Return value&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-enum">enum</span>
+<span class="token punctuation">{</span>
+    Enc_SUCCESS <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    Enc_ERR <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>EncStatus<span class="token punctuation">;</span>
+</pre><h3 class="mume-header" id="126-videoencoder_destory">1.2.6 VideoEncoder_Destory</h3>
+
+<p>&#x3010;Description&#x3011;</p>
+<p>Destroy the video encoder</p>
+<p>&#x3010;Grammar&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c">EncStatus <span class="token function">VideoEncoder_Destroy</span><span class="token punctuation">(</span>EncoderHandle <span class="token operator">*</span>hEnc<span class="token punctuation">)</span>
+</pre><p>&#x3010;Parameters&#x3011;</p>
+<p>hEnc: The handle returned at creation time</p>
+<p>&#x3010;Return value&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-enum">enum</span>
+<span class="token punctuation">{</span>
+    Enc_SUCCESS <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> 
+    Enc_ERR <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>EncStatus<span class="token punctuation">;</span>
+</pre><h3 class="mume-header" id="127-videoencoder_encodeoneframe">1.2.7 VideoEncoder_EncodeOneFrame</h3>
+
+<p>&#x3010;Description&#x3011;</p>
+<p>Encode a video frame</p>
+<p>&#x3010;Grammar&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c">EncStatus <span class="token function">VideoEncoder_EncodeOneFrame</span><span class="token punctuation">(</span>EncoderHandle <span class="token operator">*</span>hEnc<span class="token punctuation">,</span> EncInputFrame <span class="token operator">*</span>input<span class="token punctuation">)</span>
+</pre><p>&#x3010;Parameters&#x3011;</p>
+<p>hEnc: The handle returned at creation time</p>
+<p>input: Enter the YUV video data</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-short">short</span> width<span class="token punctuation">;</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-short">short</span> height<span class="token punctuation">;</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-short">short</span> stride<span class="token punctuation">;</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>data<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>EncInputFrame<span class="token punctuation">;</span>
+</pre><p>&#x3010;Return value&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c">Enc_SUCCESS <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+Enc_ERR <span class="token operator">=</span> <span class="token number">1</span>
+</pre><h3 class="mume-header" id="128-videoencoder_getstream">1.2.8 VideoEncoder_GetStream</h3>
+
+<p>&#x3010;Description&#x3011;</p>
+<p>Gets the buffer of the video encoding stream, Note: This buffer space is allocated internally by the encoder.</p>
+<p>&#x3010;Grammar&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c">EncStatus <span class="token function">VideoEncoder_GetStream</span><span class="token punctuation">(</span>EncoderHandle <span class="token operator">*</span>hEnc<span class="token punctuation">,</span> EncOutputStream <span class="token operator">*</span>output<span class="token punctuation">)</span>
+</pre><p>&#x3010;Parameters&#x3011;</p>
+<p>hEnc: The handle returned at creation time</p>
+<p>output: Output the encoded stream data buffer, bufSize is greater than 0 to have the output</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>bufAddr<span class="token punctuation">;</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span> bufSize<span class="token punctuation">;</span> 
+<span class="token punctuation">}</span>EncOutputStream<span class="token punctuation">;</span>
+</pre><p>&#x3010;Return value&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c">Enc_SUCCESS <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+Enc_ERR <span class="token operator">=</span> <span class="token number">1</span>
+</pre><h3 class="mume-header" id="129-videoencoder_getstream_byextbuf">1.2.9 VideoEncoder_GetStream_ByExtBuf</h3>
+
+<p>&#x3010;Description&#x3011;</p>
+<p>Gets the buffer of the video encoding stream, Note: The buffer space needs to be allocated by the consumer before calling this function.</p>
+<p>&#x3010;Grammar&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c">EncStatus <span class="token function">VideoEncoder_GetStream</span><span class="token punctuation">(</span>EncoderHandle <span class="token operator">*</span>hEnc<span class="token punctuation">,</span> EncOutputStream <span class="token operator">*</span>output<span class="token punctuation">)</span>
+</pre><p>&#x3010;Parameters&#x3011;</p>
+<p>hEnc: The handle returned at creation time</p>
+<p>output: Output the encoded stream data buffer, bufSize is greater than 0 to have the output</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>bufAddr<span class="token punctuation">;</span>
+    <span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span> bufSize<span class="token punctuation">;</span> 
+<span class="token punctuation">}</span>EncOutputStream<span class="token punctuation">;</span>
+</pre><p>&#x3010;Return value&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c">Enc_SUCCESS <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+Enc_ERR <span class="token operator">=</span> <span class="token number">1</span>
+</pre><h3 class="mume-header" id="130-videoencoder_releasestream">1.3.0 VideoEncoder_ReleaseStream</h3>
+
+<p>&#x3010;Description&#x3011;</p>
+<p>Release the buffer of the video encoding stream</p>
+<p>&#x3010;Grammar&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c">EncStatus <span class="token function">VideoEncoder_ReleaseStream</span><span class="token punctuation">(</span>EncoderHandle <span class="token operator">*</span>hEnc<span class="token punctuation">,</span> EncOutputStream <span class="token operator">*</span>output<span class="token punctuation">)</span>
+</pre><p>&#x3010;Parameters&#x3011;</p>
+<ul>
+<li>hEnc: The handle returned at creation time</li>
+<li>output:VideoEncoder_GetStream the buffer returned</li>
+</ul>
+<p>&#x3010;Return value&#x3011;</p>
+<pre data-role="codeBlock" data-info="c" class="language-c">Enc_SUCCESS <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+Enc_ERR <span class="token operator">=</span> <span class="token number">1</span>
+</pre><h1 class="mume-header" id="2-hardware-structure-diagram-and-software-architecture">2 Hardware structure diagram and software architecture</h1>
+
+<h1 class="mume-header" id="21-hardware-structure-diagram">2.1 Hardware Structure Diagram</h1>
+
+<p>The hardware block diagram of the K510 is as follows:<br>
+<img src="../zh/images/multimedia_guides/hardware_block_diagram.png" alt="hardware_block_diagram"></p>
+<p>The data received from the video sensor is processed by MIPI DPHY, CSI, VI, isP to obtain the yuv source data and stored in the DDR. The h264 encoder module reads data from the DDR, performs encoding operations, and stores the results of the operations in the DDR.</p>
+<h1 class="mume-header" id="22-software-architecture">2.2 Software Architecture</h1>
+
+<p>The software architecture of the multimedia development platform is as follows:</p>
+<p><img src="../zh/images/multimedia_guides/multimedia_block_diagram.png" alt="multimedia_block_diagram.png"></p>
+<p>thereinto</p>
+<ul>
+<li><code>libvenc</code>: Encoder library for calling h264 encoder core</li>
+<li><code>libmediactl</code>: Isp library for controlling sensors</li>
+<li><code>libaudio3a</code>: Audio3a library for 3a operations on audio</li>
+<li><code>alsa-lib</code>: Audio library for controlling the audio interface</li>
+</ul>
+<h1 class="mume-header" id="3-demo-app">3 Demo app</h1>
+
+<h2 class="mume-header" id="31-encode-application">3.1 Encode Application</h2>
+
+<p>The program is placed<code>/app/encode_app</code> in the directory:</p>
+<ul>
+<li><code>encode_app</code>: Encode application program</li>
+<li>The yuv file used for testing is large in size and does not fit into the SDK package</li>
+</ul>
+<p>run<code>encode_app</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">The parameter name</th>
+<th style="text-align:left">Parameter interpretation</th>
+<th style="text-align:left">The default value</th>
+<th style="text-align:left">The value range</th>
+<th style="text-align:left">Applicable encoding modules</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">help</td>
+<td style="text-align:left">Help information</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">split</td>
+<td style="text-align:left">The number of channels</td>
+<td style="text-align:left">NULL</td>
+<td style="text-align:left">[1,4]</td>
+<td style="text-align:left">jpeg&#x3001;avc</td>
+</tr>
+<tr>
+<td style="text-align:left">ch</td>
+<td style="text-align:left">Channel number (0-based)</td>
+<td style="text-align:left">NULL</td>
+<td style="text-align:left">[0,3]</td>
+<td style="text-align:left">jpeg&#x3001;avc</td>
+</tr>
+<tr>
+<td style="text-align:left">i</td>
+<td style="text-align:left">Enter the YUV file, only<strong>support nv12</strong> format</td>
+<td style="text-align:left">NULL</td>
+<td style="text-align:left">v4l2 <br> xxx.yuv</td>
+<td style="text-align:left">jpeg&#x3001;avc</td>
+</tr>
+<tr>
+<td style="text-align:left">dev</td>
+<td style="text-align:left">v4l2 device name</td>
+<td style="text-align:left">NULL</td>
+<td style="text-align:left"><strong>sensor0:</strong> /dev/video3 /dev/video4 <br> <br>sensor1:<br> <strong>/dev/video7 /</strong> dev/ <br> video8 <br></td>
+<td style="text-align:left">stroke</td>
+</tr>
+<tr>
+<td style="text-align:left">or</td>
+<td style="text-align:left">output</td>
+<td style="text-align:left">NULL</td>
+<td style="text-align:left">rtsp <br> xxx.264 <br> xxx.MJPEG <br> xxx.JPEG</td>
+<td style="text-align:left">jpeg&#x3001;avc</td>
+</tr>
+<tr>
+<td style="text-align:left">in</td>
+<td style="text-align:left">Output image width</td>
+<td style="text-align:left">1920</td>
+<td style="text-align:left">avc: [128,2048], multiple of 8 <br> jpeg: up to 8192, multiple of 16</td>
+<td style="text-align:left">jpeg&#x3001;avc</td>
+</tr>
+<tr>
+<td style="text-align:left">h</td>
+<td style="text-align:left">Output image height</td>
+<td style="text-align:left">1080</td>
+<td style="text-align:left">avc: [64,2048], multiple of 8 <br> jpeg: up to 8192, multiple of 2</td>
+<td style="text-align:left">jpeg&#x3001;avc</td>
+</tr>
+<tr>
+<td style="text-align:left">fps</td>
+<td style="text-align:left">The camera captures frame rates, which currently only support 30pfs</td>
+<td style="text-align:left">30</td>
+<td style="text-align:left">30</td>
+<td style="text-align:left">stroke</td>
+</tr>
+<tr>
+<td style="text-align:left">r</td>
+<td style="text-align:left">Encoded output frame rate</td>
+<td style="text-align:left">30</td>
+<td style="text-align:left">The number that can divisible or be divisible by fps</td>
+<td style="text-align:left">stroke</td>
+</tr>
+<tr>
+<td style="text-align:left">inframes</td>
+<td style="text-align:left">Enter the number of yuv frames</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">[0,32767]</td>
+<td style="text-align:left">jpeg&#x3001;avc</td>
+</tr>
+<tr>
+<td style="text-align:left">outframes</td>
+<td style="text-align:left">The output of the yuv frames, if larger than the parameter -inframes, will be repeated encoding</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">[0,32767]</td>
+<td style="text-align:left">jpeg&#x3001;avc</td>
+</tr>
+<tr>
+<td style="text-align:left">gop</td>
+<td style="text-align:left">Group Of Picture, the interval between two I frames</td>
+<td style="text-align:left">25</td>
+<td style="text-align:left">[1,1000]</td>
+<td style="text-align:left">stroke</td>
+</tr>
+<tr>
+<td style="text-align:left">rcmode</td>
+<td style="text-align:left">Represents bitrate control mode 0:CONST_QP 1:CBR 2:VBR</td>
+<td style="text-align:left">CBR</td>
+<td style="text-align:left">[0,2]</td>
+<td style="text-align:left">stroke</td>
+</tr>
+<tr>
+<td style="text-align:left">bitrate</td>
+<td style="text-align:left">Target bitrate in CBR mode or lowest bitrate in VBR mode, in KB</td>
+<td style="text-align:left">4000</td>
+<td style="text-align:left">[1,20000]</td>
+<td style="text-align:left">stroke</td>
+</tr>
+<tr>
+<td style="text-align:left">maxbitrate</td>
+<td style="text-align:left">The highest bitrate in VBR mode, in Kb</td>
+<td style="text-align:left">4000</td>
+<td style="text-align:left">[1,20000]</td>
+<td style="text-align:left">stroke</td>
+</tr>
+<tr>
+<td style="text-align:left">profile</td>
+<td style="text-align:left">profile_idc parameters in SPS: 0: base 1:main 2:high 3:jpeg</td>
+<td style="text-align:left">AVC_HIGH</td>
+<td style="text-align:left">[0,3]</td>
+<td style="text-align:left">jpeg&#x3001;avc</td>
+</tr>
+<tr>
+<td style="text-align:left">level</td>
+<td style="text-align:left">level_idc parameters in SPS</td>
+<td style="text-align:left">42</td>
+<td style="text-align:left">[10,42]</td>
+<td style="text-align:left">stroke</td>
+</tr>
+<tr>
+<td style="text-align:left">sliceqp</td>
+<td style="text-align:left">The initial QP value, -1 for auto</td>
+<td style="text-align:left">25</td>
+<td style="text-align:left">avc:-1,jpeg[0,51]<br>:[1,100]</td>
+<td style="text-align:left">jpeg&#x3001;avc</td>
+</tr>
+<tr>
+<td style="text-align:left">minqp</td>
+<td style="text-align:left">The minimum QP value</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">[0,sliceqp]</td>
+<td style="text-align:left">stroke</td>
+</tr>
+<tr>
+<td style="text-align:left">maxqp</td>
+<td style="text-align:left">The maximum QP value</td>
+<td style="text-align:left">54</td>
+<td style="text-align:left">[sliceqp,54]</td>
+<td style="text-align:left">stroke</td>
+</tr>
+<tr>
+<td style="text-align:left">enableLTR</td>
+<td style="text-align:left">Enables long-term reference frames, and parameters specify the refresh period. 0: The refresh cycle is not enabled. Positive: Periodically sets the reference frame and the next frame is set to use the long reference frame</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">[0,65535]</td>
+<td style="text-align:left">stroke</td>
+</tr>
+<tr>
+<td style="text-align:left">king</td>
+<td style="text-align:left">Roi configuration file, which specifies multiple roi regions</td>
+<td style="text-align:left">NULL</td>
+<td style="text-align:left">xxx.conf</td>
+<td style="text-align:left">stroke</td>
+</tr>
+<tr>
+<td style="text-align:left">ae</td>
+<td style="text-align:left">Enable AE</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0 - Does not enable AE<br>1 - Enable AE</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">Conf</td>
+<td style="text-align:left">The vl42 configuration file modifies the v4l2 configuration parameters based on the specified configuration file and the command line input parameters</td>
+<td style="text-align:left">NULL</td>
+<td style="text-align:left">xxx.conf</td>
+<td style="text-align:left">stroke</td>
+</tr>
+</tbody>
+</table>
+<h3 class="mume-header" id="311-enter-the-yuv-file-and-output-the-file">3.1.1 Enter the yuv file and output the file</h3>
+
+<pre data-role="codeBlock" data-info="shell" class="language-shell">./encode_app -split <span class="token number">1</span> -ch <span class="token number">0</span> -i your_file.yuv -o out.264 -w <span class="token number">1920</span> -h <span class="token number">1080</span> -inframes <span class="token number">10</span> -outframes <span class="token number">30</span>
+./encode_app -split <span class="token number">1</span> -ch <span class="token number">0</span> -i your_file.yuv -o out.mjpeg -w <span class="token number">1920</span> -h <span class="token number">1080</span> -inframes <span class="token number">10</span> -outframes <span class="token number">30</span>
+</pre><h3 class="mume-header" id="312-input-v4l2-output-rtsp-push-stream">3.1.2 Input v4l2, output rtsp push stream</h3>
+
+<h4 class="mume-header" id="3121-single-channel">3.1.2.1 Single Channel</h4>
+
+<pre data-role="codeBlock" data-info="shell" class="language-shell">./encode_app -split <span class="token number">1</span> -ch <span class="token number">0</span> -i v4l2 -dev /dev/video3 -o rtsp -w <span class="token number">1920</span> -h <span class="token number">1080</span> -conf video_sample.conf
+</pre><p>Example of a ffplay pull command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell"> ffplay -rtsp_transport tcp rtsp://192.168.137.11:8554/testStream
+</pre><ul>
+<li><code>rtsp://192.168.137.11:8554/testStream</code>For the rtsp stream url address, -rtsp_transport tcp means to use tcp to transmit audio and video data (udp is used by default), and the -fflags nobuffer option can be added to avoid increased latency due to player caching.</li>
+</ul>
+<h4 class="mume-header" id="3122-single-camera-dual-channel">3.1.2.2 Single camera dual channel</h4>
+
+<pre data-role="codeBlock" data-info="shell" class="language-shell">./encode_app -split <span class="token number">2</span> -ch <span class="token number">0</span> -i v4l2 -dev /dev/video3 -o rtsp -w <span class="token number">1920</span> -h <span class="token number">1080</span> -ch <span class="token number">1</span> -i v4l2 -dev /dev/video4 -o rtsp -w <span class="token number">1280</span> -h <span class="token number">720</span> -conf video_sample.conf
+</pre><p>The ffplay pull stream command is the same as above.</p>
+<h4 class="mume-header" id="3123-dual-cameras">3.1.2.3 Dual Cameras</h4>
+
+<pre data-role="codeBlock" data-info="shell" class="language-shell">./encode_app -split <span class="token number">2</span> -ch <span class="token number">0</span> -i v4l2 -dev /dev/video3 -o rtsp -w <span class="token number">1920</span> -h <span class="token number">1080</span> -ch <span class="token number">1</span> -i v4l2 -dev /dev/video7 -o rtsp -w <span class="token number">1920</span> -h <span class="token number">1080</span> -conf video_sample.conf
+</pre><p>The ffplay pull stream command is the same as above.</p>
+<h4 class="mume-header" id="3124-roi-test">3.1.2.4 ROI test</h4>
+
+<pre data-role="codeBlock" data-info="shell" class="language-shell">./encode_app -split <span class="token number">1</span> -ch <span class="token number">0</span> -i v4l2 -dev /dev/video3 -o rtsp -w <span class="token number">1920</span> -h <span class="token number">1080</span> -sliceqp -1 -bitrate <span class="token number">2048</span> -roi roi_1920x1080.conf -conf video_sample.conf
+</pre><p>roi file format</p>
+<pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;roiCtrMode&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;roiRegion&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;qpValue&quot;</span><span class="token operator">:</span> <span class="token number">-15</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;qpRegion&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;left&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;top&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;width&quot;</span><span class="token operator">:</span> <span class="token number">500</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;heigth&quot;</span><span class="token operator">:</span> <span class="token number">500</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</pre><p>Parameter description:</p>
+<pre data-role="codeBlock" data-info="text" class="language-text">roiCtrMode - 1:&#x76F8;&#x5BF9;qp  2:&#x7EDD;&#x5BF9;qp
+roiRegion  - roi&#x533A;&#x57DF;&#xFF0C;&#x4E3A;&#x591A;&#x4E2A;&#x533A;&#x57DF;&#x6570;&#x7EC4;&#xFF0C;&#x6700;&#x591A;&#x652F;&#x6301;8&#x4E2A;&#x533A;&#x57DF;&#x3002;
+qpValue    - &#x6307;&#x5B9A;&#x8BE5;&#x533A;&#x57DF;&#x4F7F;&#x7528;&#x7684;qp&#x503C;&#xFF0C;&#x76F8;&#x5BF9;qp&#x8303;&#x56F4;:[-31,31]     &#x7EDD;&#x5BF9;qp&#x8303;&#x56F4;:[0,51]
+qpRegion   - roi&#x77E9;&#x5F62;&#x533A;&#x57DF;
+left       - &#x77E9;&#x5F62;&#x533A;&#x57DF;&#x7684;&#x5DE6;&#x4E0A;&#x89D2;X&#x5750;&#x6807;
+top        - &#x77E9;&#x5F62;&#x533A;&#x57DF;&#x7684;&#x5DE6;&#x4E0A;&#x89D2;Y&#x5750;&#x6807;
+width      - &#x77E9;&#x5F62;&#x533A;&#x57DF;&#x7684;&#x5BBD;&#x5EA6;
+heigth     - &#x77E9;&#x5F62;&#x533A;&#x57DF;&#x7684;&#x9AD8;&#x5EA6;
+</pre><p>The ffplay pull stream command is the same as above.</p>
+<h3 class="mume-header" id="313-frame-rate-transformation">3.1.3 Frame rate transformation</h3>
+
+<pre data-role="codeBlock" data-info="shell" class="language-shell">./encode_app -split <span class="token number">1</span> -ch <span class="token number">0</span> -i v4l2 -dev /dev/video3 -r <span class="token number">60</span> -o rtsp -w <span class="token number">1920</span> -h <span class="token number">1080</span> -conf video_sample.conf
+</pre><p>The ffplay pull stream command is the same as above.</p>
+<h3 class="mume-header" id="314-multiple-input-frame-rates">3.1.4 Multiple input frame rates</h3>
+
+<p>VGA@75fps and 720p60 are currently supported</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">./encode_app -split <span class="token number">1</span> -ch <span class="token number">0</span> -i v4l2 -dev /dev/video3 -o rtsp -w <span class="token number">640</span> -h <span class="token number">480</span> -fps <span class="token number">75</span> -r <span class="token number">75</span> -conf video_sample_vga480p75.conf
+./encode_app -split <span class="token number">1</span> -ch <span class="token number">0</span> -i v4l2 -dev /dev/video3 -o rtsp -w <span class="token number">1280</span> -h <span class="token number">720</span> -fps <span class="token number">60</span> -r <span class="token number">60</span> -conf video_sample_720p60.conf
+</pre><p>The ffplay pull stream command is the same as above.</p>
+<h3 class="mume-header" id="315-rtsp-push-audio-and-video-streams">3.1.5 rtsp push audio and video streams</h3>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token punctuation">.</span><span class="token operator">/</span>encode_app <span class="token operator">-</span>split <span class="token number">1</span> <span class="token operator">-</span>ch <span class="token number">0</span> <span class="token operator">-</span>i v4l2 <span class="token operator">-</span>dev <span class="token operator">/</span>dev<span class="token operator">/</span>video3 <span class="token operator">-</span>o rtsp <span class="token operator">-</span>w <span class="token number">1920</span> <span class="token operator">-</span>h <span class="token number">1080</span> <span class="token operator">-</span>alsa <span class="token number">1</span> <span class="token operator">-</span>ac <span class="token number">2</span> <span class="token operator">-</span>ar <span class="token number">44100</span> <span class="token operator">-</span>af <span class="token number">2</span> <span class="token operator">-</span>ad hw<span class="token operator">:</span><span class="token number">0</span> <span class="token operator">-</span>conf video_sample<span class="token punctuation">.</span>conf
+</pre><p>The ffplay pull stream command is the same as above.</p>
+<h3 class="mume-header" id="316-precautions">3.1.6 Precautions</h3>
+
+<ul>
+<li>
+<p>Operating environment: Core board sensor: IMX219_SENSOR</p>
+</li>
+<li>
+<p>rtsp stream address format: rtsp://ip address: port number/testStream, where ip address and port number are variable and the rest are fixed.</p>
+<p>Such as: rtsp://192.168.137.11:8554/testStream, where the IP address is 192.168.137.11, the port number is 8554.</p>
+<p>IP address: The IP address of the development board, enter ifconfig on the board to obtain.</p>
+<p>Port number: 8554 + &lt;&#x901A;&#x9053;&#x53F7;&gt;*2, channel numbers generally start from 0 (-ch 0, -ch 1...).</p>
+</li>
+<li>
+<p>Play RTSP stream mode: the corresponding RTSP stream can be played through vlc or ffplay, and the data stream can be transmitted through the udp or TCP protocol.</p>
+<p>1)rtp over udp&#x64AD;&#x653E;&#xFF1A;ffplay -rtsp_transport  udp rtsp://192.168.137.11:8554/testStream</p>
+<p>2)rtp over tcp &#x64AD;&#x653E;:   ffplay -rtsp_transport   tcp  rtsp://192.168.137.11:8554/testStream</p>
+<p>It is recommended to use rtp over tcp to play to avoid the screen caused by udp packet loss.</p>
+</li>
+</ul>
+<h2 class="mume-header" id="32-ffmpeg">3.2 ffmpeg</h2>
+
+<p>ffmpeg is placed in the /usr/local/bin directory.</p>
+<ul>
+<li><code>ffmpeg</code>: ffmpeg app.</li>
+</ul>
+<p>run<code>ffmpeg</code></p>
+<p>(1) Encoder libk510_h264 parameter</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">The parameter name</th>
+<th style="text-align:left">Parameter interpretation</th>
+<th style="text-align:left">The default value</th>
+<th style="text-align:left">The value range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">g</td>
+<td style="text-align:left">gop size</td>
+<td style="text-align:left">25</td>
+<td style="text-align:left">1~1000</td>
+</tr>
+<tr>
+<td style="text-align:left">b</td>
+<td style="text-align:left">bitrate</td>
+<td style="text-align:left">4000000</td>
+<td style="text-align:left">0~20000000</td>
+</tr>
+<tr>
+<td style="text-align:left">r</td>
+<td style="text-align:left">Frame rate, since isps currently only support 30fps, so the decoder should be set to 30</td>
+<td style="text-align:left">30</td>
+<td style="text-align:left">30</td>
+</tr>
+<tr>
+<td style="text-align:left">idr_freq</td>
+<td style="text-align:left">IDR frequency</td>
+<td style="text-align:left">-1 (no IDR)</td>
+<td style="text-align:left">-1~256</td>
+</tr>
+<tr>
+<td style="text-align:left">qp</td>
+<td style="text-align:left">When encoding with cqp, configure the qp value</td>
+<td style="text-align:left">-1(auto)</td>
+<td style="text-align:left">-1~100</td>
+</tr>
+<tr>
+<td style="text-align:left">maxrate</td>
+<td style="text-align:left">The maximum value of the bitrate</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">20000000</td>
+</tr>
+<tr>
+<td style="text-align:left">profile</td>
+<td style="text-align:left">Supported profiles</td>
+<td style="text-align:left">2(high)</td>
+<td style="text-align:left">0 - baseline <br> 1 - main <br> 2 - high</td>
+</tr>
+<tr>
+<td style="text-align:left">level</td>
+<td style="text-align:left">Encode level</td>
+<td style="text-align:left">42</td>
+<td style="text-align:left">10~42</td>
+</tr>
+<tr>
+<td style="text-align:left">would</td>
+<td style="text-align:left">Screen aspect ratio</td>
+<td style="text-align:left">0(auto)</td>
+<td style="text-align:left">0 - auto <br> 1 - 4:3 <br> 2 - 16:9 <br> 3 - none</td>
+</tr>
+<tr>
+<td style="text-align:left">ch</td>
+<td style="text-align:left">channel number</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0-7</td>
+</tr>
+<tr>
+<td style="text-align:left">framesToEncode</td>
+<td style="text-align:left">The number of encoded frames</td>
+<td style="text-align:left">-1 (all frames)</td>
+<td style="text-align:left">-1~16383</td>
+</tr>
+</tbody>
+</table>
+<p>(2) Encoder libk510_jpeg parameters</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">The parameter name</th>
+<th style="text-align:left">Parameter interpretation</th>
+<th style="text-align:left">The default value</th>
+<th style="text-align:left">The value range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">qp</td>
+<td style="text-align:left">When encoding with cqp, configure the qp value</td>
+<td style="text-align:left">25</td>
+<td style="text-align:left">-1~100</td>
+</tr>
+<tr>
+<td style="text-align:left">r</td>
+<td style="text-align:left">framerate</td>
+<td style="text-align:left">30</td>
+<td style="text-align:left">25~60</td>
+</tr>
+<tr>
+<td style="text-align:left">ch</td>
+<td style="text-align:left">encode channel</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0~7</td>
+</tr>
+<tr>
+<td style="text-align:left">maxrate</td>
+<td style="text-align:left">Maximum bitrate. (0=ignore)</td>
+<td style="text-align:left">4000000</td>
+<td style="text-align:left">0~20000000</td>
+</tr>
+<tr>
+<td style="text-align:left">would</td>
+<td style="text-align:left">aspect ratio</td>
+<td style="text-align:left">0(auto)</td>
+<td style="text-align:left">0 - auto <br> 1 - 4:3 <br> 2 - 16:9 <br> 3 - none</td>
+</tr>
+</tbody>
+</table>
+<p>(3) The device libk510_video parameter</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">The parameter name</th>
+<th style="text-align:left">Parameter interpretation</th>
+<th style="text-align:left">The default value</th>
+<th style="text-align:left">The value range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">wh</td>
+<td style="text-align:left">frame size</td>
+<td style="text-align:left">NULL</td>
+<td style="text-align:left"><strong>for encoder libk510_h264:</strong>:<br>  up to 2048x2048 <br> width multiple of 8 <br> height multiple of 8 <br> min. width: 128 <br> min. height: 64 <br> <strong>for encoder libk510_jpeg:</strong> <br> up to 8192x8192 <br> width multiple of 16 <br> height multiple of 2</td>
+</tr>
+<tr>
+<td style="text-align:left">exp</td>
+<td style="text-align:left">exposure parameter</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0~128</td>
+</tr>
+<tr>
+<td style="text-align:left">agc</td>
+<td style="text-align:left">analog gain</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0~232</td>
+</tr>
+</tbody>
+</table>
+<p>(4) audio3a parameter</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">The parameter name</th>
+<th style="text-align:left">Parameter interpretation</th>
+<th style="text-align:left">The default value</th>
+<th style="text-align:left">The value range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">sample_rate</td>
+<td style="text-align:left">Audio sample rate</td>
+<td style="text-align:left">16000</td>
+<td style="text-align:left">1~65535</td>
+</tr>
+<tr>
+<td style="text-align:left">agc</td>
+<td style="text-align:left">Audio gain mode</td>
+<td style="text-align:left">3(AgcModeFixedDigital)</td>
+<td style="text-align:left">0 - AgcModeUnchanged <br> 1 - AgcModeAdaptiveAnalog <br> 2 - AgcModeAdaptiveDigital <br> 3 - AgcModeFixedDigital</td>
+</tr>
+<tr>
+<td style="text-align:left">ns</td>
+<td style="text-align:left">Noise level</td>
+<td style="text-align:left">3(VeryHigh)</td>
+<td style="text-align:left">0 - Low <br> 1 - Moderate <br> 2 - High <br> 3 - VeryHigh</td>
+</tr>
+<tr>
+<td style="text-align:left">dsp_task</td>
+<td style="text-align:left">Auido3a running position</td>
+<td style="text-align:left">1(dsp)</td>
+<td style="text-align:left">0 - cpu <br>1 - dsp</td>
+</tr>
+</tbody>
+</table>
+<p>Configurable parameters can be viewed via the help command</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -h <span class="token assign-left variable">encoder</span><span class="token operator">=</span>libk510_h264 <span class="token comment">#&#x67E5;&#x770B;k510&#x7F16;&#x7801;&#x5668;&#x7684;&#x53C2;&#x6570;</span>
+ffmpeg -h <span class="token assign-left variable">demuxer</span><span class="token operator">=</span>v4l2 <span class="token comment">#&#x67E5;&#x770B;demuxer&#x7684;&#x914D;&#x7F6E;&#x53C2;&#x6570;</span>
+ffmpeg -h <span class="token assign-left variable">filter</span><span class="token operator">=</span>audio3a <span class="token comment">#&#x67E5;&#x770B;audio3a&#x7684;&#x914D;&#x7F6E;&#x53C2;&#x6570;</span>
+</pre><p>The logical box for ffmpeg is as follows:</p>
+<p><img src="../zh/images/multimedia_guides/ffmpeg_block_diagram.png" alt="ffmpeg_block_diagram"></p>
+<p>audio3a is used to perform 3a operations on the received audio and output it, and its logical block diagram is as follows:</p>
+<p><img src="../zh/images/multimedia_guides/ffmpeg_canaan_audio3a.png" alt="ffmpeg_canaan_audio3a"></p>
+<h3 class="mume-header" id="321-program-operation-instructions">3.2.1 Program Operation Instructions</h3>
+
+<h4 class="mume-header" id="3211-rtp-stream-push">3.2.1.1 rtp stream push</h4>
+
+<h5 class="mume-header" id="32111-rtp-push-video-stream">3.2.1.1.1. rtp push video stream</h5>
+
+<p>Example of a ffmpeg run command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f v4l2 -s 1920x1080 -conf <span class="token string">&quot;video_sample.conf&quot;</span> -isp <span class="token number">1</span> -buf_type <span class="token number">2</span> -r <span class="token number">30</span> -i /dev/video3 -vcodec libk510_h264 -an -f rtp rtp://10.102.231.29:1234
+</pre><p>Where 10.102.231.29 is the receiving address, it is changed according to the actual situation.<br>
+Press &quot;q&quot; while the program is running to stop running.</p>
+<p>ffplay receives the command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffplay.exe -protocol_whitelist <span class="token string">&quot;file,udp,rtp&quot;</span> -i test.sdp -fflags nobuffer -analyzeduration <span class="token number">1000000</span> -flags low_delay
+</pre><p>Test.sdp is configured as follows.</p>
+<pre data-role="codeBlock" data-info="text" class="language-text">SDP:
+v=0
+o=- 0 0 IN IP4 127.0.0.1
+s=No Name
+c=IN IP4 10.102.231.29
+t=0 0
+a=tool:libavformat 58.76.100
+m=video 1234 RTP/AVP 96
+a=rtpmap:96 H264/90000
+a=fmtp:96 packetization-mode=1
+</pre><p>Description of the .sdp parameter:</p>
+<ul>
+<li>c=: Media link information; IN: Network Type; IP4: Address type; Followed by the IP address (note that it is the IP address where the receiver is located, not the IP of the sender)</li>
+<li>m= is the beginning of a media-level session, video:media type; 1234: Port number; RTP/AVP: Transport Protocol; 96: Payload format in the rtp header<br>
+Modify the ip address and port number of the receiver according to the actual situation, and note that the port number of rtp must be even.</li>
+</ul>
+<h5 class="mume-header" id="32112-rtp-push-audio-stream">3.2.1.1.2. rtp push audio stream</h5>
+
+<p>Example of a ffmpeg run command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f alsa -ac <span class="token number">2</span> -ar <span class="token number">32000</span> -i hw:0 -acodec aac -f rtp rtp://10.100.232.11:1234
+</pre><p>Where 10.100.232.11 is the receiving address, it is modified according to the actual situation.</p>
+<ul>
+<li>ac: Sets the number of audio channels</li>
+<li>ar: Sets the audio sample rate</li>
+</ul>
+<p>The ffplay receive command is the same as receiving a video stream, and the sdp file refers to the following example.</p>
+<pre data-role="codeBlock" data-info="text" class="language-text">SDP:
+v=0
+o=- 0 0 IN IP4 127.0.0.1
+s=No Name
+c=IN IP4 10.100.232.11
+t=0 0
+a=tool:libavformat 58.76.100
+m=audio 1234 RTP/AVP 97
+b=AS:128
+a=rtpmap:97 MPEG4-GENERIC/32000/2
+a=fmtp:97 profile-level-id=1;mode=AAC-hbr;sizelength=13;indexlength=3;indexdeltalength=3; config=129056E500
+</pre><h5 class="mume-header" id="32113-rtp-push-audio-and-video-streams">3.2.1.1.3 rtp push audio and video streams</h5>
+
+<p>Example of a ffmpeg run command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f v4l2 -s 1920x1080 -conf <span class="token string">&quot;video_sample.conf&quot;</span> -isp <span class="token number">1</span> -buf_type <span class="token number">2</span> -r <span class="token number">30</span> -i /dev/video3 -vcodec libk510_h264 -an -f rtp rtp://10.100.232.11:1234 -f alsa -ac <span class="token number">2</span> -ar <span class="token number">32000</span> -i hw:0 -acodec aac -vn -f rtp rtp://10.100.232.11:1236
+</pre><p>The ffplay receive command is the same as receiving an audio stream, and the sdp file refers to the following example.</p>
+<pre data-role="codeBlock" data-info="text" class="language-text">SDP:
+v=0
+o=- 0 0 IN IP4 127.0.0.1
+s=No Name
+t=0 0
+a=tool:libavformat 58.76.100
+m=video 1234 RTP/AVP 96
+c=IN IP4 10.100.232.11
+a=rtpmap:96 H264/90000
+a=fmtp:96 packetization-mode=1
+m=audio 1236 RTP/AVP 97
+c=IN IP4 10.100.232.11
+b=AS:128
+a=rtpmap:97 MPEG4-GENERIC/32000/2
+a=fmtp:97 profile-level-id=1;mode=AAC-hbr;sizelength=13;indexlength=3;indexdeltalength=3; config=129056E500
+</pre><h4 class="mume-header" id="3212-rtsp-push-stream">3.2.1.2 rtsp push stream</h4>
+
+<p>Before rtsp pushes the stream, you need to deploy the rtsp server to push the data stream to the server.</p>
+<h5 class="mume-header" id="32121-rtsp-push-video-streams">3.2.1.2.1 rtsp push video streams</h5>
+
+<p>Example of a ffmpeg run command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f v4l2 -s 1920x1080 -conf <span class="token string">&quot;video_sample.conf&quot;</span> -isp <span class="token number">1</span> -buf_type <span class="token number">2</span> -r <span class="token number">30</span> -i /dev/video3 -vcodec libk510_h264 -acodec copy -f rtsp rtsp://10.100.232.11:5544/live/test110
+</pre><ul>
+<li><code>idr_freq</code>For the IDR frame interval, an integer multiple of the GOP is required. RTSP streams must generate IDR frames to pull to streams.</li>
+<li><code>rtsp://10.100.232.11:5544/live/test110</code>Is the push-pull stream URL address of the RTSP server</li>
+</ul>
+<p>Example of a ffplay pull command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffplay.exe -protocol_whitelist <span class="token string">&quot;file,udp,rtp,tcp&quot;</span> -i rtsp://10.100.232.11:5544/live/test110
+</pre><h5 class="mume-header" id="32122-rtsp-push-audio-stream">3.2.1.2.2 rtsp push audio stream</h5>
+
+<p>Example of a ffmpeg run command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f alsa -ac <span class="token number">2</span> -ar <span class="token number">32000</span> -i hw:0 -acodec aac -f rtsp rtsp://10.100.232.11:5544/live/test110
+</pre><p>The ffplay pull stream command is the same as the rtsp pull video stream command.</p>
+<h5 class="mume-header" id="32123-rtsp-push-audio-video-stream">3.2.1.2.3 rtsp push audio video stream</h5>
+
+<p>Example of a ffmpeg run command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f v4l2 -s 1920x1080 -conf <span class="token string">&quot;video_sample.conf&quot;</span> -isp <span class="token number">1</span> -buf_type <span class="token number">2</span> -r <span class="token number">30</span> -i /dev/video3 -f alsa -ac <span class="token number">2</span> -ar <span class="token number">32000</span> -i hw:0 -idr_freq <span class="token number">25</span> -vcodec libk510_h264 -acodec aac -f rtsp rtsp://10.100.232.11:5544/live/test110
+</pre><p>The ffplay pull stream command is the same as the rtsp pull video stream command.</p>
+<h4 class="mume-header" id="3213-rtmp-push-stream">3.2.1.3 rtmp push stream</h4>
+
+<p>Before rtmp streaming, you need to deploy the rtmp server to push the data stream to the server. Servers that support the RTMP protocol include fms, nginx, srs, etc.</p>
+<h5 class="mume-header" id="32131-rtmp-pushes-video-streams">3.2.1.3.1 rtmp pushes video streams</h5>
+
+<p>Example of a ffmpeg run command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f v4l2 -s 1920x1080 -conf <span class="token string">&quot;video_sample.conf&quot;</span> -isp <span class="token number">1</span> -buf_type <span class="token number">2</span> -r <span class="token number">30</span> -i /dev/video3 -vcodec libk510_h264 -f flv rtmp://10.100.232.11/live/1
+</pre><ul>
+<li><code>rtmp://10.100.232.11/live/1</code>The URL address for pushing the stream to the rtmp server</li>
+</ul>
+<p>Example of a ffplay pull command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffplay -fflags nobuffer rtmp://10.100.232.11/live/1
+</pre><ul>
+<li><code>rtmp://10.100.232.11/live/1</code>To pull the url address of the stream from the rtmp server (push streams are the same as the address of the pull stream), the -fflags nobuffer option to avoid increased latency due to player caching.</li>
+</ul>
+<h5 class="mume-header" id="32132-rtmp-push-audio-stream">3.2.1.3.2 rtmp push audio stream</h5>
+
+<p>Example of a ffmpeg run command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f alsa -ac <span class="token number">2</span> -ar <span class="token number">32000</span> -i hw:0 -acodec aac -f flv rtmp://10.100.232.11/live/1
+</pre><ul>
+<li><code>rtmp://10.100.232.11/live/1</code>The URL address for pushing the stream to the rtmp server</li>
+</ul>
+<p>The ffplay pull stream command is the same as the rtmp pull video stream command.</p>
+<h5 class="mume-header" id="32133-rtmp-push-audio-and-video-streams">3.2.1.3.3 rtmp push audio and video streams</h5>
+
+<p>Example of a ffmpeg run command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f v4l2 -s 1920x1080 -conf <span class="token string">&quot;video_sample.conf&quot;</span> -isp <span class="token number">1</span> -buf_type <span class="token number">2</span> -r <span class="token number">30</span> -i /dev/video3 -f alsa -ac <span class="token number">2</span> -ar <span class="token number">32000</span> -i hw:0 -idr_freq <span class="token number">25</span> -vcodec libk510_h264 -acodec aac -f flv rtmp://10.100.232.11/live/1
+</pre><ul>
+<li><code>rtmp://10.100.232.11/live/1</code>The URL address for pushing the stream to the rtmp server</li>
+</ul>
+<p>The ffplay pull stream command is the same as the rtmp pull video stream command.</p>
+<h4 class="mume-header" id="3214-audio3a">3.2.1.4 audio3a</h4>
+
+<h5 class="mume-header" id="32141-run-audio-separately">3.2.1.4.1 Run audio separately</h5>
+
+<p>(1) Run audio3a on the CPU<br>
+Example of a ffmpeg run command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f alsa -ac <span class="token number">2</span> -ar <span class="token number">16000</span> -i hw:0 -af <span class="token assign-left variable">audio3a</span><span class="token operator">=</span>sample_rate<span class="token operator">=</span><span class="token number">16000</span>:dsp_task<span class="token operator">=</span><span class="token number">0</span> -f rtp rtp://10.100.232.11:1234
+</pre><p>(2) Run audio3a on dsp<br>
+Run two telnet windows, run dsp task scheduler and ffmpeg in both windows (run dsp task scheduler first)<br>
+dsp task scheduler runs the command instance:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell"><span class="token builtin class-name">cd</span> /app/dsp_app_new/
+./dsp_app /app/dsp_scheduler/scheduler.bin
+</pre><p>ffmpeg run command example:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f alsa -ac <span class="token number">2</span> -ar <span class="token number">16000</span> -i hw:0 -af <span class="token assign-left variable">audio3a</span><span class="token operator">=</span>sample_rate<span class="token operator">=</span><span class="token number">16000</span> -f rtp rtp://10.100.232.11:1234
+</pre><h5 class="mume-header" id="32142-run-audio3a-and-video-at-the-same-time">3.2.1.4.2 Run audio3a and video at the same time</h5>
+
+<p>(1) Run audio3a on the CPU<br>
+Run two telnet windows, run audio3a and video in both windows.<br>
+Example of the video command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f v4l2 -s 1920x1080 -conf <span class="token string">&quot;video_sample.conf&quot;</span> -isp <span class="token number">1</span> -buf_type <span class="token number">2</span> -r <span class="token number">30</span> -i /dev/video3 -vcodec libk510_h264 -an -f rtp rtp://10.100.232.11:1234
+</pre><p>Example of the audio3a command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f alsa -ac <span class="token number">2</span> -ar <span class="token number">16000</span> -i hw:0 -af <span class="token assign-left variable">audio3a</span><span class="token operator">=</span>sample_rate<span class="token operator">=</span><span class="token number">16000</span>:dsp_task<span class="token operator">=</span><span class="token number">0</span> -acodec aac -vn -f rtp rtp://10.100.232.11:1236
+</pre><p>Running audio3a and video on the cpu at the same time will produce overflow, it is recommended to run audio3a on dsp<br>
+(2) Run audio3a on dsp<br>
+Run three telnet windows, run audio3a calls, video, and dsp scheduler on each of the three windows<br>
+The dsp task scheduler run command is the same as running audio3a alone.</p>
+<p>Example of the audio3a command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f alsa -ac <span class="token number">2</span> -ar <span class="token number">16000</span> -i hw:0 -af <span class="token assign-left variable">audio3a</span><span class="token operator">=</span>sample_rate<span class="token operator">=</span><span class="token number">16000</span> -f rtp rtp://10.100.232.11:1236
+</pre><p>Example of the video command:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f v4l2 -s 1920x1080 -conf <span class="token string">&quot;video_sample.conf&quot;</span> -isp <span class="token number">1</span> -buf_type <span class="token number">2</span> -r <span class="token number">30</span> -i /dev/video3 -vcodec libk510_h264 -an -f rtp rtp://10.100.232.11:1234
+</pre><ul>
+<li>10.100.232.11 is the IP address of the rtp receiver.</li>
+<li>The contents of the SDP file of the receiving terminal ffplay can be obtained from the printed log after running the above ffmpeg command.</li>
+</ul>
+<h4 class="mume-header" id="3215-v4l2">3.2.1.5 v4l2</h4>
+
+<p>Configurable parameters can be viewed via the help command</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -h <span class="token assign-left variable">demuxer</span><span class="token operator">=</span>v4l2 <span class="token comment">#&#x67E5;&#x770B;v4l2&#x7684;&#x914D;&#x7F6E;&#x53C2;&#x6570;</span>
+</pre><table>
+<thead>
+<tr>
+<th style="text-align:left">The parameter name</th>
+<th style="text-align:left">Parameter interpretation</th>
+<th style="text-align:left">The default value</th>
+<th style="text-align:left">The value range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">s</td>
+<td style="text-align:left">Image resolution, such as 1920x1080</td>
+<td style="text-align:left">NULL</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">r</td>
+<td style="text-align:left">Frame rate, currently only support 30fps</td>
+<td style="text-align:left">30</td>
+<td style="text-align:left">30</td>
+</tr>
+<tr>
+<td style="text-align:left">isp</td>
+<td style="text-align:left">Turn on the k510 ISP hardware</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0-1</td>
+</tr>
+<tr>
+<td style="text-align:left">buf_type</td>
+<td style="text-align:left">v4l2 buffer<code>&#x7C7B;&#x578B;</code> <br>1: V4L2_MEMORY_MMAP: for -vcodec copy<br>2: V4L2_MEMORY_USERPTR: for -vcodec libk510_h264</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1~4</td>
+</tr>
+<tr>
+<td style="text-align:left">Conf</td>
+<td style="text-align:left">v4l2 config file</td>
+<td style="text-align:left">NULL</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<p>Example of ffmpeg running command: where 10.100.232.11 is the receiving address, modified according to the actual situation.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f v4l2 -s 1920x1080 -conf <span class="token string">&quot;video_sample.conf&quot;</span> -isp <span class="token number">1</span> -buf_type <span class="token number">2</span> -r <span class="token number">30</span> -i /dev/video3 -vcodec libk510_h264 -an -f rtp rtp://10.100.232.11:1234 -f alsa -ac <span class="token number">2</span> -ar <span class="token number">16000</span> -i hw:0 -acodec aac -vn -f rtp rtp://10.100.232.11:1236
+</pre><pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f v4l2 -s 1920x1080 -conf <span class="token string">&quot;video_sample.conf&quot;</span> -isp <span class="token number">1</span> -i /dev/video3 -vcodec copy -y out.yuv
+</pre><p>Illustrate:</p>
+<ol>
+<li>The runtime needs to be found in the run directory<code>video_sampe.conf</code>, <code>imx219_0.conf</code>and the <code>imx219_1.conf</code>files are configured, and the three files are under<code>/encode_app/</code> the directory.</li>
+<li>The video that comes in real time by the camera is written as a YUV file, and because the YUV file is very large, the local DDR or NFS writing speed cannot keep up, which may cause frame drop.</li>
+</ol>
+<h4 class="mume-header" id="3216-jpeg-encoding">3.2.1.6 JPEG encoding</h4>
+
+<p>File Output:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f v4l2 -s 1920x1080 -conf <span class="token string">&quot;video_sample.conf&quot;</span> -isp <span class="token number">1</span> -buf_type <span class="token number">2</span> -r <span class="token number">30</span> -i /dev/video3 -vcodec libk510_jpeg -y test.mjpeg
+</pre><p>Description: The runtime needs to be located in the run directory<code>video_sampe.conf</code>, <code>imx219_0.conf</code>and <code>imx219_1.conf</code>the files are configured, and the three files are under<code>/encode_app/</code> the directory.</p>
+<p>The output file test.mjpeg can be played on the PC side with ffplay</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffplay -i test.mjpeg
+</pre><p>Push Stream:</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f v4l2 -s 1920x1080 -conf <span class="token string">&quot;video_sample.conf&quot;</span> -isp <span class="token number">1</span> -buf_type <span class="token number">2</span> -r <span class="token number">30</span> -i /dev/video3 -vcodec libk510_jpeg -an -f rtp rtp://10.100.232.11:1234
+</pre><p>Ffplay pull streams are available</p>
+<h4 class="mume-header" id="3217-multiplexing-encoding">3.2.1.7 Multiplexing encoding</h4>
+
+<p>Support up to 8 simultaneous encoding, you can use the frame size of each channel multiplied by the frame rate and then added, do not exceed the amount of data of 1080p60, -vcodec can choose h264 or jpeg.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f v4l2 -s 1920x1080 -conf <span class="token string">&quot;video_sample.conf&quot;</span> -isp <span class="token number">1</span> -buf_type <span class="token number">2</span> -r <span class="token number">30</span> -i /dev/video3 -filter_complex <span class="token string">&apos;split=2[out1][out2]&apos;</span> -map <span class="token string">&apos;[out1]&apos;</span> -vcodec libk510_h264 -ch <span class="token number">0</span> -an -f rtp rtp://10.20.1.101:1234 -map <span class="token string">&apos;[out2]&apos;</span> -vcodec libk510_h264 -ch <span class="token number">1</span> -an -f rtp rtp://10.20.1.101:2236
+</pre><pre data-role="codeBlock" data-info="shell" class="language-shell">ffmpeg -f v4l2 -s 480x360 -conf <span class="token string">&quot;video_sample.conf&quot;</span> -isp <span class="token number">1</span> -buf_type <span class="token number">2</span> -r <span class="token number">30</span> -i /dev/video3 -filter_complex <span class="token string">&apos;split=8[out1][out2][out3][out4][out5][out6][out7][out8]&apos;</span> -map <span class="token string">&apos;[out1]&apos;</span> -vcodec libk510_h264 -b:v <span class="token number">300000</span> -ch <span class="token number">0</span> -an -f rtp rtp://10.20.1.101:1234 -map <span class="token string">&apos;[out2]&apos;</span> -vcodec libk510_h264 -b:v <span class="token number">300000</span> -ch <span class="token number">1</span> -an -f rtp rtp://10.20.1.101:2322 -map <span class="token string">&apos;[out3]&apos;</span> -vcodec libk510_h264 -b:v <span class="token number">300000</span> -ch <span class="token number">2</span> -an -f rtp rtp://10.20.1.101:3086 -map <span class="token string">&apos;[out4]&apos;</span> -vcodec libk510_h264 -b:v <span class="token number">300000</span> -ch <span class="token number">3</span> -an -f rtp rtp://10.20.1.101:4234 -map <span class="token string">&apos;[out5]&apos;</span> -vcodec libk510_h264 -b:v <span class="token number">300000</span> -ch <span class="token number">4</span> -an -f rtp rtp://10.20.1.101:5216 -map <span class="token string">&apos;[out6]&apos;</span> -vcodec libk510_h264 -b:v <span class="token number">300000</span> -ch <span class="token number">5</span> -an -f rtp rtp://10.20.1.101:6788 -map <span class="token string">&apos;[out7]&apos;</span> -vcodec libk510_h264 -b:v <span class="token number">300000</span> -ch <span class="token number">6</span> -an -f rtp rtp://10.20.1.101:7230 -map <span class="token string">&apos;[out8]&apos;</span> -vcodec libk510_h264 -b:v <span class="token number">300000</span> -ch <span class="token number">7</span> -an -f rtp rtp://10.20.1.101:8976
+</pre><p>When using ffplay to pull streams, be careful to pull only one video, switch the video of other roads by changing the port number in the SDP file, or start multiple ffplay streams.</p>
+<h3 class="mume-header" id="322-program-porting-instructions">3.2.2 Program Porting Instructions</h3>
+
+<p><code>ffmpeg``ffmpeg</code>Ported on the open source version 4.4,<code>xxx.patch</code> added for the service pack</p>
+<ul>
+<li><code>ff_libk510_h264_encoder</code>: Control h264 hardware encoding, referenced<code>libvenc.so</code></li>
+<li><code>ff_libk510_jpeg_encoder</code>: Controls the jpeg hardware encoding, referenced<code>libvenc.so</code></li>
+<li>v4l2: In v4l2.c, k510 hardware-related code was added, and the v4l2 buffer type V4L2_MEMORY_USERPTR and referenced<code>libmediactl.so</code>.</li>
+</ul>
+<h4 class="mume-header" id="3221-patch-generation-command">3.2.2.1 patch generation command</h4>
+
+<p>&#xFF08;1&#xFF09;</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">quilt new -p ab xxx.patch <span class="token comment">#&#x5728;patches&#x76EE;&#x5F55;&#x4E0B;&#x751F;&#x6210;xxx.patch&#x6587;&#x4EF6;</span>
+quilt <span class="token function">add</span> <span class="token operator">&lt;</span>filename<span class="token operator">&gt;</span> <span class="token comment">#&#x6DFB;&#x52A0;&#x4FEE;&#x6539;&#x524D;&#x7684;&#x6587;&#x4EF6;</span>
+<span class="token comment">### &#x4FEE;&#x6539;&#x4EE3;&#x7801; ###</span>
+quilt refresh <span class="token comment">#&#x4FEE;&#x6539;&#x5185;&#x5BB9;&#x88AB;&#x6DFB;&#x52A0;&#x5230;xxx.patch</span>
+</pre><p>&#xFF08;2&#xFF09;<br>
+Copy xxx.patch to the package/ffmpeg_canaan directory and modify the file path in the patch file according to the current path.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell"><span class="token function">mv</span> <span class="token punctuation">..</span>/<span class="token punctuation">..</span>/patches/xxx.patch <span class="token punctuation">..</span>/<span class="token punctuation">..</span>/package/ffmpeg_canaan
+<span class="token function">rm</span> <span class="token punctuation">..</span>/<span class="token punctuation">..</span>/patches/series
+<span class="token function">sed</span> -i <span class="token string">&quot;s/\/dl\/ffmpeg_canaan\/ffmpeg-4.4//g&quot;</span> <span class="token punctuation">..</span>/<span class="token punctuation">..</span>/package/ffmpeg_canaan/xxx.patch
+</pre><h4 class="mume-header" id="3222-ffmpeg-configuration">3.2.2.2 ffmpeg configuration</h4>
+
+<p>In the <code>package/ffmpeg_canaan/ffmpeg.mk</code>file, the CPU core can be modified, the compilation toolchain, and the enable can be made through the configee option<code>ff_k510_video_demuxer</code>.<code>ff_libk510_jpeg_encoder</code> <code>ff_libk510_h264_encoder</code></p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell">./configure <span class="token punctuation">\</span>
+    --cross-prefix<span class="token operator">=</span>riscv64-linux- <span class="token punctuation">\</span>
+    --enable-cross-compile <span class="token punctuation">\</span>
+    --target-os<span class="token operator">=</span>linux <span class="token punctuation">\</span>
+    --cc<span class="token operator">=</span>riscv64-linux-gcc <span class="token punctuation">\</span>
+    --arch<span class="token operator">=</span>riscv64 <span class="token punctuation">\</span>
+    --extra-ldflags<span class="token operator">=</span><span class="token string">&quot;-L./&quot;</span> <span class="token punctuation">\</span>
+    --extra-ldflags<span class="token operator">=</span><span class="token string">&quot;-ldl&quot;</span> <span class="token punctuation">\</span>
+    --extra-ldflags<span class="token operator">=</span><span class="token string">&quot;-Wl,-rpath .&quot;</span> <span class="token punctuation">\</span>
+    --enable-static <span class="token punctuation">\</span>
+    --enable-libk510_video <span class="token punctuation">\</span>
+    --enable-libk510_h264 <span class="token punctuation">\</span>
+    --enable-libk510_jpeg <span class="token punctuation">\</span>
+    --enable-alsa <span class="token punctuation">\</span>
+    --disable-autodetect <span class="token punctuation">\</span>
+    --disable-ffplay <span class="token punctuation">\</span>
+    --disable-ffprobe <span class="token punctuation">\</span>
+    --disable-doc <span class="token punctuation">\</span>
+    --enalbe-audio3a <span class="token punctuation">\</span>
+    --enable-indev<span class="token operator">=</span>v4l2 <span class="token punctuation">\</span>
+</pre><p><strong>Translation Disclaimer</strong><br>
+For the convenience of customers, Canaan uses an AI translator to translate text into multiple languages, which may contain errors. We do not guarantee the accuracy, reliability or timeliness of the translations provided. Canaan shall not be liable for any loss or damage caused by reliance on the accuracy or reliability of the translated information. If there is a content difference between the translations in different languages, the Chinese Simplified version shall prevail.</p>
+<p>If you would like to report a translation error or inaccuracy, please feel free to contact us by mail.</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

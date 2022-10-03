@@ -1,0 +1,380 @@
+ddr bandwidth(total if w of other): input_norm_div_store/ptq_new_st/fusion,614508,307200,0,307200,108
+effctive ddr bandwidth(total if w of other): input_norm_div_store/ptq_new_st/fusion,614624,307200,0,307200,224
+ddr bandwidth(total if w of other): Concat_40(Concat)_2CHW_store/ptq_new_st/fusion,615088,307200,0,307200,688
+effctive ddr bandwidth(total if w of other): Concat_40(Concat)_2CHW_store/ptq_new_st/fusion,615104,307200,0,307200,704
+ddr bandwidth(total if w of other): Concat_40(Concat)_22CHW_store/ptq_new_st/fusion,615136,307200,0,307200,736
+effctive ddr bandwidth(total if w of other): Concat_40(Concat)_22CHW_store/ptq_new_st/fusion,2765568,2457600,0,307200,768
+ddr bandwidth(total if w of other): Sigmoid_45.(Sigmoid)/broadcast_store/ptq_new_st/fusion,782784,347520,21888,409600,3776
+effctive ddr bandwidth(total if w of other): Sigmoid_45.(Sigmoid)/broadcast_store/ptq_new_st/fusion,782784,347520,21888,409600,3776
+ddr bandwidth(total if w of other): Sigmoid_48.(Sigmoid)/broadcast_store/ptq_new_st/fusion,618048,409600,2048,204800,1600
+effctive ddr bandwidth(total if w of other): Sigmoid_48.(Sigmoid)/broadcast_store/ptq_new_st/fusion,618048,409600,2048,204800,1600
+ddr bandwidth(total if w of other): Sigmoid_54.(Sigmoid)/broadcast_store/ptq_new_st/fusion,426368,209920,10240,204800,1408
+effctive ddr bandwidth(total if w of other): Sigmoid_54.(Sigmoid)/broadcast_store/ptq_new_st/fusion,426368,209920,10240,204800,1408
+ddr bandwidth(total if w of other): Add_56(binary_add)/binary_add_0/ptq_new_st/fusion,614784,409600,0,204800,384
+effctive ddr bandwidth(total if w of other): Add_56(binary_add)/binary_add_0/ptq_new_st/fusion,614784,409600,0,204800,384
+ddr bandwidth(total if w of other): Sigmoid_58.(Sigmoid)/broadcast_store/ptq_new_st/fusion,618048,409600,2048,204800,1600
+effctive ddr bandwidth(total if w of other): Sigmoid_58.(Sigmoid)/broadcast_store/ptq_new_st/fusion,618048,409600,2048,204800,1600
+ddr bandwidth(total if w of other): Sigmoid_65.(Sigmoid)/broadcast_store/ptq_new_st/fusion,719232,430080,77824,204800,6528
+effctive ddr bandwidth(total if w of other): Sigmoid_65.(Sigmoid)/broadcast_store/ptq_new_st/fusion,760192,430080,77824,245760,6528
+ddr bandwidth(total if w of other): Sigmoid_68.(Sigmoid)/broadcast_store/ptq_new_st/fusion,317824,204800,8192,102400,2432
+effctive ddr bandwidth(total if w of other): Sigmoid_68.(Sigmoid)/broadcast_store/ptq_new_st/fusion,379264,245760,8192,122880,2432
+ddr bandwidth(total if w of other): Sigmoid_74.(Sigmoid)/broadcast_store/ptq_new_st/fusion,248064,102400,40960,102400,2304
+effctive ddr bandwidth(total if w of other): Sigmoid_74.(Sigmoid)/broadcast_store/ptq_new_st/fusion,289024,122880,40960,122880,2304
+ddr bandwidth(total if w of other): Add_76(binary_add)/binary_add_0/ptq_new_st/fusion,307968,204800,0,102400,768
+effctive ddr bandwidth(total if w of other): Add_76(binary_add)/binary_add_0/ptq_new_st/fusion,369408,245760,0,122880,768
+ddr bandwidth(total if w of other): Sigmoid_81.(Sigmoid)/broadcast_store/ptq_new_st/fusion,248064,102400,40960,102400,2304
+effctive ddr bandwidth(total if w of other): Sigmoid_81.(Sigmoid)/broadcast_store/ptq_new_st/fusion,289024,122880,40960,122880,2304
+ddr bandwidth(total if w of other): Add_83(binary_add)/binary_add_0/ptq_new_st/fusion,307968,204800,0,102400,768
+effctive ddr bandwidth(total if w of other): Add_83(binary_add)/binary_add_0/ptq_new_st/fusion,369408,245760,0,122880,768
+ddr bandwidth(total if w of other): Sigmoid_88.(Sigmoid)/broadcast_store/ptq_new_st/fusion,248064,102400,40960,102400,2304
+effctive ddr bandwidth(total if w of other): Sigmoid_88.(Sigmoid)/broadcast_store/ptq_new_st/fusion,289024,122880,40960,122880,2304
+ddr bandwidth(total if w of other): Add_90(binary_add)/binary_add_0/ptq_new_st/fusion,307968,204800,0,102400,768
+effctive ddr bandwidth(total if w of other): Add_90(binary_add)/binary_add_0/ptq_new_st/fusion,369408,245760,0,122880,768
+ddr bandwidth(total if w of other): Sigmoid_92.(Sigmoid)/broadcast_store/ptq_new_st/fusion,317824,204800,8192,102400,2432
+effctive ddr bandwidth(total if w of other): Sigmoid_92.(Sigmoid)/broadcast_store/ptq_new_st/fusion,379264,245760,8192,122880,2432
+ddr bandwidth(total if w of other): Sigmoid_96.(Sigmoid)/broadcast_store/ptq_new_st/fusion,429824,204800,16384,204800,3840
+effctive ddr bandwidth(total if w of other): Sigmoid_96.(Sigmoid)/broadcast_store/ptq_new_st/fusion,511744,245760,16384,245760,3840
+ddr bandwidth(total if w of other): Sigmoid_99.(Sigmoid)/broadcast_store/ptq_new_st/fusion,620544,215040,294912,102400,8192
+effctive ddr bandwidth(total if w of other): Sigmoid_99.(Sigmoid)/broadcast_store/ptq_new_st/fusion,724992,258048,294912,163840,8192
+ddr bandwidth(total if w of other): Sigmoid_102.(Sigmoid)/broadcast_store/ptq_new_st/fusion,189696,102400,32768,51200,3328
+effctive ddr bandwidth(total if w of other): Sigmoid_102.(Sigmoid)/broadcast_store/ptq_new_st/fusion,281856,163840,32768,81920,3328
+ddr bandwidth(total if w of other): Sigmoid_108.(Sigmoid)/broadcast_store/ptq_new_st/fusion,270848,51200,163840,51200,4608
+effctive ddr bandwidth(total if w of other): Sigmoid_108.(Sigmoid)/broadcast_store/ptq_new_st/fusion,332288,81920,163840,81920,4608
+ddr bandwidth(total if w of other): Add_110(binary_add)/binary_add_0/ptq_new_st/fusion,155136,102400,0,51200,1536
+effctive ddr bandwidth(total if w of other): Add_110(binary_add)/binary_add_0/ptq_new_st/fusion,247296,163840,0,81920,1536
+ddr bandwidth(total if w of other): Sigmoid_115.(Sigmoid)/broadcast_store/ptq_new_st/fusion,270848,51200,163840,51200,4608
+effctive ddr bandwidth(total if w of other): Sigmoid_115.(Sigmoid)/broadcast_store/ptq_new_st/fusion,332288,81920,163840,81920,4608
+ddr bandwidth(total if w of other): Add_117(binary_add)/binary_add_0/ptq_new_st/fusion,155136,102400,0,51200,1536
+effctive ddr bandwidth(total if w of other): Add_117(binary_add)/binary_add_0/ptq_new_st/fusion,247296,163840,0,81920,1536
+ddr bandwidth(total if w of other): Sigmoid_122.(Sigmoid)/broadcast_store/ptq_new_st/fusion,270848,51200,163840,51200,4608
+effctive ddr bandwidth(total if w of other): Sigmoid_122.(Sigmoid)/broadcast_store/ptq_new_st/fusion,332288,81920,163840,81920,4608
+ddr bandwidth(total if w of other): Add_124(binary_add)/binary_add_0/ptq_new_st/fusion,155136,102400,0,51200,1536
+effctive ddr bandwidth(total if w of other): Add_124(binary_add)/binary_add_0/ptq_new_st/fusion,247296,163840,0,81920,1536
+ddr bandwidth(total if w of other): Sigmoid_126.(Sigmoid)/broadcast_store/ptq_new_st/fusion,189696,102400,32768,51200,3328
+effctive ddr bandwidth(total if w of other): Sigmoid_126.(Sigmoid)/broadcast_store/ptq_new_st/fusion,281856,163840,32768,81920,3328
+ddr bandwidth(total if w of other): Sigmoid_130.(Sigmoid)/broadcast_store/ptq_new_st/fusion,275968,102400,65536,102400,5632
+effctive ddr bandwidth(total if w of other): Sigmoid_130.(Sigmoid)/broadcast_store/ptq_new_st/fusion,398848,163840,65536,163840,5632
+ddr bandwidth(total if w of other): Sigmoid_133.(Sigmoid)/broadcast_store/ptq_new_st/fusion,1343488,102400,1179648,51200,10240
+effctive ddr bandwidth(total if w of other): Sigmoid_133.(Sigmoid)/broadcast_store/ptq_new_st/fusion,1435648,163840,1179648,81920,10240
+ddr bandwidth(total if w of other): Sigmoid_136.(Sigmoid)/broadcast_store/ptq_new_st/fusion,214528,51200,131072,25600,6656
+effctive ddr bandwidth(total if w of other): Sigmoid_136.(Sigmoid)/broadcast_store/ptq_new_st/fusion,260608,81920,131072,40960,6656
+ddr bandwidth(total if w of other): MaxPool_138.reduce_max(Pool)_store/ptq_new_st/fusion,53248,25600,0,25600,2048
+effctive ddr bandwidth(total if w of other): MaxPool_138.reduce_max(Pool)_store/ptq_new_st/fusion,83968,40960,0,40960,2048
+ddr bandwidth(total if w of other): MaxPool_139.reduce_max(Pool)_store/ptq_new_st/fusion,53248,25600,0,25600,2048
+effctive ddr bandwidth(total if w of other): MaxPool_139.reduce_max(Pool)_store/ptq_new_st/fusion,83968,40960,0,40960,2048
+ddr bandwidth(total if w of other): MaxPool_140.reduce_max(Pool)_store/ptq_new_st/fusion,53248,25600,0,25600,2048
+effctive ddr bandwidth(total if w of other): MaxPool_140.reduce_max(Pool)_store/ptq_new_st/fusion,83968,40960,0,40960,2048
+ddr bandwidth(total if w of other): Sigmoid_143.(Sigmoid)/broadcast_store/ptq_new_st/fusion,703488,102400,524288,51200,25600
+effctive ddr bandwidth(total if w of other): Sigmoid_143.(Sigmoid)/broadcast_store/ptq_new_st/fusion,795648,163840,524288,81920,25600
+ddr bandwidth(total if w of other): Sigmoid_149.(Sigmoid)/broadcast_store/ptq_new_st/fusion,283648,51200,196608,25600,10240
+effctive ddr bandwidth(total if w of other): Sigmoid_149.(Sigmoid)/broadcast_store/ptq_new_st/fusion,329728,81920,196608,40960,10240
+ddr bandwidth(total if w of other): Sigmoid_152.(Sigmoid)/broadcast_store/ptq_new_st/fusion,653824,30720,589824,25600,7680
+effctive ddr bandwidth(total if w of other): Sigmoid_152.(Sigmoid)/broadcast_store/ptq_new_st/fusion,687616,49152,589824,40960,7680
+ddr bandwidth(total if w of other): Sigmoid_155.(Sigmoid)/broadcast_store/ptq_new_st/fusion,214528,51200,131072,25600,6656
+effctive ddr bandwidth(total if w of other): Sigmoid_155.(Sigmoid)/broadcast_store/ptq_new_st/fusion,260608,81920,131072,40960,6656
+ddr bandwidth(total if w of other): Sigmoid_159.(Sigmoid)/broadcast_store/ptq_new_st/fusion,375808,51200,262144,51200,11264
+effctive ddr bandwidth(total if w of other): Sigmoid_159.(Sigmoid)/broadcast_store/ptq_new_st/fusion,437248,81920,262144,81920,11264
+ddr bandwidth(total if w of other): Sigmoid_162.(Sigmoid)/broadcast_store/ptq_new_st/fusion,214528,51200,131072,25600,6656
+effctive ddr bandwidth(total if w of other): Sigmoid_162.(Sigmoid)/broadcast_store/ptq_new_st/fusion,260608,81920,131072,40960,6656
+ddr bandwidth(total if w of other): Resize_164(Resize)_store/ptq_new_st/fusion,130048,25600,0,102400,2048
+effctive ddr bandwidth(total if w of other): Resize_164(Resize)_store/ptq_new_st/fusion,206848,40960,0,163840,2048
+ddr bandwidth(total if w of other): Sigmoid_173.(Sigmoid)/broadcast_store/ptq_new_st/fusion,755968,245760,442368,51200,16640
+effctive ddr bandwidth(total if w of other): Sigmoid_173.(Sigmoid)/broadcast_store/ptq_new_st/fusion,934144,393216,442368,81920,16640
+ddr bandwidth(total if w of other): Sigmoid_176.(Sigmoid)/broadcast_store/ptq_new_st/fusion,328448,204800,65536,51200,6912
+effctive ddr bandwidth(total if w of other): Sigmoid_176.(Sigmoid)/broadcast_store/ptq_new_st/fusion,482048,327680,65536,81920,6912
+ddr bandwidth(total if w of other): Sigmoid_183.(Sigmoid)/broadcast_store/ptq_new_st/fusion,258816,102400,98304,51200,6912
+effctive ddr bandwidth(total if w of other): Sigmoid_183.(Sigmoid)/broadcast_store/ptq_new_st/fusion,350976,163840,98304,81920,6912
+ddr bandwidth(total if w of other): Resize_185(Resize)_store/ptq_new_st/fusion,257024,51200,0,204800,1024
+effctive ddr bandwidth(total if w of other): Resize_185(Resize)_store/ptq_new_st/fusion,328704,81920,0,245760,1024
+ddr bandwidth(total if w of other): Sigmoid_194.(Sigmoid)/broadcast_store/ptq_new_st/fusion,693632,471040,110592,102400,9600
+effctive ddr bandwidth(total if w of other): Sigmoid_194.(Sigmoid)/broadcast_store/ptq_new_st/fusion,808320,565248,110592,122880,9600
+ddr bandwidth(total if w of other): Sigmoid_197.(Sigmoid)/broadcast_store/ptq_new_st/fusion,533120,409600,16384,102400,4736
+effctive ddr bandwidth(total if w of other): Sigmoid_197.(Sigmoid)/broadcast_store/ptq_new_st/fusion,635520,491520,16384,122880,4736
+ddr bandwidth(total if w of other): Sigmoid_201.(Sigmoid)/broadcast_store/ptq_new_st/fusion,429824,204800,16384,204800,3840
+effctive ddr bandwidth(total if w of other): Sigmoid_201.(Sigmoid)/broadcast_store/ptq_new_st/fusion,511744,245760,16384,245760,3840
+ddr bandwidth(total if w of other): Conv_243(Conv)_store/fusion,1873522,204800,32640,1632000,4082
+effctive ddr bandwidth(total if w of other): Conv_243(Conv)_store/fusion,1914496,245760,32640,1632000,4096
+ddr bandwidth(total if w of other): Sigmoid_204.(Sigmoid)/broadcast_store/ptq_new_st/fusion,412416,209920,147456,51200,3840
+effctive ddr bandwidth(total if w of other): Sigmoid_204.(Sigmoid)/broadcast_store/ptq_new_st/fusion,485120,251904,147456,81920,3840
+ddr bandwidth(total if w of other): Sigmoid_214.(Sigmoid)/broadcast_store/ptq_new_st/fusion,368896,112640,196608,51200,8448
+effctive ddr bandwidth(total if w of other): Sigmoid_214.(Sigmoid)/broadcast_store/ptq_new_st/fusion,467200,180224,196608,81920,8448
+ddr bandwidth(total if w of other): Sigmoid_217.(Sigmoid)/broadcast_store/ptq_new_st/fusion,189696,102400,32768,51200,3328
+effctive ddr bandwidth(total if w of other): Sigmoid_217.(Sigmoid)/broadcast_store/ptq_new_st/fusion,281856,163840,32768,81920,3328
+ddr bandwidth(total if w of other): Sigmoid_221.(Sigmoid)/broadcast_store/ptq_new_st/fusion,275968,102400,65536,102400,5632
+effctive ddr bandwidth(total if w of other): Sigmoid_221.(Sigmoid)/broadcast_store/ptq_new_st/fusion,398848,163840,65536,163840,5632
+ddr bandwidth(total if w of other): Conv_244(Conv)_store/fusion,580274,102400,65280,408000,4594
+effctive ddr bandwidth(total if w of other): Conv_244(Conv)_store/fusion,641728,163840,65280,408000,4608
+ddr bandwidth(total if w of other): Sigmoid_224.(Sigmoid)/broadcast_store/ptq_new_st/fusion,744960,117760,589824,25600,11776
+effctive ddr bandwidth(total if w of other): Sigmoid_224.(Sigmoid)/broadcast_store/ptq_new_st/fusion,830976,188416,589824,40960,11776
+ddr bandwidth(total if w of other): Sigmoid_231.(Sigmoid)/broadcast_store/ptq_new_st/fusion,283648,51200,196608,25600,10240
+effctive ddr bandwidth(total if w of other): Sigmoid_231.(Sigmoid)/broadcast_store/ptq_new_st/fusion,329728,81920,196608,40960,10240
+ddr bandwidth(total if w of other): Sigmoid_234.(Sigmoid)/broadcast_store/ptq_new_st/fusion,653824,30720,589824,25600,7680
+effctive ddr bandwidth(total if w of other): Sigmoid_234.(Sigmoid)/broadcast_store/ptq_new_st/fusion,687616,49152,589824,40960,7680
+ddr bandwidth(total if w of other): Sigmoid_237.(Sigmoid)/broadcast_store/ptq_new_st/fusion,214528,51200,131072,25600,6656
+effctive ddr bandwidth(total if w of other): Sigmoid_237.(Sigmoid)/broadcast_store/ptq_new_st/fusion,260608,81920,131072,40960,6656
+ddr bandwidth(total if w of other): Sigmoid_241.(Sigmoid)/broadcast_store/ptq_new_st/fusion,375808,51200,262144,51200,11264
+effctive ddr bandwidth(total if w of other): Sigmoid_241.(Sigmoid)/broadcast_store/ptq_new_st/fusion,437248,81920,262144,81920,11264
+ddr bandwidth(total if w of other): Conv_245(Conv)_store/fusion,289378,51200,130560,102000,5618
+effctive ddr bandwidth(total if w of other): Conv_245(Conv)_store/fusion,340512,81920,130560,122400,5632
+ddr bandwidth(total if w of other): input_norm_div_store/fusion,921684,307200,0,614400,84
+effctive ddr bandwidth(total if w of other): input_norm_div_store/fusion,921760,307200,0,614400,160
+ddr bandwidth(total if w of other): Concat_40(Concat)_2CHW_store/fusion,1228800,614400,0,614400,0
+effctive ddr bandwidth(total if w of other): Concat_40(Concat)_2CHW_store/fusion,1228800,614400,0,614400,0
+ddr bandwidth(total if w of other): Concat_40(Concat)_22CHW_store/fusion,1228800,614400,0,614400,0
+effctive ddr bandwidth(total if w of other): Concat_40(Concat)_22CHW_store/fusion,3072000,2457600,0,614400,0
+ddr bandwidth(total if w of other): Sigmoid_45.(Sigmoid)/broadcast_store/fusion,1558976,695040,43776,819200,960
+effctive ddr bandwidth(total if w of other): Sigmoid_45.(Sigmoid)/broadcast_store/fusion,1558976,695040,43776,819200,960
+ddr bandwidth(total if w of other): Sigmoid_48.(Sigmoid)/broadcast_store/fusion,1233216,819200,4096,409600,320
+effctive ddr bandwidth(total if w of other): Sigmoid_48.(Sigmoid)/broadcast_store/fusion,1233216,819200,4096,409600,320
+ddr bandwidth(total if w of other): Sigmoid_54.(Sigmoid)/broadcast_store/fusion,850560,419840,20480,409600,640
+effctive ddr bandwidth(total if w of other): Sigmoid_54.(Sigmoid)/broadcast_store/fusion,850560,419840,20480,409600,640
+ddr bandwidth(total if w of other): Add_56(binary_add)/binary_add_0/fusion,1228800,819200,0,409600,0
+effctive ddr bandwidth(total if w of other): Add_56(binary_add)/binary_add_0/fusion,1228800,819200,0,409600,0
+ddr bandwidth(total if w of other): Sigmoid_58.(Sigmoid)/broadcast_store/fusion,1233216,819200,4096,409600,320
+effctive ddr bandwidth(total if w of other): Sigmoid_58.(Sigmoid)/broadcast_store/fusion,1233216,819200,4096,409600,320
+ddr bandwidth(total if w of other): Sigmoid_65.(Sigmoid)/broadcast_store/fusion,1427328,860160,155648,409600,1920
+effctive ddr bandwidth(total if w of other): Sigmoid_65.(Sigmoid)/broadcast_store/fusion,1427328,860160,155648,409600,1920
+ddr bandwidth(total if w of other): Sigmoid_68.(Sigmoid)/broadcast_store/fusion,631424,409600,16384,204800,640
+effctive ddr bandwidth(total if w of other): Sigmoid_68.(Sigmoid)/broadcast_store/fusion,631424,409600,16384,204800,640
+ddr bandwidth(total if w of other): Sigmoid_74.(Sigmoid)/broadcast_store/fusion,492800,204800,81920,204800,1280
+effctive ddr bandwidth(total if w of other): Sigmoid_74.(Sigmoid)/broadcast_store/fusion,492800,204800,81920,204800,1280
+ddr bandwidth(total if w of other): Add_76(binary_add)/binary_add_0/fusion,614400,409600,0,204800,0
+effctive ddr bandwidth(total if w of other): Add_76(binary_add)/binary_add_0/fusion,614400,409600,0,204800,0
+ddr bandwidth(total if w of other): Sigmoid_81.(Sigmoid)/broadcast_store/fusion,492800,204800,81920,204800,1280
+effctive ddr bandwidth(total if w of other): Sigmoid_81.(Sigmoid)/broadcast_store/fusion,492800,204800,81920,204800,1280
+ddr bandwidth(total if w of other): Add_83(binary_add)/binary_add_0/fusion,614400,409600,0,204800,0
+effctive ddr bandwidth(total if w of other): Add_83(binary_add)/binary_add_0/fusion,614400,409600,0,204800,0
+ddr bandwidth(total if w of other): Sigmoid_88.(Sigmoid)/broadcast_store/fusion,492800,204800,81920,204800,1280
+effctive ddr bandwidth(total if w of other): Sigmoid_88.(Sigmoid)/broadcast_store/fusion,492800,204800,81920,204800,1280
+ddr bandwidth(total if w of other): Add_90(binary_add)/binary_add_0/fusion,614400,409600,0,204800,0
+effctive ddr bandwidth(total if w of other): Add_90(binary_add)/binary_add_0/fusion,614400,409600,0,204800,0
+ddr bandwidth(total if w of other): Sigmoid_92.(Sigmoid)/broadcast_store/fusion,631424,409600,16384,204800,640
+effctive ddr bandwidth(total if w of other): Sigmoid_92.(Sigmoid)/broadcast_store/fusion,631424,409600,16384,204800,640
+ddr bandwidth(total if w of other): Sigmoid_96.(Sigmoid)/broadcast_store/fusion,853248,409600,32768,409600,1280
+effctive ddr bandwidth(total if w of other): Sigmoid_96.(Sigmoid)/broadcast_store/fusion,853248,409600,32768,409600,1280
+ddr bandwidth(total if w of other): Sigmoid_99.(Sigmoid)/broadcast_store/fusion,1227264,430080,589824,204800,2560
+effctive ddr bandwidth(total if w of other): Sigmoid_99.(Sigmoid)/broadcast_store/fusion,1268224,430080,589824,245760,2560
+ddr bandwidth(total if w of other): Sigmoid_102.(Sigmoid)/broadcast_store/fusion,374016,204800,65536,102400,1280
+effctive ddr bandwidth(total if w of other): Sigmoid_102.(Sigmoid)/broadcast_store/fusion,435456,245760,65536,122880,1280
+ddr bandwidth(total if w of other): Sigmoid_108.(Sigmoid)/broadcast_store/fusion,535040,102400,327680,102400,2560
+effctive ddr bandwidth(total if w of other): Sigmoid_108.(Sigmoid)/broadcast_store/fusion,576000,122880,327680,122880,2560
+ddr bandwidth(total if w of other): Add_110(binary_add)/binary_add_0/fusion,307200,204800,0,102400,0
+effctive ddr bandwidth(total if w of other): Add_110(binary_add)/binary_add_0/fusion,368640,245760,0,122880,0
+ddr bandwidth(total if w of other): Sigmoid_115.(Sigmoid)/broadcast_store/fusion,535040,102400,327680,102400,2560
+effctive ddr bandwidth(total if w of other): Sigmoid_115.(Sigmoid)/broadcast_store/fusion,576000,122880,327680,122880,2560
+ddr bandwidth(total if w of other): Add_117(binary_add)/binary_add_0/fusion,307200,204800,0,102400,0
+effctive ddr bandwidth(total if w of other): Add_117(binary_add)/binary_add_0/fusion,368640,245760,0,122880,0
+ddr bandwidth(total if w of other): Sigmoid_122.(Sigmoid)/broadcast_store/fusion,535040,102400,327680,102400,2560
+effctive ddr bandwidth(total if w of other): Sigmoid_122.(Sigmoid)/broadcast_store/fusion,576000,122880,327680,122880,2560
+ddr bandwidth(total if w of other): Add_124(binary_add)/binary_add_0/fusion,307200,204800,0,102400,0
+effctive ddr bandwidth(total if w of other): Add_124(binary_add)/binary_add_0/fusion,368640,245760,0,122880,0
+ddr bandwidth(total if w of other): Sigmoid_126.(Sigmoid)/broadcast_store/fusion,374016,204800,65536,102400,1280
+effctive ddr bandwidth(total if w of other): Sigmoid_126.(Sigmoid)/broadcast_store/fusion,435456,245760,65536,122880,1280
+ddr bandwidth(total if w of other): Sigmoid_130.(Sigmoid)/broadcast_store/fusion,543232,204800,131072,204800,2560
+effctive ddr bandwidth(total if w of other): Sigmoid_130.(Sigmoid)/broadcast_store/fusion,625152,245760,131072,245760,2560
+ddr bandwidth(total if w of other): Sigmoid_133.(Sigmoid)/broadcast_store/fusion,2671616,204800,2359296,102400,5120
+effctive ddr bandwidth(total if w of other): Sigmoid_133.(Sigmoid)/broadcast_store/fusion,2774016,245760,2359296,163840,5120
+ddr bandwidth(total if w of other): Sigmoid_136.(Sigmoid)/broadcast_store/fusion,418304,102400,262144,51200,2560
+effctive ddr bandwidth(total if w of other): Sigmoid_136.(Sigmoid)/broadcast_store/fusion,510464,163840,262144,81920,2560
+ddr bandwidth(total if w of other): MaxPool_138.reduce_max(Pool)_store/fusion,102400,51200,0,51200,0
+effctive ddr bandwidth(total if w of other): MaxPool_138.reduce_max(Pool)_store/fusion,163840,81920,0,81920,0
+ddr bandwidth(total if w of other): MaxPool_139.reduce_max(Pool)_store/fusion,102400,51200,0,51200,0
+effctive ddr bandwidth(total if w of other): MaxPool_139.reduce_max(Pool)_store/fusion,163840,81920,0,81920,0
+ddr bandwidth(total if w of other): MaxPool_140.reduce_max(Pool)_store/fusion,102400,51200,0,51200,0
+effctive ddr bandwidth(total if w of other): MaxPool_140.reduce_max(Pool)_store/fusion,163840,81920,0,81920,0
+ddr bandwidth(total if w of other): Sigmoid_143.(Sigmoid)/broadcast_store/fusion,1360896,204800,1048576,102400,5120
+effctive ddr bandwidth(total if w of other): Sigmoid_143.(Sigmoid)/broadcast_store/fusion,1545216,327680,1048576,163840,5120
+ddr bandwidth(total if w of other): Sigmoid_149.(Sigmoid)/broadcast_store/fusion,551936,102400,393216,51200,5120
+effctive ddr bandwidth(total if w of other): Sigmoid_149.(Sigmoid)/broadcast_store/fusion,644096,163840,393216,81920,5120
+ddr bandwidth(total if w of other): Sigmoid_152.(Sigmoid)/broadcast_store/fusion,1294848,61440,1179648,51200,2560
+effctive ddr bandwidth(total if w of other): Sigmoid_152.(Sigmoid)/broadcast_store/fusion,1362432,98304,1179648,81920,2560
+ddr bandwidth(total if w of other): Sigmoid_155.(Sigmoid)/broadcast_store/fusion,418304,102400,262144,51200,2560
+effctive ddr bandwidth(total if w of other): Sigmoid_155.(Sigmoid)/broadcast_store/fusion,510464,163840,262144,81920,2560
+ddr bandwidth(total if w of other): Sigmoid_159.(Sigmoid)/broadcast_store/fusion,734208,102400,524288,102400,5120
+effctive ddr bandwidth(total if w of other): Sigmoid_159.(Sigmoid)/broadcast_store/fusion,857088,163840,524288,163840,5120
+ddr bandwidth(total if w of other): Sigmoid_162.(Sigmoid)/broadcast_store/fusion,418304,102400,262144,51200,2560
+effctive ddr bandwidth(total if w of other): Sigmoid_162.(Sigmoid)/broadcast_store/fusion,510464,163840,262144,81920,2560
+ddr bandwidth(total if w of other): Resize_164(Resize)_store/fusion,256000,51200,0,204800,0
+effctive ddr bandwidth(total if w of other): Resize_164(Resize)_store/fusion,327680,81920,0,245760,0
+ddr bandwidth(total if w of other): Sigmoid_173.(Sigmoid)/broadcast_store/fusion,1485056,491520,884736,102400,6400
+effctive ddr bandwidth(total if w of other): Sigmoid_173.(Sigmoid)/broadcast_store/fusion,1603840,589824,884736,122880,6400
+ddr bandwidth(total if w of other): Sigmoid_176.(Sigmoid)/broadcast_store/fusion,644352,409600,131072,102400,1280
+effctive ddr bandwidth(total if w of other): Sigmoid_176.(Sigmoid)/broadcast_store/fusion,746752,491520,131072,122880,1280
+ddr bandwidth(total if w of other): Sigmoid_183.(Sigmoid)/broadcast_store/fusion,507648,204800,196608,102400,3840
+effctive ddr bandwidth(total if w of other): Sigmoid_183.(Sigmoid)/broadcast_store/fusion,569088,245760,196608,122880,3840
+ddr bandwidth(total if w of other): Resize_185(Resize)_store/fusion,512000,102400,0,409600,0
+effctive ddr bandwidth(total if w of other): Resize_185(Resize)_store/fusion,532480,122880,0,409600,0
+ddr bandwidth(total if w of other): Sigmoid_194.(Sigmoid)/broadcast_store/fusion,1371264,942080,221184,204800,3200
+effctive ddr bandwidth(total if w of other): Sigmoid_194.(Sigmoid)/broadcast_store/fusion,1371264,942080,221184,204800,3200
+ddr bandwidth(total if w of other): Sigmoid_197.(Sigmoid)/broadcast_store/fusion,1057408,819200,32768,204800,640
+effctive ddr bandwidth(total if w of other): Sigmoid_197.(Sigmoid)/broadcast_store/fusion,1057408,819200,32768,204800,640
+ddr bandwidth(total if w of other): Sigmoid_201.(Sigmoid)/broadcast_store/fusion,853248,409600,32768,409600,1280
+effctive ddr bandwidth(total if w of other): Sigmoid_201.(Sigmoid)/broadcast_store/fusion,853248,409600,32768,409600,1280
+ddr bandwidth(total if w of other): Conv_243(Conv)_store/fusion,2109430,409600,65280,1632000,2550
+effctive ddr bandwidth(total if w of other): Conv_243(Conv)_store/fusion,2109440,409600,65280,1632000,2560
+ddr bandwidth(total if w of other): Sigmoid_204.(Sigmoid)/broadcast_store/fusion,818432,419840,294912,102400,1280
+effctive ddr bandwidth(total if w of other): Sigmoid_204.(Sigmoid)/broadcast_store/fusion,838912,419840,294912,122880,1280
+ddr bandwidth(total if w of other): Sigmoid_214.(Sigmoid)/broadcast_store/fusion,724736,225280,393216,102400,3840
+effctive ddr bandwidth(total if w of other): Sigmoid_214.(Sigmoid)/broadcast_store/fusion,790272,270336,393216,122880,3840
+ddr bandwidth(total if w of other): Sigmoid_217.(Sigmoid)/broadcast_store/fusion,374016,204800,65536,102400,1280
+effctive ddr bandwidth(total if w of other): Sigmoid_217.(Sigmoid)/broadcast_store/fusion,435456,245760,65536,122880,1280
+ddr bandwidth(total if w of other): Sigmoid_221.(Sigmoid)/broadcast_store/fusion,543232,204800,131072,204800,2560
+effctive ddr bandwidth(total if w of other): Sigmoid_221.(Sigmoid)/broadcast_store/fusion,625152,245760,131072,245760,2560
+ddr bandwidth(total if w of other): Conv_244(Conv)_store/fusion,745910,204800,130560,408000,2550
+effctive ddr bandwidth(total if w of other): Conv_244(Conv)_store/fusion,786880,245760,130560,408000,2560
+ddr bandwidth(total if w of other): Sigmoid_224.(Sigmoid)/broadcast_store/fusion,1468928,235520,1179648,51200,2560
+effctive ddr bandwidth(total if w of other): Sigmoid_224.(Sigmoid)/broadcast_store/fusion,1546752,282624,1179648,81920,2560
+ddr bandwidth(total if w of other): Sigmoid_231.(Sigmoid)/broadcast_store/fusion,551936,102400,393216,51200,5120
+effctive ddr bandwidth(total if w of other): Sigmoid_231.(Sigmoid)/broadcast_store/fusion,644096,163840,393216,81920,5120
+ddr bandwidth(total if w of other): Sigmoid_234.(Sigmoid)/broadcast_store/fusion,1294848,61440,1179648,51200,2560
+effctive ddr bandwidth(total if w of other): Sigmoid_234.(Sigmoid)/broadcast_store/fusion,1362432,98304,1179648,81920,2560
+ddr bandwidth(total if w of other): Sigmoid_237.(Sigmoid)/broadcast_store/fusion,418304,102400,262144,51200,2560
+effctive ddr bandwidth(total if w of other): Sigmoid_237.(Sigmoid)/broadcast_store/fusion,510464,163840,262144,81920,2560
+ddr bandwidth(total if w of other): Sigmoid_241.(Sigmoid)/broadcast_store/fusion,734208,102400,524288,102400,5120
+effctive ddr bandwidth(total if w of other): Sigmoid_241.(Sigmoid)/broadcast_store/fusion,857088,163840,524288,163840,5120
+ddr bandwidth(total if w of other): Conv_245(Conv)_store/fusion,468070,102400,261120,102000,2550
+effctive ddr bandwidth(total if w of other): Conv_245(Conv)_store/fusion,549920,163840,261120,122400,2560
+ddr bandwidth(total if w of other): swapRB_slice_NCHW_2/copy_store/fusion,204800,102400,0,102400,0
+effctive ddr bandwidth(total if w of other): swapRB_slice_NCHW_2/copy_store/fusion,204800,102400,0,102400,0
+ddr bandwidth(total if w of other): swapRB_slice_NCHW_1/copy_store/fusion,204800,102400,0,102400,0
+effctive ddr bandwidth(total if w of other): swapRB_slice_NCHW_1/copy_store/fusion,204800,102400,0,102400,0
+ddr bandwidth(total if w of other): swapRB_slice_NCHW_0/copy_store/fusion,204800,102400,0,102400,0
+effctive ddr bandwidth(total if w of other): swapRB_slice_NCHW_0/copy_store/fusion,204800,102400,0,102400,0
+ddr bandwidth(total if w of other): Conv_20(Conv)_store/ptq_new_st/fusion,589062,441600,28176,102400,16886
+effctive ddr bandwidth(total if w of other): Conv_20(Conv)_store/ptq_new_st/fusion,609616,441600,28224,122880,16912
+ddr bandwidth(total if w of other): Conv_54(Conv)_store/ptq_new_st/fusion,210304,102400,4096,102400,1408
+effctive ddr bandwidth(total if w of other): Conv_54(Conv)_store/ptq_new_st/fusion,251264,122880,4096,122880,1408
+ddr bandwidth(total if w of other): Conv_44(Conv)_store/ptq_new_st/fusion,271424,102400,96448,51200,21376
+effctive ddr bandwidth(total if w of other): Conv_44(Conv)_store/ptq_new_st/fusion,322624,122880,96448,81920,21376
+ddr bandwidth(total if w of other): Conv_56(Conv)_store/ptq_new_st/fusion,86656,51200,8192,25600,1664
+effctive ddr bandwidth(total if w of other): Conv_56(Conv)_store/ptq_new_st/fusion,132736,81920,8192,40960,1664
+ddr bandwidth(total if w of other): Conv_58(Conv)_store/ptq_new_st/fusion,189952,51200,118144,6400,14208
+effctive ddr bandwidth(total if w of other): Conv_58(Conv)_store/ptq_new_st/fusion,224512,81920,118144,10240,14208
+ddr bandwidth(total if w of other): Add_77(binary_add)/binary_add_0/ptq_new_st/fusion,58368,32000,0,25600,768
+effctive ddr bandwidth(total if w of other): Add_77(binary_add)/binary_add_0/ptq_new_st/fusion,92928,51200,0,40960,768
+ddr bandwidth(total if w of other): Conv_78(Conv)_store/ptq_new_st/fusion,89472,25600,36864,25600,1408
+effctive ddr bandwidth(total if w of other): Conv_78(Conv)_store/ptq_new_st/fusion,120192,40960,36864,40960,1408
+ddr bandwidth(total if w of other): Add_97(binary_add)/binary_add_0/ptq_new_st/fusion,231168,128000,0,102400,768
+effctive ddr bandwidth(total if w of other): Add_97(binary_add)/binary_add_0/ptq_new_st/fusion,287488,163840,0,122880,768
+ddr bandwidth(total if w of other): Conv_98(Conv)_store/ptq_new_st/fusion,243072,102400,36864,102400,1408
+effctive ddr bandwidth(total if w of other): Conv_98(Conv)_store/ptq_new_st/fusion,284032,122880,36864,122880,1408
+ddr bandwidth(total if w of other): Conv_100(Conv)_store/ptq_new_st/fusion,172864,102400,18432,51200,832
+effctive ddr bandwidth(total if w of other): Conv_100(Conv)_store/ptq_new_st/fusion,203584,122880,18432,61440,832
+ddr bandwidth(total if w of other): Conv_101(Conv)_store/ptq_new_st/fusion,137760,102400,9216,25600,544
+effctive ddr bandwidth(total if w of other): Conv_101(Conv)_store/ptq_new_st/fusion,163360,122880,9216,30720,544
+ddr bandwidth(total if w of other): Conv_103(Conv)_store/ptq_new_st/fusion,53856,25600,2304,25600,352
+effctive ddr bandwidth(total if w of other): Conv_103(Conv)_store/ptq_new_st/fusion,64096,30720,2304,30720,352
+ddr bandwidth(total if w of other): Conv_106(Conv)_store/ptq_new_st/fusion,56384,25600,4608,25600,576
+effctive ddr bandwidth(total if w of other): Conv_106(Conv)_store/ptq_new_st/fusion,66624,30720,4608,30720,576
+ddr bandwidth(total if w of other): Relu_108.max(Relu)/binary_max_store/ptq_new_st/fusion,205312,102400,0,102400,512
+effctive ddr bandwidth(total if w of other): Relu_108.max(Relu)/binary_max_store/ptq_new_st/fusion,246272,122880,0,122880,512
+ddr bandwidth(total if w of other): Conv_127(Conv)_store/fusion,154480,102400,512,51200,368
+effctive ddr bandwidth(total if w of other): Conv_127(Conv)_store/fusion,174960,122880,512,51200,368
+ddr bandwidth(total if w of other): Conv_152(Conv)_store/fusion,128568,102400,256,25600,312
+effctive ddr bandwidth(total if w of other): Conv_152(Conv)_store/fusion,149056,122880,256,25600,320
+ddr bandwidth(total if w of other): Conv_177(Conv)_store/fusion,232216,102400,1280,128000,536
+effctive ddr bandwidth(total if w of other): Conv_177(Conv)_store/fusion,252704,122880,1280,128000,544
+ddr bandwidth(total if w of other): Conv_109(Conv)_store/ptq_new_st/fusion,57664,25600,18432,12800,832
+effctive ddr bandwidth(total if w of other): Conv_109(Conv)_store/ptq_new_st/fusion,80704,40960,18432,20480,832
+ddr bandwidth(total if w of other): Conv_110(Conv)_store/ptq_new_st/fusion,41760,25600,9216,6400,544
+effctive ddr bandwidth(total if w of other): Conv_110(Conv)_store/ptq_new_st/fusion,60960,40960,9216,10240,544
+ddr bandwidth(total if w of other): Conv_112(Conv)_store/ptq_new_st/fusion,15456,6400,2304,6400,352
+effctive ddr bandwidth(total if w of other): Conv_112(Conv)_store/ptq_new_st/fusion,23136,10240,2304,10240,352
+ddr bandwidth(total if w of other): Conv_115(Conv)_store/ptq_new_st/fusion,17984,6400,4608,6400,576
+effctive ddr bandwidth(total if w of other): Conv_115(Conv)_store/ptq_new_st/fusion,25664,10240,4608,10240,576
+ddr bandwidth(total if w of other): Relu_117.max(Relu)/binary_max_store/ptq_new_st/fusion,51712,25600,0,25600,512
+effctive ddr bandwidth(total if w of other): Relu_117.max(Relu)/binary_max_store/ptq_new_st/fusion,82432,40960,0,40960,512
+ddr bandwidth(total if w of other): Conv_135(Conv)_store/fusion,39280,25600,512,12800,368
+effctive ddr bandwidth(total if w of other): Conv_135(Conv)_store/fusion,54640,40960,512,12800,368
+ddr bandwidth(total if w of other): Conv_160(Conv)_store/fusion,32568,25600,256,6400,312
+effctive ddr bandwidth(total if w of other): Conv_160(Conv)_store/fusion,47936,40960,256,6400,320
+ddr bandwidth(total if w of other): Conv_185(Conv)_store/fusion,59416,25600,1280,32000,536
+effctive ddr bandwidth(total if w of other): Conv_185(Conv)_store/fusion,74784,40960,1280,32000,544
+ddr bandwidth(total if w of other): Conv_118(Conv)_store/ptq_new_st/fusion,28864,6400,18432,3200,832
+effctive ddr bandwidth(total if w of other): Conv_118(Conv)_store/ptq_new_st/fusion,34624,10240,18432,5120,832
+ddr bandwidth(total if w of other): Conv_119(Conv)_store/ptq_new_st/fusion,17760,6400,9216,1600,544
+effctive ddr bandwidth(total if w of other): Conv_119(Conv)_store/ptq_new_st/fusion,22560,10240,9216,2560,544
+ddr bandwidth(total if w of other): Conv_121(Conv)_store/ptq_new_st/fusion,5856,1600,2304,1600,352
+effctive ddr bandwidth(total if w of other): Conv_121(Conv)_store/ptq_new_st/fusion,7776,2560,2304,2560,352
+ddr bandwidth(total if w of other): Conv_124(Conv)_store/ptq_new_st/fusion,8384,1600,4608,1600,576
+effctive ddr bandwidth(total if w of other): Conv_124(Conv)_store/ptq_new_st/fusion,10304,2560,4608,2560,576
+ddr bandwidth(total if w of other): Relu_126.max(Relu)/binary_max_store/ptq_new_st/fusion,13312,6400,0,6400,512
+effctive ddr bandwidth(total if w of other): Relu_126.max(Relu)/binary_max_store/ptq_new_st/fusion,20992,10240,0,10240,512
+ddr bandwidth(total if w of other): Conv_143(Conv)_store/fusion,10480,6400,512,3200,368
+effctive ddr bandwidth(total if w of other): Conv_143(Conv)_store/fusion,14960,10240,512,3840,368
+ddr bandwidth(total if w of other): Conv_168(Conv)_store/fusion,8568,6400,256,1600,312
+effctive ddr bandwidth(total if w of other): Conv_168(Conv)_store/fusion,12736,10240,256,1920,320
+ddr bandwidth(total if w of other): Conv_193(Conv)_store/fusion,16216,6400,1280,8000,536
+effctive ddr bandwidth(total if w of other): Conv_193(Conv)_store/fusion,21664,10240,1280,9600,544
+ddr bandwidth(total if w of other): swapRB_slice_NCHW_2/copy_store/fusion,204800,102400,0,102400,0
+effctive ddr bandwidth(total if w of other): swapRB_slice_NCHW_2/copy_store/fusion,204800,102400,0,102400,0
+ddr bandwidth(total if w of other): swapRB_slice_NCHW_1/copy_store/fusion,204800,102400,0,102400,0
+effctive ddr bandwidth(total if w of other): swapRB_slice_NCHW_1/copy_store/fusion,204800,102400,0,102400,0
+ddr bandwidth(total if w of other): swapRB_slice_NCHW_0/copy_store/fusion,204800,102400,0,102400,0
+effctive ddr bandwidth(total if w of other): swapRB_slice_NCHW_0/copy_store/fusion,204800,102400,0,102400,0
+ddr bandwidth(total if w of other): Conv_20(Conv)_store/fusion,713942,441600,56352,204800,11190
+effctive ddr bandwidth(total if w of other): Conv_20(Conv)_store/fusion,713968,441600,56352,204800,11216
+ddr bandwidth(total if w of other): Conv_54(Conv)_store/fusion,418432,204800,8192,204800,640
+effctive ddr bandwidth(total if w of other): Conv_54(Conv)_store/fusion,418432,204800,8192,204800,640
+ddr bandwidth(total if w of other): Conv_44(Conv)_store/fusion,514816,204800,192896,102400,14720
+effctive ddr bandwidth(total if w of other): Conv_44(Conv)_store/fusion,535296,204800,192896,122880,14720
+ddr bandwidth(total if w of other): Conv_56(Conv)_store/fusion,170624,102400,16384,51200,640
+effctive ddr bandwidth(total if w of other): Conv_56(Conv)_store/fusion,201344,122880,16384,61440,640
+ddr bandwidth(total if w of other): Conv_58(Conv)_store/fusion,361088,102400,236288,12800,9600
+effctive ddr bandwidth(total if w of other): Conv_58(Conv)_store/fusion,389248,122880,236288,20480,9600
+ddr bandwidth(total if w of other): Add_77(binary_add)/binary_add_0/fusion,115200,64000,0,51200,0
+effctive ddr bandwidth(total if w of other): Add_77(binary_add)/binary_add_0/fusion,143360,81920,0,61440,0
+ddr bandwidth(total if w of other): Conv_78(Conv)_store/fusion,176768,51200,73728,51200,640
+effctive ddr bandwidth(total if w of other): Conv_78(Conv)_store/fusion,197248,61440,73728,61440,640
+ddr bandwidth(total if w of other): Add_97(binary_add)/binary_add_0/fusion,460800,256000,0,204800,0
+effctive ddr bandwidth(total if w of other): Add_97(binary_add)/binary_add_0/fusion,471040,266240,0,204800,0
+ddr bandwidth(total if w of other): Conv_98(Conv)_store/fusion,483968,204800,73728,204800,640
+effctive ddr bandwidth(total if w of other): Conv_98(Conv)_store/fusion,483968,204800,73728,204800,640
+ddr bandwidth(total if w of other): Conv_100(Conv)_store/fusion,344384,204800,36864,102400,320
+effctive ddr bandwidth(total if w of other): Conv_100(Conv)_store/fusion,344384,204800,36864,102400,320
+ddr bandwidth(total if w of other): Conv_101(Conv)_store/fusion,274592,204800,18432,51200,160
+effctive ddr bandwidth(total if w of other): Conv_101(Conv)_store/fusion,274592,204800,18432,51200,160
+ddr bandwidth(total if w of other): Conv_103(Conv)_store/fusion,107168,51200,4608,51200,160
+effctive ddr bandwidth(total if w of other): Conv_103(Conv)_store/fusion,107168,51200,4608,51200,160
+ddr bandwidth(total if w of other): Conv_106(Conv)_store/fusion,111936,51200,9216,51200,320
+effctive ddr bandwidth(total if w of other): Conv_106(Conv)_store/fusion,111936,51200,9216,51200,320
+ddr bandwidth(total if w of other): Relu_108.max(Relu)/binary_max_store/fusion,409600,204800,0,204800,0
+effctive ddr bandwidth(total if w of other): Relu_108.max(Relu)/binary_max_store/fusion,409600,204800,0,204800,0
+ddr bandwidth(total if w of other): Conv_127(Conv)_store/fusion,257104,204800,1024,51200,80
+effctive ddr bandwidth(total if w of other): Conv_127(Conv)_store/fusion,257104,204800,1024,51200,80
+ddr bandwidth(total if w of other): Conv_152(Conv)_store/fusion,230952,204800,512,25600,40
+effctive ddr bandwidth(total if w of other): Conv_152(Conv)_store/fusion,230960,204800,512,25600,48
+ddr bandwidth(total if w of other): Conv_177(Conv)_store/fusion,335560,204800,2560,128000,200
+effctive ddr bandwidth(total if w of other): Conv_177(Conv)_store/fusion,335568,204800,2560,128000,208
+ddr bandwidth(total if w of other): Conv_109(Conv)_store/fusion,113984,51200,36864,25600,320
+effctive ddr bandwidth(total if w of other): Conv_109(Conv)_store/fusion,129344,61440,36864,30720,320
+ddr bandwidth(total if w of other): Conv_110(Conv)_store/fusion,82592,51200,18432,12800,160
+effctive ddr bandwidth(total if w of other): Conv_110(Conv)_store/fusion,95392,61440,18432,15360,160
+ddr bandwidth(total if w of other): Conv_112(Conv)_store/fusion,30368,12800,4608,12800,160
+effctive ddr bandwidth(total if w of other): Conv_112(Conv)_store/fusion,35488,15360,4608,15360,160
+ddr bandwidth(total if w of other): Conv_115(Conv)_store/fusion,35136,12800,9216,12800,320
+effctive ddr bandwidth(total if w of other): Conv_115(Conv)_store/fusion,40256,15360,9216,15360,320
+ddr bandwidth(total if w of other): Relu_117.max(Relu)/binary_max_store/fusion,102400,51200,0,51200,0
+effctive ddr bandwidth(total if w of other): Relu_117.max(Relu)/binary_max_store/fusion,122880,61440,0,61440,0
+ddr bandwidth(total if w of other): Conv_135(Conv)_store/fusion,65104,51200,1024,12800,80
+effctive ddr bandwidth(total if w of other): Conv_135(Conv)_store/fusion,75344,61440,1024,12800,80
+ddr bandwidth(total if w of other): Conv_160(Conv)_store/fusion,58152,51200,512,6400,40
+effctive ddr bandwidth(total if w of other): Conv_160(Conv)_store/fusion,68400,61440,512,6400,48
+ddr bandwidth(total if w of other): Conv_185(Conv)_store/fusion,85960,51200,2560,32000,200
+effctive ddr bandwidth(total if w of other): Conv_185(Conv)_store/fusion,96208,61440,2560,32000,208
+ddr bandwidth(total if w of other): Conv_118(Conv)_store/fusion,56384,12800,36864,6400,320
+effctive ddr bandwidth(total if w of other): Conv_118(Conv)_store/fusion,67904,20480,36864,10240,320
+ddr bandwidth(total if w of other): Conv_119(Conv)_store/fusion,34592,12800,18432,3200,160
+effctive ddr bandwidth(total if w of other): Conv_119(Conv)_store/fusion,44192,20480,18432,5120,160
+ddr bandwidth(total if w of other): Conv_121(Conv)_store/fusion,11168,3200,4608,3200,160
+effctive ddr bandwidth(total if w of other): Conv_121(Conv)_store/fusion,15008,5120,4608,5120,160
+ddr bandwidth(total if w of other): Conv_124(Conv)_store/fusion,15936,3200,9216,3200,320
+effctive ddr bandwidth(total if w of other): Conv_124(Conv)_store/fusion,19776,5120,9216,5120,320
+ddr bandwidth(total if w of other): Relu_126.max(Relu)/binary_max_store/fusion,25600,12800,0,12800,0
+effctive ddr bandwidth(total if w of other): Relu_126.max(Relu)/binary_max_store/fusion,40960,20480,0,20480,0
+ddr bandwidth(total if w of other): Conv_143(Conv)_store/fusion,17104,12800,1024,3200,80
+effctive ddr bandwidth(total if w of other): Conv_143(Conv)_store/fusion,25424,20480,1024,3840,80
+ddr bandwidth(total if w of other): Conv_168(Conv)_store/fusion,14952,12800,512,1600,40
+effctive ddr bandwidth(total if w of other): Conv_168(Conv)_store/fusion,22960,20480,512,1920,48
+ddr bandwidth(total if w of other): Conv_193(Conv)_store/fusion,23560,12800,2560,8000,200
+effctive ddr bandwidth(total if w of other): Conv_193(Conv)_store/fusion,32848,20480,2560,9600,208

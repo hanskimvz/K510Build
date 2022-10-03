@@ -1,0 +1,4 @@
+.vscode
+build/ai/ai.tar
+build/ai/ai_kmodel_data/
+nand_target/

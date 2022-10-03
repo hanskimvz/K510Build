@@ -1,0 +1,1 @@
+rtc.o: rtc.c

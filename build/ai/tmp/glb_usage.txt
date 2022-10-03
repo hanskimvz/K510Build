@@ -1,0 +1,432 @@
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.965719	0.965739
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.983276	0.983317
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.987223	0.987223
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.983276	0.983317
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.94401	0.94401
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.994548	0.994548
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.958171	0.958171
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.958171	0.958171
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.958171	0.958171
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.994548	0.994548
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.967611	0.967611
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.950195	0.950195
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.707845	0.707845
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.853841	0.853841
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.853841	0.853841
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.853841	0.853841
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.707845	0.707845
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.883138	0.883138
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.50944	0.50944
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.945964	0.945964
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.677734	0.677734
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.992513	0.992513
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.50944	0.50944
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.745443	0.745443
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.50944	0.50944
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.972982	0.972982
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.99821	0.99821
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.967448	0.967448
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.981283	0.981283
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.971761	0.971761
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.967611	0.967611
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.998861	0.998861
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.976888	0.976888
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.707845	0.707845
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.883138	0.883138
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.976888	0.976888
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.677734	0.677734
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.992513	0.992513
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.50944	0.50944
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.745443	0.745443
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.820557	0.938395
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.794515	0.794515
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.743745	0.743815
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.36724	0.468913
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.965007	0.965007
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.982625	0.982666
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.986735	0.986735
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.982625	0.982666
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.942383	0.942383
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.993245	0.993245
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.957194	0.957194
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.957194	0.957194
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.957194	0.957194
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.993245	0.993245
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.999512	0.999512
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.94694	0.94694
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.705241	0.705241
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.851888	0.851888
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.851888	0.851888
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.851888	0.851888
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.705241	0.705241
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.879232	0.879232
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.504232	0.504232
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.935547	0.935547
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.672526	0.672526
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.988607	0.988607
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.504232	0.504232
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.73763	0.73763
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.504232	0.504232
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.969076	0.969076
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.994303	0.994303
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.964193	0.964193
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.979329	0.979329
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.969808	0.969808
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.999512	0.999512
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.996908	0.996908
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.974284	0.974284
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.705241	0.705241
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.879232	0.879232
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.972982	0.972982
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.672526	0.672526
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.988607	0.988607
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.504232	0.504232
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.73763	0.73763
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.818929	0.936768
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.794027	0.794027
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.742446	0.742513
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.365289	0.46696
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.943212	0.943278
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.751953	0.751953
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.56543	0.56543
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.222127	0.222168
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.0658773	0.065918
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.0248617	0.0249023
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.659098	0.659098
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.20874	0.309652
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.212484	0.313395
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.700765	0.700765
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.415894	0.451742
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.273132	0.374512
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.166565	0.267985
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.196523	0.330566
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.122925	0.256429
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0778198	0.228027
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0444946	0.194743
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0500387	0.208496
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0490316	0.207275
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0286662	0.191243
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0136515	0.17627
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0132548	0.177897
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.163447	0.313965
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0413768	0.204102
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0107778	0.176595
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.295751	0.380778
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0760244	0.222087
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0206858	0.18221
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.942561	0.942627
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.750326	0.750326
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.563151	0.563151
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.221883	0.221924
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.0656331	0.0656738
+--------------------------
+fusion type: multi-layer
+GLB usage(tensor, mmu): 0.0246175	0.0246582
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.65861	0.65861
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.208089	0.309001
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.211995	0.312907
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.700277	0.700277
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.415568	0.451416
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.272888	0.374186
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.166443	0.267741
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.19634	0.330322
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.122599	0.256104
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0775757	0.227702
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0443726	0.194499
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0498555	0.208252
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0487061	0.20695
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.028422	0.190918
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0135295	0.176025
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0130717	0.177653
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.163274	0.313721
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0412038	0.203857
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0106049	0.176351
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.295537	0.380534
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0758108	0.221842
+--------------------------
+fusion type: conv2d/conv2d_pdp/conv2d_meshnet
+GLB usage(tensor, mmu): 0.0204722	0.181966

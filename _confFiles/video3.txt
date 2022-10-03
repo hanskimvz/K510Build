@@ -1,0 +1,89 @@
+[root@canaan /app/encode_app ]$ ./encode_app -split 1 -ch 0 -i v4l2 -dev /dev/video3 -o rtsp -w 1920 -h 1080 -conf video_sample.conf
+-split: 1
+-ch0: 1
+ch0: /dev/video3
+width 1920
+height 1080
+conf_filename video_sample.conf
+ch0: enable_isp 0, enable_v4l2 1, enable_rtsp 1
+cur_ch:0,roiCtrlMode:0(0:NONE,1:RELATIVE,2:ABSOLUTE),sliceqp:25,minqp:0,maxqp:51,rcMode:1(0:CONST_QP, 1:CBR, 2:VBR),bitrate:4000kbps,maxbitrate:4000kbps,profile:2,gop:25,gdr:0(freq:25,mode:0(0:VERTICAL 1:HORIZONTAL)),LTR:0(0)
+ch0-Cfg.Framerate: 30
+AL_ShareMemAlloc_Create>fd_ddr 0x5, fd_share_memory 0x4
+---- FPGA board is ready ----
+  Board UID : 30AB6E51
+  Board HW ID : 620000E0
+  Board rev.  : DC4054E7
+  Board date  : 20191115
+-----------------------------
+MinQP:0,MaxQP:51,InitialQP:25
+Create_OutBuffers>count 4, size 3172352
+LCUWidth:120,LCUHeight:68,NumLCUs:8160
+VideoEncoder_Create>ok, hEnc 0xace00
+create rtspserver:8554success
+Play this stream using the URL "rtsp://192.168.1.209:8554/testStream" or "rtsp://[240e:3b1:940a:9760:680f:7ff:fe7c:618a]:8554/testStream"
+0x970E00f4: from 0x00550000 to 0x00110000
+0x970E00f8: from 0x00000000 to 0x00770000
+0x970E00fc: from 0x0fffff00 to 0x0fffff00
+0x99900290: from 0x00000133 to 0x00000110
+0x9990028c: from 0x00000001 to 0x00000000
+0x9990038c: from 0x00000003 to 0x00000000
+0x99900388: from 0x80000501 to 0x80000707
+0x99900388: from 0x00000300 to 0x00000300
+0x98000504: from 0x0001ffff to 0x00010303
+parse_conf
+pCtx->dev_name: /dev/video3
+video_used_name: video3_used
+video_width_name: video3_width
+video_height_name: video3_height
+parse_conf>modified
+parse conf done
+mediactl_init:video_real.conf
+dofile_video_cfg:video_real.conf
+doit_video_cfg:start
+doit_video_cfg:video5_pitch 0x146ab0
+cJSON_GetObjectItem: type=3, string is video5_pitch, valueint is 320 pitch is 320 
+doit_video_cfg:sensor1 cJSON_GetArraySize: size=8
+cJSON_GetArrayItem: type=4, string is sensor1_name, valuestring is m01_f_imx219_1 3-0010,m01_f_imx219_1 3-0010,8
+cJSON_GetArrayItem: type=4, string is sensor1_cfg_file, valuestring is imx219_1.conf,imx219_1.conf,8
+cJSON_GetObjectItem(sensor1_total_width): type=3, string is sensor1_total_width, valueint is 3476
+dofile_csi2:video_real.conf
+doit_csi2:start
+dofile_vi:video_real.conf
+doit_vi:start
+mediactl_init:imx219_0.conf
+dofile_isp:imx219_0.conf
+doit_isp:start
+cJSON_GetObjectItem: type=3, string is out_img_format, valueint is 1
+mediactl_init:imx219_1.conf
+dofile_isp:imx219_1.conf
+doit_isp:start
+cJSON_GetObjectItem: type=3, string is out_img_format, valueint is 1
+media_open:start
+media_enum_links:start!entities_count 22
+media_reset_links:start
+isp_f2k_video_init:entity(0x1632d0)isp->video(0x1632d0)
+isp_f2k_video_link:media_setup_link setup!
+main block alloc:0x16212000,size:12582912,align 4096
+main block alloc:0x15611000,size:12582912,align 4096
+isp_f2k_cfg:1920
+isp_f2k_cfg:total_width =3476,total_height =1166
+mediactl_init:total_size.width(0xd94),total_size.height(0x48e)
+run_f2k_ae_video ------------------- start  
+req.count 22
+v4l2_output
+  Encoding picture #140    - size 2400829=====================createNewStreamSource
+rtspserver->SetVideoDataState:1,0x1394e0
+=============================new H264FramedLiveSource
+rtspserver->SetVideoDataState:0,0x1394e0
+=============================delete H264FramedLiveSource
+=====================createNewStreamSource
+rtspserver->SetVideoDataState:1,0x1394e0
+=============================new H264FramedLiveSource
+  Encoding picture #661    - size 11021789the buffer is full,empty the buffer:1394f0,id:0
+  Encoding picture #22407  - size 373576052endof_encode
+22407 pictures encoded. Average FrameRate = 30.0376 Fps
+total_out_size 373576052
+fclose
+VideoEncoder_Destroy>ch 0 ok
+VideoEncoder_Destroy
+QoS restore
