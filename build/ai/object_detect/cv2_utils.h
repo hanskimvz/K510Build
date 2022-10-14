@@ -70,18 +70,18 @@ typedef struct Framesize
     int height;
 } Framesize;
 
-typedef struct ai_worker_args
-{
-    char* kmodel_path;
-    int net_len;
-    int valid_width;
-    int valid_height;
-    float obj_thresh;
-    float nms_thresh;
-    int is_rgb;
-    int enable_profile;
-    std::string dump_img_dir;
-}ai_worker_args;
+// typedef struct ai_worker_args
+// {
+//     char* kmodel_path;
+//     int net_len;
+//     int valid_width;
+//     int valid_height;
+//     float obj_thresh;
+//     float nms_thresh;
+//     int is_rgb;
+//     int enable_profile;
+//     std::string dump_img_dir;
+// }ai_worker_args;
 
 std::vector<BoxInfo> decode_infer(float *data, int net_size, int stride, int num_classes, Framesize frame_size, float anchors[][2], float threshold);
 void nms(std::vector<BoxInfo> &input_boxes, float NMS_THRESH);

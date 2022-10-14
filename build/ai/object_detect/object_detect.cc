@@ -124,7 +124,7 @@ void objectDetect::load_model(char *path)
     od_model = read_binary_file<unsigned char>(path);
     std::cout << "============> read binary complete " << std::endl;
     interp_od.load_model({ (const gsl::byte *)od_model.data(), od_model.size() }).expect("cannot load model.");
-    std::cout << "============> interp_od.load_model finished!" << std::endl;
+    // std::cout << "============> interp_od.load_model finished!" << std::endl;
 }
 
 void objectDetect::run()
