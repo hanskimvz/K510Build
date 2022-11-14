@@ -1581,7 +1581,7 @@ int mediactl_init(char *video_cfg_file, struct video_info *dev_info)
 		return -1;
 	}
 	//
-	ret = mipicsi2_cfg(v4l_isp.csi2,&mipi_csi2);
+	ret = mipicsi2_cfg(v4l_isp.csi2, &mipi_csi2);
 	if (ret < 0) {
 		printf("%s:error: unable to mipi_csi2 cfg %d\n",__func__,ret);
 		return -1;

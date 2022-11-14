@@ -99,6 +99,8 @@ using namespace std;
 #include <rapidjson/writer.h>
 using namespace rapidjson;
 
+#include "cJSON.h"
+#include "../../shared_mem_define.h"
 // #define SELECT_TIMEOUT		2000
 
 // struct video_info dev_info[2];
@@ -118,12 +120,12 @@ std::mutex mtx;
 // static char *video_cfg_file;
 // static buf_mgt_t buf_mgt;
 
+int     net_len = 320;                          // object detection kmodel input size is net_len * net_len
+float   obj_thresh = 0.3;                       // object detection thresh  0.5, The threshold used to distinguish between object and non-object
+float   nms_thresh = 0.45;   
+
 
 #define KMODEL_PATH "/app/ai/kmodel/kmodel_release/object_detect/yolov5s_320/yolov5s_320_sigmoid_bf16_with_preprocess_output_nhwc.kmodel"
-
-#include <sys/shm.h>
-#define SH_MEMSIZE  2048
-#define SH_KEY      0xF1206
 
 typedef struct  {
     uint16_t label;
@@ -132,15 +134,14 @@ typedef struct  {
     uint16_t x1; 
     uint16_t y0; 
     uint16_t y1; 
-} metaObject;
+} vcaObject;
 
-// struct f_result {
-//     uint8_t     cur_ch;
-//     uint16_t    frame_cnt;
-//     float       ts;
-//     uint16_t    fsize;
-//     od_result*  od_rs;
-// };
+typedef struct {
+    uint16_t  framecnt;
+    uint64_t timestamp;
+    uint32_t datalength;
+} vcaInfo;
+
 
 std::atomic<bool> quit(true);
 
@@ -150,10 +151,11 @@ void fun_sig(int sig) {
     }
 }
 
+#if 0
 // void ai_worker(ai_worker_args ai_args){
-void ai_worker(){
-    int shmid;
-    void *memory_segment = NULL;
+void ai_workerx(){
+    // int shmid;
+    // void *memory_segment = NULL;
     /*** Important, mediactl_init 
       		"/dev/video5":	{
 			"video5_used":	1,
@@ -184,14 +186,14 @@ void ai_worker(){
 
     metaObject obj_meta;
 
-    if((shmid=shmget(SH_KEY, SH_MEMSIZE, IPC_CREAT|0666))==-1){
-        printf("shmget failed\n");
-        quit.store(false);
-    }
-    if((memory_segment = shmat(shmid,NULL,0))==(void*)-1){
-        printf("shmat failed\n");
-        quit.store(false);
-    }
+    // if((shmid=shmget(SH_KEY, SH_MEMSIZE, IPC_CREAT|0666))==-1){
+    //     printf("shmget failed\n");
+    //     quit.store(false);
+    // }
+    // if((memory_segment = shmat(shmid,NULL,0))==(void*)-1){
+    //     printf("shmat failed\n");
+    //     quit.store(false);
+    // }
 
     // parse ai worker agrs
     char* kmodel_path;   // object detection kmodel path
@@ -286,6 +288,29 @@ void ai_worker(){
         //     memset(b_addr + offset, PADDING_B, padding);
         // }
         
+        //dump image => too slow
+        // cv::Mat padding_img_R = cv::Mat(net_len, net_len, CV_8UC1, od.virtual_addr_input[0]);
+        // cv::Mat padding_img_G = cv::Mat(net_len, net_len, CV_8UC1, od.virtual_addr_input[0] + offset_channel);
+        // cv::Mat padding_img_B = cv::Mat(net_len, net_len, CV_8UC1, od.virtual_addr_input[0] + offset_channel * 2);
+        // std::vector<cv::Mat>padding_imgparts(3);
+        // padding_imgparts.clear();
+        // padding_imgparts.push_back(padding_img_B);
+        // padding_imgparts.push_back(padding_img_G);
+        // padding_imgparts.push_back(padding_img_R);
+        // cv::Mat padding_img;
+        // cv::merge(padding_imgparts, padding_img);
+        
+        // // std::vector<uchar> buff;//buffer for coding
+        // // std::vector<int> param = std::vector<int>(2);
+        // // param[0] = cv::IMWRITE_JPEG_QUALITY;
+        // // param[1] = 95;//default(95) 0-100
+        // // imencode(".jpg",padding_img, buff, param);
+
+        // // memcpy((char *)memory_segment + 1024, &buff,  buff.size());
+        // std::string padding_img_out_path = "/usr/html/padding_img.jpg";
+        // cv::imwrite(padding_img_out_path, padding_img);        
+        
+        
         od.set_input(0);
         od.set_output();
         od.run();
@@ -319,7 +344,7 @@ void ai_worker(){
         // rs[11]  = (char)((ts>>24)& 0xFF);
 
         // printf("\nfr_cnt:%d, ts:%d.%d  ", frame_cnt, ts, ts_m);
-        printf("\n");
+        // printf("\n");
         // wp = 16;
         for (auto r : result) {
             // printf("cat: %2d, sc:%2.2f, [%3.0f,%3.0f,%3.0f,%3.0f] / ", r.label, (r.score*100.0) , r.x1, r.y1, r.x2, r.y2);
@@ -338,32 +363,198 @@ void ai_worker(){
             obj_meta.score = (uint16_t)(r.score*10000);
 
             wp = sizeof(metaObject) * obj_cnt;
-            memcpy((char *)memory_segment + 32 + wp, &obj_meta,  sizeof(metaObject));
-            printf("lab: %2d, sc:%4d, [%5d,%5d,%5d,%5d] / ", obj_meta.label, (obj_meta.score) , obj_meta.x0, obj_meta.y0, obj_meta.x1, obj_meta.y1);
+            memcpy((char *)seg_vca + 32 + wp, &obj_meta,  sizeof(metaObject));
+            // printf("\rlab: %2d, sc:%4d, [%5d,%5d,%5d,%5d] / ", obj_meta.label, (obj_meta.score) , obj_meta.x0, obj_meta.y0, obj_meta.x1, obj_meta.y1);
+            // sprintf((char *)seg_prompt + 800 + ,"{\"label\": %d, \"score\" : %d, \"ts\": %ld, \"cord\": [%d,%d,%d,%d]}\0", obj_meta.label, obj_meta.score, ts, obj_meta.x0, obj_meta.y0, obj_meta.x1, obj_meta.y1 );
             obj_cnt ++;
-            
         }
 
         for (int k=0; k<4; k++) {
             rs[16+k] = (char)(((sizeof(metaObject) * obj_cnt)>>(k*8)) & 0xFF);
         }
 
-        memcpy((char *)memory_segment, rs,  sizeof(rs));
+        memcpy((char *)seg_vca, rs,  sizeof(rs));
         frame_cnt += 1;
     }
     
-    printf("\n%s ==========release \n", __func__);
-    if(shmctl(shmid, IPC_RMID, 0) == -1) {
-        perror("Shmctl failed");
-    }
-    else {
-        printf("Shared memory end");
+    // printf("\n%s ==========release \n", __func__);
+    // if(shmctl(shmid, IPC_RMID, 0) == -1) {
+    //     perror("Shmctl failed");
+    // }
+    // else {
+    //     printf("Shared memory end");
+    // }
+
+    mtx.lock();
+    capture.release();
+    mtx.unlock();
+}
+#endif
+
+void ai_worker(){
+    // char rs[32];obj_vca
+
+    uint16_t wp;
+    uint16_t frame_cnt = 0;
+    uint16_t obj_cnt;
+
+    vcaObject obj_vca;
+    vcaInfo vca_info;
+
+    // parse ai worker agrs
+    char* kmodel_path;   // object detection kmodel path
+    kmodel_path = (char*)malloc(strlen(KMODEL_PATH)+1);
+    memcpy(kmodel_path, KMODEL_PATH, strlen(KMODEL_PATH)+1);
+
+    // int     net_len = 320;                          // object detection kmodel input size is net_len * net_len
+    // // int     net_len = 640;                          // object detection kmodel input size is net_len * net_len
+    // float   obj_thresh = 0.3;                       // object detection thresh  0.5, The threshold used to distinguish between object and non-object
+    // float   nms_thresh = 0.45;                      // object detection nms thresh 0.45, The threshold used to determine whether two detections are duplicates
+    
+    printf ("%d, %f, %f\n", net_len, obj_thresh, nms_thresh);
+
+    int     is_rgb = 1;                             // isp ds2 input format, RGB or BGR, RGB now
+    int     offset_channel = net_len * net_len;     // ds2 channel offset
+
+    std::cout << "object detect"<< std::endl;
+    
+    // objectDetect od(obj_thresh, nms_thresh, net_len, {valid_width, valid_height});
+    objectDetect od(obj_thresh, nms_thresh, net_len, {net_len, net_len});
+    std::cout << "load kmodel"<< kmodel_path <<std::endl;
+    od.load_model(kmodel_path);  // load kmodel
+    
+
+    std::cout << "prepare_memory"<< std::endl;
+	od.prepare_memory();  // memory allocation
+    std::cout << "prepared memory "<< std::endl;
+    
+    /****fixed operation for video operation****/
+    mtx.lock();
+    cv::VideoCapture capture;
+    capture.open(5);
+    // video setting
+    capture.set(cv::CAP_PROP_CONVERT_RGB, 0);
+    capture.set(cv::CAP_PROP_FRAME_WIDTH, net_len);
+    capture.set(cv::CAP_PROP_FRAME_HEIGHT, net_len);
+    // RRRRRR....GGGGGGG....BBBBBB, CHW
+    capture.set(cv::CAP_PROP_FOURCC, V4L2_PIX_FMT_RGB24);
+    mtx.unlock();
+
+    cv::Mat rgb24_img_for_ai(net_len, net_len, CV_8UC3, od.virtual_addr_input[0]);
+    
+    std::cout << "starting loop "<< std::endl;
+    
+    while(quit.load()) {
+        bool ret = false;
+        // ScopedTiming st("total", 1);
+        mtx.lock();
+        ret = capture.read(rgb24_img_for_ai);
+        mtx.unlock();
+
+        if(ret == false) {
+            printf("fail read.ret\n");
+            quit.store(false);
+            continue; 
+        }
+        
+        uint64_t ts = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+        
+        od.set_input(0);
+        od.set_output();
+        od.run();
+        od.get_output();
+        std::vector<BoxInfo> result;
+        od.post_process(result);
+        
+        obj_cnt = 0;
+        for (auto r : result) {
+            memset(&obj_vca, 0, sizeof(vcaObject));
+            obj_vca.x0 = (uint16_t)r.x1 * 0xFFFF / net_len;
+            obj_vca.x1 = (uint16_t)r.x2 * 0xFFFF / net_len;
+            obj_vca.y0 = (uint16_t)r.y1 * 0xFFFF / net_len;
+            obj_vca.y1 = (uint16_t)r.y2 * 0xFFFF / net_len;
+
+            obj_vca.x0 = std::max((uint16_t)0, std::min(obj_vca.x0, (uint16_t)0xFFFF));
+            obj_vca.x1 = std::max((uint16_t)0, std::min(obj_vca.x1, (uint16_t)0xFFFF));
+            obj_vca.y0 = std::max((uint16_t)0, std::min(obj_vca.y0, (uint16_t)0xFFFF));
+            obj_vca.y1 = std::max((uint16_t)0, std::min(obj_vca.y1, (uint16_t)0xFFFF));
+
+            obj_vca.label = (uint16_t)r.label;
+            obj_vca.score = (uint16_t)(r.score*10000);
+
+            wp = sizeof(vcaInfo) + sizeof(vcaObject) * obj_cnt;
+            memcpy((char *)seg_vca + wp, &obj_vca,  sizeof(vcaObject)); // VCA_SHM [32~~]
+            obj_cnt ++;
+        }
+
+        vca_info.framecnt = frame_cnt;
+        vca_info.timestamp = ts;
+        vca_info.datalength = sizeof(vcaObject) * obj_cnt;
+        memcpy((char *)seg_vca, &vca_info,  sizeof(vcaInfo));
+
+        frame_cnt += 1;
     }
 
     mtx.lock();
     capture.release();
     mtx.unlock();
 }
+
+cJSON *getCjsonItem(cJSON *root, char *object_str){
+	cJSON *tmp_obj;
+	char *temp = strtok(object_str, ".");
+
+	tmp_obj = root;
+	while (temp != NULL){
+		if (tmp_obj->type == cJSON_Object) {
+			tmp_obj = cJSON_GetObjectItem(tmp_obj, temp);
+		}
+		else {
+			break;
+		}
+		temp = strtok(NULL, ".");
+	}
+	return tmp_obj;
+}
+
+int parse_setting() {
+	printf("%s\n", __FUNCTION__);
+
+	char *data;
+	unsigned int len;
+	cJSON *root;
+	cJSON *encSetting;
+	cJSON *tmp;
+	cJSON *arrayItem;
+	
+	data = (char*)malloc(PARAM_SHM_SIZE);
+	strcpy(data, (char *)seg_param);
+	data = strtok(data, "EOF\0");
+	
+	root = cJSON_Parse(data);
+	if (!root) {
+		printf("Error before: [%s]\n",cJSON_GetErrorPtr());
+		free(data);
+		return -2;
+	}
+
+	strcpy(data, "vca.config.object_detction.network_length");
+	tmp = getCjsonItem(root, data);
+    net_len = tmp->valueint;
+
+	strcpy(data, "vca.config.object_detction.object_thresh");
+	tmp = getCjsonItem(root, data);
+    obj_thresh = tmp->valuedouble;
+
+	strcpy(data, "vca.config.object_detction.nms_thresh");
+	tmp = getCjsonItem(root, data);
+    nms_thresh = tmp->valuedouble;
+    free(data);
+    cJSON_Delete(root);
+
+    return 0;
+}
+
 
 
 int main(int argc, char *argv[]) {
@@ -373,6 +564,13 @@ int main(int argc, char *argv[]) {
 
     // ai_worker_args ai_args;
   
+	mk_shared_memory(PROMPT_SHM_ID);
+	mk_shared_memory(PARAM_SHM_ID);
+	mk_shared_memory(VCA_SHM_ID);
+
+    parse_setting();
+    // printf ("%d, %f, %f", net_len, obj_thresh, nms_thresh);
+
     /****fixed operation for ctrl+c****/
     struct sigaction sa;
     memset( &sa, 0, sizeof(sa) );
@@ -388,9 +586,14 @@ int main(int argc, char *argv[]) {
     // gnne_valid_height = 240;
     // create thread for ai worker
     // std::thread thread_ds2(ai_worker, ai_args);
+    
+
     std::thread thread_ds2(ai_worker);
 
     thread_ds2.join();
+
+
+    dettach_shared_memory();
 
     return 0;
 }

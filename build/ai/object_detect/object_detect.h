@@ -74,7 +74,7 @@ public:
     struct share_memory_alloc_align_args allocAlignMemOdOutput;
     struct share_memory_alloc_align_args allocAlignMemOdInput[GNNE_BUFFERS_COUNT];
 
-    int share_memory;
+    int share_memory ;
     int mem_map;
     std::vector<std::string> labels
     {

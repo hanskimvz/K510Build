@@ -9,18 +9,24 @@ AR	:= $(CROSS_COMPILE)ar
 AS	:= $(CROSS_COMPILE)as
 LD	:= $(CROSS_COMPILE)gcc
 
+# CFLAGS = \
+# 	-fomit-frame-pointer -fno-strict-aliasing -fno-builtin \
+# 	-ffunction-sections -fdata-sections \
+# 	-DCFG_MAKEFILE -DTARGET_BOARD_TYPE_def=\"$(BR2_TARGET_BOARD_TYPE)\"
+
 CFLAGS = \
 	-fomit-frame-pointer -fno-strict-aliasing -fno-builtin \
-	-ffunction-sections -fdata-sections \
-	-DCFG_MAKEFILE -DTARGET_BOARD_TYPE_def=\"$(BR2_TARGET_BOARD_TYPE)\"
+	-ffunction-sections -fdata-sections 
 
-OBJ ?= nais_video
+
+
+OBJ ?= appinit
 
 # INCLUDE_PATH = /build/opencv4-4.5.2/modules/core/include
 
 
-$(OBJ): encode_main.cpp video_app.cc G711Codec.cpp
-	$(C++) -M $(CFLAGS) $^ -L ./ -Wl,-Bdynamic -lvenc -L ./ -Wl,-Bstatic -llive555 -L ./ -Wl,-Bdynamic -lmediactl -L ./ -Wl,-Bdynamic -lvideo -L ./ -Wl,-Bdynamic -lasound -lstdc++ -lsqlite3 -Wl,-rpath . -lpthread -g -o $@
+$(OBJ): appinit.cpp 
+	$(C++)  $^ -lpthread -g -o $@
 
 # $(OBJ): main.cpp video_app.cc G711Codec.cpp
 # 	$(C++) $(CFLAGS) $^ -L ./ -Wl,-Bdynamic -lvenc -L ./ -Wl,-Bstatic -llive555 -L ./ -Wl,-Bdynamic -lmediactl -L ./ -Wl,-Bdynamic -lvideo -L ./ -Wl,-Bdynamic -lasound -lstdc++ -Wl,-rpath . -lpthread -g -o $@

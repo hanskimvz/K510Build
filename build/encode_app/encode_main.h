@@ -38,8 +38,23 @@
 //#define ISP_OUTPUT_DUMP 1
 #define TEST_ISP        0
 
-// #define ISP_ADDR_BUFFER_CNT  22
-#define ISP_ADDR_BUFFER_CNT  10
+// Shared memory IPC(inter process comm.)
+
+// for jpeg encode to shared memory, on requesting jpeg dump this memory. refer to snapshot.cgi
+// #define SH_PIC_MEMSIZE  1048576	
+// #define SH_PIC_KEY      0xF6085	
+// int shmid_pic;
+// void *pic_segment = NULL;
+
+// for status comm. 
+// #define SH_ST_MEMSIZE  	1024
+// #define SH_ST_KEY      0xF6084
+// int shmid_st;
+// void *st_segment = NULL;
+
+
+#define ISP_ADDR_BUFFER_CNT  22
+// #define ISP_ADDR_BUFFER_CNT  10
 #define V4L2_INVALID_INDEX 0xffff
 #define V4L2_REPEAT_FLAG 0x80000000
 
@@ -57,7 +72,6 @@
 #define SHARE_MEMORY_ALIGN_ALLOC    _IOWR('m', 2, unsigned long)
 #define SHARE_MEMORY_FREE           _IOWR('m', 3, unsigned long)
 #define SHARE_MEMORY_SHOW           _IOWR('m', 4, unsigned long)
-
 #define ISP_CMD_ISP_RESET           _IOWR('q', 20, unsigned long)
 
 #define DDR_CTRL_REG_BASE 0x198000000

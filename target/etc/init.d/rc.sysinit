@@ -106,7 +106,6 @@ telnetd
 /etc/init.d/S49php-fpm start
 /etc/init.d/S50nginx start
 /etc/init.d/S50sshd start
-/etc/init.d/S50sshd start
 /etc/init.d/S50avahi-daemon start
 
 #cd /app/mediactl_lib/

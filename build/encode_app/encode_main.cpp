@@ -21,6 +21,8 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
+ * Hans Edit
  */
 
 #include <stdio.h>
@@ -45,20 +47,18 @@
 #include <vector>
 #include <sqlite3.h>
 #include <chrono>
+#include <sys/shm.h>
 using namespace std;
 
 #include "encode_main.h"
+#include "../shared_mem_define.h"
 
 
 #define USE_RTSP
 
-#define TEST_DB
-
-#include <sys/shm.h>
-#define SH_MEMSIZE  1048576
-#define SH_KEY      0xF6085
-int shmid;
-void *memory_segment = NULL;
+// #define SETTING_FROM_DB
+// #define SETTING_FROM_FILE
+#define SETTING_FROM_SHARED_MEMORY
 
 MainContext Ctx;
 MainContext *pCtx=&Ctx;
@@ -234,9 +234,13 @@ void *encode_ch(void *arg) {
 	printf("%s>channel: %d\n", __FUNCTION__, channel);
 	EncInputFrame input;
 	EncOutputStream output;
+
 	int maxSize = 0;
 	uint32_t wp = 0;
 	int p_x = 0;
+	char rs[200];
+	char *user_data;
+	user_data = (char*)malloc(100);
 
 	int stride = ((pCtx->Cfg[channel].width + 0x1F) & (~0x1F));
 	// int frame_size = stride*pCtx->Cfg[channel].height*3/2;
@@ -269,6 +273,7 @@ void *encode_ch(void *arg) {
 	while(pCtx->start) {
 		memset(&input, 0, sizeof(EncInputFrame));
 		memset(&output, 0, sizeof(EncOutputStream));
+		uint64_t ts = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 
 		if(pCtx->enable_v4l2[channel] == 1 && pCtx->v4l2_rev[channel][pCtx->v4l2_rp[channel]].addr != V4L2_INVALID_INDEX) {
 			int index;
@@ -358,19 +363,22 @@ void *encode_ch(void *arg) {
 					//printf("==========VideoEncoder_UseLongTerm\n");
 				}
 			}
-			// VideoEncoder_InsertUserData(pCtx->hEnc[channel], "HELLO", strlen("HELLO"));: //not working
+			// sprintf(user_data, "{\"ts\":%ld, \"string\": hello this is hanskim", ts);
+			// VideoEncoder_InsertUserData(pCtx->hEnc[channel], user_data, strlen(user_data));
 			VideoEncoder_EncodeOneFrame(pCtx->hEnc[channel], &input);
 			VideoEncoder_GetStream(pCtx->hEnc[channel], &output);
 
 #ifdef USE_RTSP
 			if (1 == pCtx->enable_rtsp[channel]) {
 				if (NULL != pCtx->pRtspServer[channel]) {
-					pCtx->pRtspServer[channel]->PushVideoData(output.bufAddr, output.bufSize,0);
+					// pCtx->pRtspServer[channel]->PushVideoData(output.bufAddr, output.bufSize,0);
+					pCtx->pRtspServer[channel]->PushVideoData(output.bufAddr, output.bufSize, ts);
 				}
 			}
 #endif
 
 			if(output.bufSize != 0) {
+				
 				if((get_time()-time)/1000000.0 >= (1000.0/pCtx->Cfg[channel].FrameRate)) {
 					printf("warning: channel[%d]-encode one frame %.4f ms\n", channel, (get_time()-time)/1000000.0);
 				}
@@ -435,14 +443,14 @@ void *encode_ch(void *arg) {
 				if (pCtx->Cfg[channel].profile == JPEG) {
 					p_x %= 2;
 					wp = (uint32_t)p_x * 524288;
-					char rs[32];
+					
 					rs[0] = 0;
 
 					for(int k=0; k<4; k++) { // frame count
 						rs[4+k]  = (char)(pCtx->out_pic[channel] >>(8*k)) &0xFF; 
 					}
 					
-					uint64_t ts = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+					
 					for (int k=0; k<8; k++){
 						rs[8+k]  = (char)(ts>>(k*8))& 0xFF;	
 					}
@@ -452,25 +460,33 @@ void *encode_ch(void *arg) {
 					}
 
 
-					memcpy((char *)memory_segment, &p_x,  1); // current writing
-					memcpy((char *)memory_segment + wp, rs,  32);
-					memcpy((char *)memory_segment + wp + 32, output.bufAddr,  output.bufSize);
+					memcpy((char *)seg_snapshot, &p_x,  1); // current writing
+					memcpy((char *)seg_snapshot + wp, rs,  32);
+					memcpy((char *)seg_snapshot + wp + 32, output.bufAddr,  output.bufSize);
 
 					p_x ++;
 					
 				}
+				if (channel == 0) {
+					memcpy((char *)seg_frame0, &output.bufSize, sizeof(unsigned int));
+					memcpy((char *)seg_frame0 + sizeof(unsigned int), output.bufAddr,  output.bufSize);
+				}
+				else if (channel == 1) {
+					memcpy((char *)seg_frame1, &output.bufSize,  sizeof(unsigned int));
+					memcpy((char *)seg_frame1 + sizeof(unsigned int), output.bufAddr,  output.bufSize);
+				}
+
+
 
 				VideoEncoder_ReleaseStream(pCtx->hEnc[channel], &output);
 				pCtx->out_pic[channel]++; 
 				if (output.bufSize > maxSize)  {
 					maxSize = output.bufSize;
 				}
-				printf("\r");
-	
-				for (int k=0; k<(10*channel); k++){
-					printf("\t");
-				}
-				printf("Encoding %d, picture #%-6d, size %7d", channel, pCtx->out_pic[channel], output.bufSize);        
+				// printf("\rEncoding %d, picture #%-6d, size %7d", channel, pCtx->out_pic[channel], output.bufSize);
+				// sprintf(rs+(100*channel),"Encoding %d, picture #%-6d, size %7d, addr:%8x", channel, pCtx->out_pic[channel], output.bufSize, output.bufAddr );
+				// memcpy((char *)seg_prompt + 32 + channel*300, rs, sizeof(rs));
+				sprintf((char *)seg_prompt + channel*300,"{\"Encoding\": %d, \"picture\" : %d, \"ts\": %ld, \"size\": %d, \"addr\": %d}\0", channel, pCtx->out_pic[channel], ts, output.bufSize, output.bufAddr );
 			}  
 		}
 
@@ -648,12 +664,8 @@ void endof_encode() {
 	if(pCtx->v4l2_enabled) {
 		mediactl_exit();
 	}
-	if(shmctl(shmid, IPC_RMID, 0) == -1) {
-		perror("\nShmctl failed");
-	}
-	else {
-		printf("\nShared memory end");
-	}	
+
+	dettach_shared_memory();
 	printf("\nencode app exits successfully\n");
 }
 
@@ -707,8 +719,7 @@ void set_QoS() {
 }
 
 
-int init_v4l2()
-{
+int init_v4l2() {
     // struct mediactl_info m_info;
     struct v4l2_capability cap;
     enum v4l2_buf_type type;
@@ -1143,11 +1154,7 @@ int alloc_context(void *arg) {
 	return 0;
 }
 
-
-void checkJsonVal(cJSON* tmp){
-	// printf ("string:%s, Type:%d, intVal:%d, stringVal:%s \n", tmp->string, tmp->type, tmp->valueint, tmp->valuestring );
-}
-
+// Settings ~~~
 void showSettingInfo() {
 	int i;
 	printf("\ninformation: \n");
@@ -1165,11 +1172,13 @@ void showSettingInfo() {
 	printf("\n o-fps:\t\t");	for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->out_framerate[i]);
 	printf("\n width:\t\t");	for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].width);
 	printf("\n height:\t");		for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].height);
-	printf("\n rcMode:\t");		for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t", pCtx->Cfg[i].rcMode);
+	printf("\n rcMode:\t");		for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].rcMode);
 	printf("\t (0:CONST_QP, 1:CBR, 2:VBR)");
 	printf("\n bitrate:\t");	for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5dK\t", pCtx->Cfg[i].BitRate/1000);
 	printf("\n m-bitrate:\t");	for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5dK\t", pCtx->Cfg[i].MaxBitRate/1000);
+	printf("\n level:\t");		for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5dK\t", pCtx->Cfg[i].level);
 	printf("\n profile:\t");	for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].profile);
+	printf("\t (0:AVC_C_BASELINE, 1:AVC_MAIN, 2:AVC_HIGH, 3:JPEG)");
 	printf("\n gop:\t\t");		for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].gopLen);
 	printf("\n gdr:\t\t");		for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].bEnableGDR);
 	printf("\n gdrfreq:\t");	for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].FreqIDR);
@@ -1177,18 +1186,294 @@ void showSettingInfo() {
 	printf("\t (0:VERTICAL 1:HORIZONTAL)");
 	printf("\n LTR:\t\t");		for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].bEnableLTR);
 	printf("\n LTRfreq:\t");	for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->nLTRFreq[i]);
-	printf("\n roiCtrlMode:\t");for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t", pCtx->Cfg[i].roiCtrlMode);
+	printf("\n roiCtrlMode:\t");for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].roiCtrlMode);
 	printf("\t (0:NONE,1:RELATIVE,2:ABSOLUTE)");
-	printf("\n sliceqp:\t");	for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t", pCtx->Cfg[i].SliceQP);
-	printf("\n minqp:\t\t");	for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t", pCtx->Cfg[i].MinQP);
-	printf("\n maxqp:\t\t");	for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t", pCtx->Cfg[i].MaxQP);
-
+	printf("\n sliceqp:\t");	for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].SliceQP);
+	printf("\n minqp:\t\t");	for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].MinQP);
+	printf("\n maxqp:\t\t");	for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].MaxQP);
+	printf("\n aspecRatio:\t");	for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].AspectRatio);
+	printf("\t (0:AUTO,1:4_3,2:16_9,3:NONE)");
+	printf("\n encDblkCfg:\t");	for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].encDblkCfg.disable_deblocking_filter_idc);
+	printf("\n encDblkCfg:\t");	for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].encDblkCfg.slice_beta_offset_div2);
+	printf("\n encDblkCfg:\t");	for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].encDblkCfg.slice_alpha_c0_offset_div2);
+	printf("\n entropyMode:\t");for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].entropyMode);
+	printf("\t (0:CABAC,1:CAVLC,2:MAX)");
+	printf("\n bSplitEnable:\t");for(i = 0; i < pCtx->ch_cnt; i++) 	printf("%5d\t",  pCtx->Cfg[i].sliceSplitCfg.bSplitEnable);
 	printf("\n");
-
 }
 
+static int setDefaultSettings(){
+	for(int i = 0; i < pCtx->ch_cnt; i++) {
+		pCtx->ch[i] = i;
+		pCtx->Cfg[i].channel     = i;
+		if(!pCtx->framerate[i])             pCtx->framerate[i]       = 30;
+		if(!pCtx->out_framerate[i])         pCtx->out_framerate[i]   = pCtx->framerate[i];
+		if(!pCtx->Cfg[i].width)             pCtx->Cfg[i].width       = 1920;
+		if(!pCtx->Cfg[i].height)            pCtx->Cfg[i].height      = 1080;
+		if(!pCtx->Cfg[i].BitRate)           pCtx->Cfg[i].BitRate     = 4000000;
+		if(!pCtx->Cfg[i].MaxBitRate)        pCtx->Cfg[i].MaxBitRate  = 4000000;
+		if(!pCtx->Cfg[i].level)             pCtx->Cfg[i].level       = 42;
+		if(!pCtx->Cfg[i].profile)           pCtx->Cfg[i].profile     = AVC_HIGH;
+		if(!pCtx->Cfg[i].rcMode)            pCtx->Cfg[i].rcMode      = CBR; 
+		if(!pCtx->Cfg[i].SliceQP)           pCtx->Cfg[i].SliceQP     = 25;
+		if(!pCtx->Cfg[i].FreqIDR)           pCtx->Cfg[i].FreqIDR     = 25;
+		if(!pCtx->Cfg[i].gopLen)            pCtx->Cfg[i].gopLen      = 25;
+		if(!pCtx->Cfg[i].AspectRatio)       pCtx->Cfg[i].AspectRatio = ASPECT_RATIO_AUTO;
+		if(!pCtx->Cfg[i].MinQP)             pCtx->Cfg[i].MinQP       = 0;//from 0 to SliceQP
+		if(!pCtx->Cfg[i].MaxQP)             pCtx->Cfg[i].MaxQP       = 51;//from SliceQP to 51
+		if(!pCtx->Cfg[i].roiCtrlMode)       pCtx->Cfg[i].roiCtrlMode = ROI_QP_TABLE_NONE;
+
+		pCtx->Cfg[i].encDblkCfg.disable_deblocking_filter_idc        = 0;
+		pCtx->Cfg[i].encDblkCfg.slice_beta_offset_div2               = 1;
+		pCtx->Cfg[i].encDblkCfg.slice_alpha_c0_offset_div2           = 1;
+		pCtx->Cfg[i].entropyMode                                     = ENTROPY_MODE_CAVLC;
+		pCtx->Cfg[i].sliceSplitCfg.bSplitEnable                      = false;
+	}
+
+	for(int i=0; i < pCtx->ch_cnt; i++)	{
+		if(CBR == pCtx->Cfg[i].rcMode) {
+			if (pCtx->Cfg[i].MaxBitRate != pCtx->Cfg[i].BitRate) {
+				pCtx->Cfg[i].MaxBitRate = pCtx->Cfg[i].BitRate;
+				printf("modify MaxBitRate  to BitRate:%d in cbr mode\n",pCtx->Cfg[i].BitRate);
+			}
+		}
+
+		if (JPEG == pCtx->Cfg[i].profile) {
+			pCtx->Cfg[i].rcMode = CONST_QP; 
+			if (pCtx->Cfg[i].SliceQP < 1 || pCtx->Cfg[i].SliceQP > 100) {
+				
+				printf("slice qp error\n");
+				return -1;
+			}
+		}
+		else {
+			if (pCtx->Cfg[i].SliceQP < -1 || pCtx->Cfg[i].SliceQP > 51)	{
+				printf("slice qp error\n");
+				return -1;
+			}
+		}
+	}
+	pCtx->ae_enable = 0;
+}
+
+// settings from shared memory 
+#ifdef SETTING_FROM_SHARED_MEMORY
+cJSON *getCjsonItem(cJSON *root, char *object_str){
+	cJSON *tmp_obj;
+	char *temp = strtok(object_str, ".");
+
+	tmp_obj = root;
+	while (temp != NULL){
+		if (tmp_obj->type == cJSON_Object) {
+			tmp_obj = cJSON_GetObjectItem(tmp_obj, temp);
+		}
+		else {
+			break;
+		}
+		temp = strtok(NULL, ".");
+	}
+	return tmp_obj;
+}
 
 int parse_setting() {
+	printf("%s\n", __FUNCTION__);
+
+	char *data;
+	unsigned int len;
+	cJSON *root;
+	cJSON *encSetting;
+	cJSON *tmp;
+	cJSON *arrayItem;
+	
+	data = (char*)malloc(PARAM_SHM_SIZE);
+	strcpy(data, (char *)seg_param);
+	data = strtok(data, "EOF\0");
+	
+	root = cJSON_Parse(data);
+	if (!root) {
+		printf("Error before: [%s]\n",cJSON_GetErrorPtr());
+		free(data);
+		return -2;
+	}
+
+	int ch_en[3] = {0,};
+	int cur_ch = 0;
+	char *p;
+	
+	strcpy(data, "encoder.ch0.videocodec.st0.enable");
+	tmp = getCjsonItem(root, data);
+	if (strcmp(tmp->valuestring,"yes") == 0) {
+		ch_en[0] = 1;
+	}
+
+	strcpy(data, "encoder.ch0.videocodec.st1.enable");
+	tmp = getCjsonItem(root, data);
+	if (strcmp(tmp->valuestring,"yes") == 0) {
+		ch_en[1] = 1;
+	}
+
+	strcpy(data, "encoder.ch0.snapshot.enable");
+	tmp = getCjsonItem(root, data);
+	if (strcmp(tmp->valuestring,"yes") == 0) {
+		ch_en[2] = 1;
+	}
+	ch_en[2] = 0; // not featable at the time
+	printf("channel enable: %d,%d,%d\n", ch_en[0], ch_en[1], ch_en[2]);
+
+	pCtx->ch_cnt = 0;
+	for (int i=0; i<3; i++) {
+		if (ch_en[i]){
+			pCtx->ch_cnt ++;
+			pCtx->video_enabled = 1;
+			pCtx->v4l2_enabled 	= 1;
+			pCtx->isp_enabled 	= 0;
+		}
+	}
+	alloc_context(pCtx);
+
+	for (int i=0; i<(sizeof(ch_en)/sizeof(int)); i++ ){
+		printf("i:%d=========\n", i);
+		pCtx->ch_en[i]  =  0;
+		pCtx->enable_v4l2[i] = 0;
+
+		if (ch_en[i]) {
+			if (i==0) {
+				pCtx->dev_name[cur_ch] = (char*)malloc(strlen("/dev/video3")+1);
+				memcpy(pCtx->dev_name[cur_ch], "/dev/video3", strlen("/dev/video3")+1);
+			}
+			else if (i==1) {
+				pCtx->dev_name[cur_ch] = (char*)malloc(strlen("/dev/video4")+1);
+				memcpy(pCtx->dev_name[cur_ch], "/dev/video4", strlen("/dev/video4")+1);
+			}
+			else if (i==2) {
+				pCtx->dev_name[cur_ch] = (char*)malloc(strlen("/dev/video2")+1);
+				memcpy(pCtx->dev_name[cur_ch], "/dev/video2", strlen("/dev/video2")+1);
+			}
+
+			pCtx->ch_en[cur_ch] = 1;
+			pCtx->enable_v4l2[cur_ch]= 1;
+			pCtx->framerate[cur_ch]  = 30;
+			pCtx->enable_rtsp[cur_ch] = 0 ;
+			memset(&pCtx->Cfg[cur_ch], 0, sizeof(EncSettings));
+
+			if (i<2) {
+				sprintf(data, "encoder.ch0.videocodec.st%d.standard", i);
+				tmp = getCjsonItem(root, data);
+				if (strcmp(tmp->valuestring,"h264") == 0){ // h.264
+					pCtx->enable_rtsp[cur_ch] = 1 ;
+					pCtx->Cfg[i].MinQP = 0 ;
+					pCtx->Cfg[cur_ch].MaxQP = 51;
+
+					sprintf(data, "encoder.ch0.videocodec.st%d.h264.profile", i);
+					tmp = getCjsonItem(root, data);
+					if (strcmp(tmp->valuestring, "hip") == 0) {
+						pCtx->Cfg[cur_ch].profile= AVC_HIGH; 
+					}
+					else if (strcmp(tmp->valuestring, "main") == 0) {
+						pCtx->Cfg[cur_ch].profile= AVC_MAIN; 
+					}
+					else {
+						pCtx->Cfg[cur_ch].profile= AVC_C_BASELINE; 
+					}
+
+					sprintf(data, "encoder.ch0.videocodec.st%d.h264.bitratectrl", i);
+					tmp = getCjsonItem(root, data);
+					if (strcmp(tmp->valuestring,"vbr") == 0){
+						pCtx->Cfg[cur_ch].rcMode = VBR;
+					}
+					else if (strcmp(tmp->valuestring,"cbr") == 0){
+						pCtx->Cfg[cur_ch].rcMode = CBR;
+					}
+					else if (strcmp(tmp->valuestring,"const_qp") == 0){
+						pCtx->Cfg[cur_ch].rcMode = CONST_QP;
+					}
+
+					sprintf(data, "encoder.ch0.videocodec.st%d.h264.bitrate", i);
+					tmp = getCjsonItem(root, data);
+					pCtx->Cfg[cur_ch].BitRate = (tmp->valueint) * 1000;
+
+					sprintf(data, "encoder.ch0.videocodec.st%d.h264.maxbitrate", i);
+					tmp = getCjsonItem(root, data);
+					pCtx->Cfg[cur_ch].MaxBitRate = (tmp->valueint) * 1000;
+
+					sprintf(data, "encoder.ch0.videocodec.st%d.h264.maxfps", i);
+					tmp = getCjsonItem(root, data);
+					pCtx->out_framerate[cur_ch] = tmp->valueint;
+
+					sprintf(data, "encoder.ch0.videocodec.st%d.h264.pcount", i);
+					tmp = getCjsonItem(root, data);
+					pCtx->Cfg[cur_ch].gopLen  = tmp->valueint;
+
+					sprintf(data, "encoder.ch0.videocodec.st%d.h264.resolution", i);
+					tmp = getCjsonItem(root, data);
+					p = strtok(tmp->valuestring, "x");
+					pCtx->Cfg[cur_ch].width  = std::stoi(p); p = strtok(NULL, "x");
+					pCtx->Cfg[cur_ch].height = std::stoi(p); p = strtok(NULL, "x");
+					pCtx->Cfg[cur_ch].width  = pCtx->Cfg[cur_ch].width  - (pCtx->Cfg[cur_ch].width%8); // must be multiple of 8
+					pCtx->Cfg[cur_ch].height = pCtx->Cfg[cur_ch].height - (pCtx->Cfg[cur_ch].height%8);// must be multiple of 8
+
+				}
+
+				if (strcmp(tmp->valuestring,"mjpeg") == 0){ // jpeg
+					pCtx->Cfg[cur_ch].profile = JPEG;
+					pCtx->Cfg[cur_ch].rcMode = CONST_QP;
+					pCtx->Cfg[i].MinQP = 0 ;
+					pCtx->Cfg[cur_ch].MaxQP = 100;
+
+					sprintf(data, "encoder.ch0.videocodec.st%d.mjpeg.maxfps", i);
+					tmp = getCjsonItem(root, data);
+					pCtx->out_framerate[cur_ch] = tmp->valueint;
+
+					sprintf(data, "encoder.ch0.videocodec.st%d.mjpeg.quality", i);
+					tmp = getCjsonItem(root, data);
+					pCtx->Cfg[cur_ch].SliceQP = tmp->valueint;
+
+					sprintf(data, "encoder.ch0.videocodec.st%d.mjpeg.resolution", i);
+					tmp = getCjsonItem(root, data);
+					p = strtok(tmp->valuestring, "x");
+					pCtx->Cfg[cur_ch].width  = std::stoi(p); p = strtok(NULL, "x");
+					pCtx->Cfg[cur_ch].height = std::stoi(p); p = strtok(NULL, "x");
+							
+					pCtx->Cfg[cur_ch].width  = pCtx->Cfg[cur_ch].width  - (pCtx->Cfg[cur_ch].width%8); // must be multiple of 8
+					pCtx->Cfg[cur_ch].height = pCtx->Cfg[cur_ch].height - (pCtx->Cfg[cur_ch].height%8);// must be multiple of 8
+				}
+
+			}
+			else {
+				sprintf(data, "encoder.ch0.snapshot.maxfps");
+				tmp = getCjsonItem(root, data);
+				sprintf(data, "encoder.ch0.snapshot.quality");
+				tmp = getCjsonItem(root, data);
+				sprintf(data, "encoder.ch0.snapshot.resolution");
+				tmp = getCjsonItem(root, data);
+			}
+		
+			if(pCtx->enable_rtsp[cur_ch] == 1) {
+				sprintf(data, "network.rtsp.port");
+				tmp = getCjsonItem(root, data);
+				pCtx->rtspPort[cur_ch] = (tmp->valueint) + (cur_ch*2);
+				
+				sprintf(data, "network.rtp.st%d.unicast.name", cur_ch);
+				tmp = getCjsonItem(root, data);
+				pCtx->rtspStreamName[cur_ch] = (char*)malloc(strlen(tmp->valuestring)+1);
+				memcpy(pCtx->rtspStreamName[cur_ch], tmp->valuestring, strlen(tmp->valuestring)+1);
+			}
+			cur_ch++;
+		}
+	}
+	free(data);
+	cJSON_Delete(root);
+
+	setDefaultSettings();
+	showSettingInfo();
+
+	return 0;
+}
+#endif
+
+#ifdef SETTING_FROM_FILE
+int parse_setting() {
+	// from setting.conf
 	printf("%s\n", __FUNCTION__);
 	FILE *fp;
 	unsigned int len;
@@ -1248,7 +1533,6 @@ int parse_setting() {
 		arrayItem = cJSON_GetArrayItem(encSetting, i);
 	
 		tmp = cJSON_GetObjectItem(arrayItem, "enable");
-		checkJsonVal(tmp);
 		if (tmp->type == cJSON_Number) {
 			if (tmp->valueint == 0) {
 				continue;
@@ -1258,7 +1542,6 @@ int parse_setting() {
 		}
 
 		tmp = cJSON_GetObjectItem(arrayItem, "input");
-		checkJsonVal(tmp);
 		if (tmp->type == cJSON_String) {
 			if (strcmp(tmp->valuestring,"v4l2") == 0) {
 				pCtx->video_enabled = 1;
@@ -1277,7 +1560,6 @@ int parse_setting() {
 			}
 		}
 		tmp = cJSON_GetObjectItem(arrayItem, "dev");
-		checkJsonVal(tmp);
 		if (tmp->type == cJSON_String) {
 			devName = tmp->valuestring;
 			pCtx->dev_name[cur_ch] = (char*)malloc(strlen(devName)+1);
@@ -1286,7 +1568,6 @@ int parse_setting() {
 		}
 
 		tmp = cJSON_GetObjectItem(arrayItem, "output");
-		checkJsonVal(tmp);
 		if (tmp->type == cJSON_String) {
 			if (strcmp(tmp->valuestring, "rtsp") == 0) {
 				pCtx->enable_rtsp[cur_ch] = 1;
@@ -1306,13 +1587,11 @@ int parse_setting() {
 		}
 		if (pCtx->enable_rtsp[cur_ch] == 1) {
 			tmp = cJSON_GetObjectItem(arrayItem, "rtsp_port");
-			checkJsonVal(tmp);
 			if (tmp->type == cJSON_Number) {
 				pCtx->rtspPort[cur_ch] = tmp->valueint;
 			}
 
 			tmp = cJSON_GetObjectItem(arrayItem, "rtsp_stream");
-			checkJsonVal(tmp);
 			if (tmp->type == cJSON_String) {
 				pCtx->rtspStreamName[cur_ch] = (char*)malloc(strlen(tmp->valuestring)+1);
 				memcpy(pCtx->rtspStreamName[cur_ch], tmp->valuestring, strlen(tmp->valuestring)+1);
@@ -1332,7 +1611,6 @@ int parse_setting() {
 			pCtx->framerate[cur_ch] = 30;
 		}
 		else {
-			checkJsonVal(tmp);
 			if (tmp->type == cJSON_Number) {
 				pCtx->framerate[cur_ch] = tmp->valueint;
 				
@@ -1344,7 +1622,6 @@ int parse_setting() {
 			 pCtx->out_framerate[cur_ch]   = pCtx->framerate[cur_ch];
 		}
 		else {
-			checkJsonVal(tmp);
 			if (tmp->type == cJSON_Number) {
 				pCtx->out_framerate[cur_ch] = tmp->valueint;
 			}
@@ -1355,9 +1632,10 @@ int parse_setting() {
 			 pCtx->Cfg[cur_ch].width = 1920;
 		}
 		else {
-			checkJsonVal(tmp);
 			if (tmp->type == cJSON_Number) {
 				pCtx->Cfg[cur_ch].width = tmp->valueint;
+				pCtx->Cfg[cur_ch].width  = pCtx->Cfg[cur_ch].width  - (pCtx->Cfg[cur_ch].width%8); // must be multiple of 8
+
 			}
 		}
 
@@ -1366,9 +1644,9 @@ int parse_setting() {
 			 pCtx->Cfg[cur_ch].height = 1080;
 		}
 		else {		
-			checkJsonVal(tmp);
 			if (tmp->type == cJSON_Number) {
 				pCtx->Cfg[cur_ch].height = tmp->valueint;
+				pCtx->Cfg[cur_ch].height = pCtx->Cfg[cur_ch].height - (pCtx->Cfg[cur_ch].height%8);// must be multiple of 8
 			}
 		}
 
@@ -1377,7 +1655,6 @@ int parse_setting() {
 			pCtx->Cfg[cur_ch].rcMode      = CBR; 
 		}
 		else {
-			checkJsonVal(tmp);
 			if (tmp->type == cJSON_String) {
 				if (strcmp(tmp->valuestring,"CBR") == 0) {
 					pCtx->Cfg[cur_ch].rcMode = CBR;
@@ -1396,7 +1673,6 @@ int parse_setting() {
 			pCtx->Cfg[cur_ch].BitRate     = 4000000;
 		}
 		else {
-			checkJsonVal(tmp);
 			if (tmp->type == cJSON_Number) {
 				pCtx->Cfg[cur_ch].BitRate = tmp->valueint;
 			}
@@ -1407,7 +1683,6 @@ int parse_setting() {
 			pCtx->Cfg[cur_ch].MaxBitRate     = 4000000;
 		}
 		else {
-			checkJsonVal(tmp);
 			if (tmp->type == cJSON_Number) {
 				pCtx->Cfg[cur_ch].MaxBitRate = tmp->valueint;
 			}
@@ -1418,7 +1693,6 @@ int parse_setting() {
 			pCtx->Cfg[cur_ch].level     = 42;
 		}
 		else {
-			checkJsonVal(tmp);
 			if (tmp->type == cJSON_Number) {
 				pCtx->Cfg[cur_ch].level = tmp->valueint;
 			}
@@ -1429,7 +1703,6 @@ int parse_setting() {
 			pCtx->Cfg[cur_ch].SliceQP     = 25;
 		}
 		else {
-			checkJsonVal(tmp);
 			if (tmp->type == cJSON_Number) {
 				pCtx->Cfg[cur_ch].SliceQP = tmp->valueint;
 			}
@@ -1437,89 +1710,57 @@ int parse_setting() {
 
 		tmp = cJSON_GetObjectItem(arrayItem, "enableAE");
 		if (tmp != NULL) {
-			checkJsonVal(tmp);
 			if (tmp->type == cJSON_Number) {
 				pCtx->ae_enable = tmp->valueint;
 			}
 		}
 		cur_ch++;
-
 	}
 	
 	cJSON_Delete(root);
 	free(data);
 
-	for(i = 0; i < pCtx->ch_cnt; i++) {
-		pCtx->ch[i] = i;
-		pCtx->Cfg[i].channel     = i;
-		// if(!pCtx->framerate[i])             pCtx->framerate[i]       = 30;
-		// if(!pCtx->out_framerate[i])         pCtx->out_framerate[i]   = pCtx->framerate[i];
-		// if(!pCtx->Cfg[i].width)             pCtx->Cfg[i].width       = 1920;
-		// if(!pCtx->Cfg[i].height)            pCtx->Cfg[i].height      = 1080;
-		// if(!pCtx->Cfg[i].BitRate)           pCtx->Cfg[i].BitRate     = 4000000;
-		// if(!pCtx->Cfg[i].MaxBitRate)        pCtx->Cfg[i].MaxBitRate  = 4000000;
-		// if(!pCtx->Cfg[i].level)             pCtx->Cfg[i].level       = 42;
-		if(!pCtx->Cfg[i].profile)           pCtx->Cfg[i].profile     = AVC_HIGH;
-		// if(!pCtx->Cfg[i].rcMode)            pCtx->Cfg[i].rcMode      = CBR; 
-		// if(!pCtx->Cfg[i].SliceQP)           pCtx->Cfg[i].SliceQP     = 25;
-		if(!pCtx->Cfg[i].FreqIDR)           pCtx->Cfg[i].FreqIDR     = 25;
-		if(!pCtx->Cfg[i].gopLen)            pCtx->Cfg[i].gopLen      = 25;
-		if(!pCtx->Cfg[i].AspectRatio)       pCtx->Cfg[i].AspectRatio = ASPECT_RATIO_AUTO;
-		if(!pCtx->Cfg[i].MinQP)             pCtx->Cfg[i].MinQP       = 0;//from 0 to SliceQP
-		if(!pCtx->Cfg[i].MaxQP)             pCtx->Cfg[i].MaxQP       = 51;//from SliceQP to 51
-		if(!pCtx->Cfg[i].roiCtrlMode)       pCtx->Cfg[i].roiCtrlMode = ROI_QP_TABLE_NONE;
-
-		pCtx->Cfg[i].encDblkCfg.disable_deblocking_filter_idc        = 0;
-		pCtx->Cfg[i].encDblkCfg.slice_beta_offset_div2               = 1;
-		pCtx->Cfg[i].encDblkCfg.slice_alpha_c0_offset_div2           = 1;
-		pCtx->Cfg[i].entropyMode                                     = ENTROPY_MODE_CAVLC;
-		pCtx->Cfg[i].sliceSplitCfg.bSplitEnable                      = false;
-	}
-
-	for(int i=0; i < pCtx->ch_cnt; i++)	{
-		if(CBR == pCtx->Cfg[i].rcMode) {
-			if (pCtx->Cfg[i].MaxBitRate != pCtx->Cfg[i].BitRate) {
-				pCtx->Cfg[i].MaxBitRate = pCtx->Cfg[i].BitRate;
-				printf("modify MaxBitRate  to BitRate:%d in cbr mode\n",pCtx->Cfg[i].BitRate);
-			}
-		}
-
-		if (JPEG == pCtx->Cfg[i].profile) {
-			if (pCtx->Cfg[i].SliceQP < 1 || pCtx->Cfg[i].SliceQP > 100) {
-				printf("slice qp error\n");
-				return -1;
-			}
-		}
-		else {
-			if (pCtx->Cfg[i].SliceQP < -1 || pCtx->Cfg[i].SliceQP > 51)	{
-				printf("slice qp error\n");
-				return -1;
-			}
-			}
-	}
-
+	setDefaultSettings();
 	showSettingInfo();
 	printf("parse setting done\n");
 	return 0;
 }
+#endif
 
-int read_db_setting(){
-	sqlite3 *db;
-    sqlite3_stmt *res;
-	int step;
-	int ch_en[3] = {0,};
-	int cur_ch = 0;
-
-	char *groupPath;
-	char *entryValue;
+#ifdef SETTING_FROM_DB
+int get_db_value(sqlite3 *db, sqlite3_stmt *res, char *groupPath, char* entryName, char *entryValue){
 	char *sql;
+	sql = (char*)malloc(200);
+	
+	sprintf(sql, "select entryValue from param_tbl where groupPath='%s' COLLATE NOCASE and entryName='%s' COLLATE NOCASE", groupPath, entryName);
+	int rc = sqlite3_prepare_v2(db, sql, -1, &res, 0);
+	if (rc != SQLITE_OK) {
+		fprintf(stderr, "Cannot get data\n");
+		return -1;
+	}
+	if (sqlite3_step(res) == SQLITE_ROW) {
+		sprintf(entryValue,"%s", sqlite3_column_text(res, 0));	
+		printf("%s\t%s\n", sql, entryValue);
+		sqlite3_finalize(res);
+		return 0;
+	}
+	
+	sprintf(entryValue,"");	
+	printf("%s\t%s\n", sql, entryValue);
+	sqlite3_finalize(res);
+	return -1;
+}
 
-	groupPath = (char*)malloc(100);
-	entryValue= (char*)malloc(100);
-	sql 	  = (char*)malloc(200);
-    
+// int load_db_setting(){
+int parse_setting(){
+	sqlite3 *db;
+	sqlite3_stmt *res;
+	char *groupPath = (char*)malloc(50);
+	char *entryName = (char*)malloc(50);
+	char *entryValue = (char*)malloc(50);
+
+	int step;
     int rc = sqlite3_open(PARAM_DB_NAME, &db);
-    
     if (rc != SQLITE_OK) {
         fprintf(stderr, "Cannot open database: %s\n", sqlite3_errmsg(db));
         sqlite3_close(db);
@@ -1527,30 +1768,27 @@ int read_db_setting(){
         return -1;
     }
 
-    sprintf(sql, "select groupPath || '.' || entryName, entryValue from param_tbl where group1='encoder'");
-	rc = sqlite3_prepare_v2(db, sql, -1, &res, 0);
-	if (rc != SQLITE_OK) {
-		fprintf(stderr, "Cannot get data\n");
-		sqlite3_finalize(res);
-    	sqlite3_close(db);
-		return -1;
+	int ch_en[3] = {0,};
+	int cur_ch = 0;
+
+	sprintf(groupPath, "ENCODER.Ch0.Videocodec.St0");
+	sprintf(entryName, "enable");
+	rc = get_db_value(db, res, groupPath, entryName, entryValue);
+	if (rc == 0 && strcmp(entryValue,"yes") == 0) { 
+		ch_en[0] = 1;
 	}
-	
-	while (sqlite3_step(res) == SQLITE_ROW) {
-		sprintf(groupPath, "%s", sqlite3_column_text(res, 0));
-		sprintf(entryValue,"%s", sqlite3_column_text(res, 1));
-		if( strcmp(groupPath, "ENCODER.Ch0.Videocodec.St0.enable") == 0 && strcmp(entryValue,"yes") == 0) {
-			ch_en[0] = 1;
-		}
-		else if (strcmp(groupPath, "ENCODER.Ch0.Videocodec.St1.enable") == 0 && strcmp(entryValue,"yes") == 0) {
-			ch_en[1] = 1;
-		}
-		else if (strcmp(groupPath, "ENCODER.Ch0.Snapshot.enable") == 0 && strcmp(entryValue,"yes") == 0) {			
-			ch_en[2] = 1;
-		}
+	sprintf(groupPath, "ENCODER.Ch0.Videocodec.St1");
+	rc = get_db_value(db, res, groupPath, entryName, entryValue);
+	if (rc == 0 && strcmp(entryValue,"yes") == 0) {
+		ch_en[1] = 1;
 	}
+	sprintf(groupPath, "ENCODER.Ch0.Snapshot");
+	rc = get_db_value(db, res, groupPath, entryName, entryValue);
+	if (rc == 0 && strcmp(entryValue,"yes") == 0) {
+		ch_en[2] = 1;
+	}
+	ch_en[2] = 0; // not featable at the time
 	printf("chen: %d,%d,%d\n", ch_en[0], ch_en[1], ch_en[2]);
-	
 	pCtx->ch_cnt = 0;
 	for (int i=0; i<3; i++) {
 		if (ch_en[i]){
@@ -1560,196 +1798,142 @@ int read_db_setting(){
 			pCtx->isp_enabled 	= 0;
 		}
 	}
-
-	// pCtx->ch_cnt =2; // 
-	printf("ch_cnt:%d\n",pCtx->ch_cnt );
+	printf("ch_cnt:%d, sizeof chen:%d\n",pCtx->ch_cnt, sizeof(ch_en));
 	alloc_context(pCtx); // with ch_cnt
 
-	for (int i=0; i<3; i++ ){
-		printf("%d:", i);
+	for (int i=0; i<(sizeof(ch_en)/sizeof(int)); i++ ){
+		printf("i:%d=========\n", i);
 		pCtx->ch_en[i]  =  0;
 		pCtx->enable_v4l2[i] = 0;
 
 		if (ch_en[i]) {
-			pCtx->ch_en[cur_ch] = 1;
-			pCtx->enable_v4l2[cur_ch]= 1;
-			pCtx->framerate[cur_ch]  = 30;
-
-			if (i == 0) {
+			if (i==0) {
 				pCtx->dev_name[cur_ch] = (char*)malloc(strlen("/dev/video3")+1);
 				memcpy(pCtx->dev_name[cur_ch], "/dev/video3", strlen("/dev/video3")+1);
 			}
-			else {
+			else if (i==1) {
 				pCtx->dev_name[cur_ch] = (char*)malloc(strlen("/dev/video4")+1);
 				memcpy(pCtx->dev_name[cur_ch], "/dev/video4", strlen("/dev/video4")+1);
-				
 			}
+			else if (i==2) {
+				pCtx->dev_name[cur_ch] = (char*)malloc(strlen("/dev/video2")+1);
+				memcpy(pCtx->dev_name[cur_ch], "/dev/video2", strlen("/dev/video2")+1);
+			}
+
+			pCtx->ch_en[cur_ch] = 1;
+			pCtx->enable_v4l2[cur_ch]= 1;
+			pCtx->framerate[cur_ch]  = 30;
+			pCtx->enable_rtsp[cur_ch] = 0 ;
 			memset(&pCtx->Cfg[cur_ch], 0, sizeof(EncSettings));
 
-			if (i==0) {
-				pCtx->enable_rtsp[cur_ch] = 1 ;
-				sprintf(sql, "select entryName, entryValue from param_tbl where group1='encoder' and group2='ch0' and group3='videocodec' and group4='st0'");
+			if (i<2) {
+				sprintf(groupPath, "ENCODER.Ch0.Videocodec.St%d", i);
 			}
-			else if (i==1) {
-				pCtx->enable_rtsp[cur_ch] = 1 ;
-				sprintf(sql, "select entryName, entryValue from param_tbl where group1='encoder' and group2='ch0' and group3='videocodec' and group4='st1'");
+			else {
+				sprintf(groupPath, "ENCODER.Ch0.Snapshot");
 			}
-			else if (i==2) { // JPEG
-				pCtx->enable_rtsp[cur_ch] = 0 ;
-				pCtx->Cfg[cur_ch].profile = JPEG;
-				pCtx->Cfg[cur_ch].rcMode = CONST_QP; 
-				sprintf(sql, "select entryName, entryValue from param_tbl where group1='encoder' and group2='ch0' and group3='snapshot'");
-			}
+			sprintf(entryName,"standard");
+			if (get_db_value(db, res, groupPath, entryName, entryValue) == 0 ) {
+				if (strcmp(entryValue,"h264") == 0){ // h.264
+					pCtx->enable_rtsp[cur_ch] = 1 ;
+					pCtx->Cfg[i].MinQP = 0 ;
+					pCtx->Cfg[cur_ch].MaxQP = 51;					
+					sprintf(groupPath, "ENCODER.Ch0.Videocodec.St%d.H264", i);
 
-			rc = sqlite3_prepare_v2(db, sql, -1, &res, 0);
-			if (rc != SQLITE_OK) {
-				fprintf(stderr, "Cannot get data\n");
-				sqlite3_finalize(res);
-				sqlite3_close(db);
-				return -1;
-			}
-			while (sqlite3_step(res) == SQLITE_ROW) {
-				sprintf(groupPath, "%s", sqlite3_column_text(res, 0));
-				sprintf(entryValue,"%s", sqlite3_column_text(res, 1));
-				printf("%s:%s\n", groupPath, entryValue);
-				if (strcmp(groupPath, "bitrate") == 0) {
-					pCtx->Cfg[cur_ch].BitRate = std::stoi(entryValue) * 1000;
-				}
-				else if (strcmp(groupPath, "maxbitrate") == 0) {
-					pCtx->Cfg[cur_ch].MaxBitRate = std::stoi(entryValue) * 1000;
-				}
-				else if (strcmp(groupPath, "bitratectrl") == 0) {
-					if (strcmp(entryValue,"vbr") == 0){
-						pCtx->Cfg[cur_ch].rcMode = VBR;
+					sprintf(entryName,"profile");
+					if (get_db_value(db, res, groupPath, entryName, entryValue) == 0 ) {
+						if (strcmp(entryValue, "HiP") == 0) {
+							pCtx->Cfg[cur_ch].profile= AVC_HIGH; 
+						}
+						else if (strcmp(entryValue, "Main") == 0) {
+							pCtx->Cfg[cur_ch].profile= AVC_MAIN; 
+						}
+						else {
+							pCtx->Cfg[cur_ch].profile= AVC_C_BASELINE; 
+						}
 					}
-					else if (strcmp(entryValue,"cbr") == 0){
-						pCtx->Cfg[cur_ch].rcMode = CBR;
+					sprintf(entryName,"bitratectrl");
+					if (get_db_value(db, res, groupPath, entryName, entryValue) == 0 ) {
+						if (strcmp(entryValue,"vbr") == 0){
+							pCtx->Cfg[cur_ch].rcMode = VBR;
+						}
+						else if (strcmp(entryValue,"cbr") == 0){
+							pCtx->Cfg[cur_ch].rcMode = CBR;
+						}
+						else if (strcmp(entryValue,"const_qp") == 0){
+							pCtx->Cfg[cur_ch].rcMode = CONST_QP;
+						}
 					}
-					else if (strcmp(entryValue,"const_qp") == 0){
-						pCtx->Cfg[cur_ch].rcMode = CONST_QP;
+					sprintf(entryName,"bitrate"); if (get_db_value(db, res, groupPath, entryName, entryValue) == 0 ) {
+						pCtx->Cfg[cur_ch].BitRate = std::stoi(entryValue) * 1000;
 					}
-
-				}
-				else if (strcmp(groupPath, "resolution") == 0) {
-					char *p; p = strtok(entryValue, "x");
-					pCtx->Cfg[cur_ch].width  = std::stoi(p); p = strtok(NULL, "x");
-					pCtx->Cfg[cur_ch].height = std::stoi(p);	p = strtok(NULL, "x");
-				}
-				else if (strcmp(groupPath, "maxfps") == 0) {
-					pCtx->out_framerate[cur_ch] = std::stoi(entryValue);
-				}
-				else if (strcmp(groupPath, "pcount") == 0) {
-					pCtx->Cfg[cur_ch].gopLen  = std::stoi(entryValue);
-				}
-				else if (strcmp(groupPath, "profile") == 0) {
-					if (strcmp(entryValue, "HiP") == 0) {
-						pCtx->Cfg[cur_ch].profile= AVC_HIGH; 
+					sprintf(entryName,"maxbitrate"); if (get_db_value(db, res, groupPath, entryName, entryValue) == 0 ) {
+						pCtx->Cfg[cur_ch].MaxBitRate = std::stoi(entryValue) * 1000;
 					}
-					else if (strcmp(entryValue, "Main") == 0) {
-						pCtx->Cfg[cur_ch].profile= AVC_MAIN; 
+					sprintf(entryName,"resolution"); if (get_db_value(db, res, groupPath, entryName, entryValue) == 0 ) {
+						char *p; p = strtok(entryValue, "x");
+						pCtx->Cfg[cur_ch].width  = std::stoi(p); p = strtok(NULL, "x");
+						pCtx->Cfg[cur_ch].height = std::stoi(p); p = strtok(NULL, "x");
+							
+						pCtx->Cfg[cur_ch].width  = pCtx->Cfg[cur_ch].width  - (pCtx->Cfg[cur_ch].width%8); // must be multiple of 8
+						pCtx->Cfg[cur_ch].height = pCtx->Cfg[cur_ch].height - (pCtx->Cfg[cur_ch].height%8);// must be multiple of 8
 					}
-					else {
-						pCtx->Cfg[cur_ch].profile= AVC_C_BASELINE; 
+					sprintf(entryName,"maxfps"); if (get_db_value(db, res, groupPath, entryName, entryValue) == 0 ) {
+						pCtx->out_framerate[cur_ch] = std::stoi(entryValue);
+					}
+					sprintf(entryName,"pcount"); if (get_db_value(db, res, groupPath, entryName, entryValue) == 0 ) {
+						pCtx->Cfg[cur_ch].gopLen  = std::stoi(entryValue);
 					}
 				}
 
+				else if (strcmp(entryValue,"mjpeg") == 0){ // jpeg
+					sprintf(groupPath, "ENCODER.Ch0.Videocodec.St%d.Mjpeg", i);
+					pCtx->Cfg[cur_ch].profile = JPEG;
+					pCtx->Cfg[cur_ch].rcMode = CONST_QP;
+					pCtx->Cfg[i].MinQP = 0 ;
+					pCtx->Cfg[cur_ch].MaxQP = 100;
+					sprintf(entryName,"maxfps"); if (get_db_value(db, res, groupPath, entryName, entryValue) == 0 ) {
+						pCtx->out_framerate[cur_ch] = std::stoi(entryValue);
+					}
+					sprintf(entryName,"quality"); if (get_db_value(db, res, groupPath, entryName, entryValue) == 0 ) {
+						pCtx->Cfg[cur_ch].SliceQP = std::stoi(entryValue);
+					}
+					sprintf(entryName,"resolution"); if (get_db_value(db, res, groupPath, entryName, entryValue) == 0 ) {
+						char *p; p = strtok(entryValue, "x");
+						pCtx->Cfg[cur_ch].width  = std::stoi(p); p = strtok(NULL, "x");
+						pCtx->Cfg[cur_ch].height = std::stoi(p); p = strtok(NULL, "x");
+							
+						pCtx->Cfg[cur_ch].width  = pCtx->Cfg[cur_ch].width  - (pCtx->Cfg[cur_ch].width%8); // must be multiple of 8
+						pCtx->Cfg[cur_ch].height = pCtx->Cfg[cur_ch].height - (pCtx->Cfg[cur_ch].height%8);// must be multiple of 8
+					}
+				}
 			}
-
+			
 			if(pCtx->enable_rtsp[cur_ch] == 1) {
-				sprintf(sql, "select groupPath || '.' || entryName, entryValue from param_tbl where group1='network' and (group2='rtsp' or group2='rtp')");
-				rc = sqlite3_prepare_v2(db, sql, -1, &res, 0);
-				if (rc != SQLITE_OK) {
-					fprintf(stderr, "Cannot get data\n");
-					sqlite3_finalize(res);
-					sqlite3_close(db);
-					return -1;
+				sprintf(groupPath, "NETWORK.Rtsp");
+				sprintf(entryName, "port" );
+				if (get_db_value(db, res, groupPath, entryName, entryValue) == 0 ) {
+					pCtx->rtspPort[cur_ch] = std::stoi(entryValue) + (cur_ch*2);
 				}
-				while (sqlite3_step(res) == SQLITE_ROW) {
-					sprintf(groupPath, "%s", sqlite3_column_text(res, 0));
-					sprintf(entryValue,"%s", sqlite3_column_text(res, 1));
-					if (strcmp(groupPath, "NETWORK.Rtsp.port") == 0) {
-						pCtx->rtspPort[cur_ch] = std::stoi(entryValue) + (cur_ch*2);
-					}
-					else if (i == 0 && strcmp(groupPath, "NETWORK.Rtp.St0.Unicast.name") == 0 ) {
-						pCtx->rtspStreamName[cur_ch] = (char*)malloc(strlen(entryValue)+1);
-						memcpy(pCtx->rtspStreamName[cur_ch], entryValue, strlen(entryValue)+1);
-					}
-					else if (i == 1 && strcmp(groupPath, "NETWORK.Rtp.St1.Unicast.name") == 0 ) {
-						pCtx->rtspStreamName[cur_ch] = (char*)malloc(strlen(entryValue)+1);
-						memcpy(pCtx->rtspStreamName[cur_ch], entryValue, strlen(entryValue)+1);
-					}
-
-
+				sprintf(groupPath, "NETWORK.Rtp.St%d.Unicast", cur_ch);
+				sprintf(entryName, "name" );
+				if (get_db_value(db, res, groupPath, entryName, entryValue) == 0 ) {
+					pCtx->rtspStreamName[cur_ch] = (char*)malloc(strlen(entryValue)+1);
+					memcpy(pCtx->rtspStreamName[cur_ch], entryValue, strlen(entryValue)+1);
 				}
 			}
-			cur_ch ++;
+			cur_ch++;
 		}
 	}
+	printf("close db\n");
+    rc = sqlite3_close(db);
+	printf("db closed:%d\n", rc);
 
-    sqlite3_finalize(res);
-    sqlite3_close(db);	
-
-    // sprintf(sql, "select groupPath || '.' || entryName, entryValue, group3 from param_tbl where group1='encoder' or (group1='network' and group2='rtsp') or (group1='network' and group2='rtp')");
- 	pCtx->Cfg[1].width = 1080;
-	pCtx->Cfg[1].height = 720;
-	for(int i = 0; i < pCtx->ch_cnt; i++) {
-		pCtx->ch[i] = i;
-		pCtx->Cfg[i].channel     = i;
-		if(!pCtx->framerate[i])             pCtx->framerate[i]       = 30;
-		if(!pCtx->out_framerate[i])         pCtx->out_framerate[i]   = pCtx->framerate[i];
-		if(!pCtx->Cfg[i].width)             pCtx->Cfg[i].width       = 1920;
-		if(!pCtx->Cfg[i].height)            pCtx->Cfg[i].height      = 1080;
-		if(!pCtx->Cfg[i].BitRate)           pCtx->Cfg[i].BitRate     = 4000000;
-		if(!pCtx->Cfg[i].MaxBitRate)        pCtx->Cfg[i].MaxBitRate  = 4000000;
-		if(!pCtx->Cfg[i].level)             pCtx->Cfg[i].level       = 42;
-		if(!pCtx->Cfg[i].profile)           pCtx->Cfg[i].profile     = AVC_HIGH;
-		if(!pCtx->Cfg[i].rcMode)            pCtx->Cfg[i].rcMode      = CBR; 
-		if(!pCtx->Cfg[i].SliceQP)           pCtx->Cfg[i].SliceQP     = 25;
-		if(!pCtx->Cfg[i].FreqIDR)           pCtx->Cfg[i].FreqIDR     = 25;
-		if(!pCtx->Cfg[i].gopLen)            pCtx->Cfg[i].gopLen      = 25;
-		if(!pCtx->Cfg[i].AspectRatio)       pCtx->Cfg[i].AspectRatio = ASPECT_RATIO_AUTO;
-		if(!pCtx->Cfg[i].MinQP)             pCtx->Cfg[i].MinQP       = 0;//from 0 to SliceQP
-		if(!pCtx->Cfg[i].MaxQP)             pCtx->Cfg[i].MaxQP       = 51;//from SliceQP to 51
-		if(!pCtx->Cfg[i].roiCtrlMode)       pCtx->Cfg[i].roiCtrlMode = ROI_QP_TABLE_NONE;
-
-		pCtx->Cfg[i].encDblkCfg.disable_deblocking_filter_idc        = 0;
-		pCtx->Cfg[i].encDblkCfg.slice_beta_offset_div2               = 1;
-		pCtx->Cfg[i].encDblkCfg.slice_alpha_c0_offset_div2           = 1;
-		pCtx->Cfg[i].entropyMode                                     = ENTROPY_MODE_CAVLC;
-		pCtx->Cfg[i].sliceSplitCfg.bSplitEnable                      = false;
-	}
-
-	for(int i=0; i < pCtx->ch_cnt; i++)	{
-		if(CBR == pCtx->Cfg[i].rcMode) {
-			if (pCtx->Cfg[i].MaxBitRate != pCtx->Cfg[i].BitRate) {
-				pCtx->Cfg[i].MaxBitRate = pCtx->Cfg[i].BitRate;
-				printf("modify MaxBitRate  to BitRate:%d in cbr mode\n",pCtx->Cfg[i].BitRate);
-			}
-		}
-
-		if (JPEG == pCtx->Cfg[i].profile) {
-			pCtx->Cfg[i].rcMode = CONST_QP; 
-			if (pCtx->Cfg[i].SliceQP < 1 || pCtx->Cfg[i].SliceQP > 100) {
-				
-				printf("slice qp error\n");
-				return -1;
-			}
-		}
-		else {
-			if (pCtx->Cfg[i].SliceQP < -1 || pCtx->Cfg[i].SliceQP > 51)	{
-				printf("slice qp error\n");
-				return -1;
-			}
-			}
-	}
-	pCtx->ae_enable = 0;
-
-
-
+	setDefaultSettings();
 	showSettingInfo();
-    return 0;
+	return 0;
 }
-
+#endif
 
 static int procVideoEncode(){
 	for(int i = 0; i < pCtx->ch_cnt; i++) {
@@ -1805,6 +1989,7 @@ int procRtspSet(){
 			pCtx->pRtspServer[cur_ch] = IRtspServerEX::CreateRTSPServerEX();
        		pCtx->pRtspServer[cur_ch]->Init(pCtx->rtspPort[cur_ch], false); // video only first
       		pCtx->pRtspServer[cur_ch]->CreateStreamUrl(pCtx->rtspStreamName[cur_ch]);
+			// pCtx->pRtspServer[cur_ch]->CreateStreamUrl("usecondstream");
     	}
   	}
 	return 0;
@@ -1819,16 +2004,9 @@ int procMain() {
 	memset(pCtx, 0, sizeof(MainContext));
 	pCtx->start = 1;
 
-#ifdef TEST_DB
-	if(read_db_setting() < 0) {
+	if (parse_setting() <0) {
 		return -1;
 	}
-
-#else 
-	if(parse_setting() < 0) {
-		return -1;
-	}
-#endif
 
 	if(pCtx->video_enabled) {
 		procVideoEncode();
@@ -1849,8 +2027,6 @@ int procMain() {
     	printf("Open %s Error!\n", DEV_NAME_DDR);
   	} 
   	
-	// man_v4l2();
-  	
 	if(pCtx->video_enabled) {
     	for(i = 0; i < pCtx->ch_cnt; i++) {
       		if(!pCtx->ch_en[i]) {
@@ -1861,6 +2037,8 @@ int procMain() {
 			pCtx->stride[i] = stride;
 			pCtx->width[i] = pCtx->Cfg[i].width;
 			pCtx->height[i] = pCtx->Cfg[i].height;
+			// pCtx->width[i] = 1920;
+			// pCtx->height[i] = 1080;
 	    }
   	}
 
@@ -1894,7 +2072,7 @@ int procMain() {
       		for(i = 0; i < pCtx->ch_cnt; i++) {
         		if(pCtx->encoding[i])  {
           			encoding = 1;
-          			break;
+          			break; 
         		}
       		}
       		if(encoding)  {
@@ -1916,23 +2094,16 @@ int procMain() {
 
 
 int main(int argc, char *argv[]) {
+// shared memory
+	mk_shared_memory(PROMPT_SHM_ID);
+	mk_shared_memory(PARAM_SHM_ID);
+	mk_shared_memory(FRAME_SHM_ID_0);
+	mk_shared_memory(FRAME_SHM_ID_1);
+	mk_shared_memory(SNAPSHOT_SHM_ID);
 
-    if((shmid=shmget(SH_KEY, SH_MEMSIZE, IPC_CREAT|0666))==-1){
-        printf("shmget failed\n");
-        return -1;
-    }
-    if((memory_segment = shmat(shmid,NULL,0))==(void*)-1){
-        printf("shmat failed\n");
-        return -1;
-    }
-
-
+	memset((char*)seg_prompt, 0, PROMPT_SHM_SIZE);
+	// parse_setting();
 	procMain();
 
-    if(shmctl(shmid, IPC_RMID, 0) == -1) {
-        perror("Shmctl failed");
-    }
-    else {
-        printf("Shared memory end");
-    }	
+    dettach_shared_memory();
 }
